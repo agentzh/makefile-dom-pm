@@ -28,11 +28,13 @@ lib/MDOM/Token.pm
 lib/MDOM/Token/Separator.pm
 lib/MDOM/Token/Whitespace.pm
 lib/MDOM/Unknown.pm
-Makefile
 Makefile.PL
 MANIFEST
 META.yml
 README
-t/gmake.t
-t/node.t
-t/token.t
+t/00-pod.t
+t/00-pod-coverage.t
+t/mdom/gmake.t
+t/mdom/node.t
+t/mdom/token.t
+

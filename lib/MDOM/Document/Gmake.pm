@@ -5,7 +5,7 @@ use warnings;
 
 use Text::Balanced qw( gen_extract_tagged );
 use Makefile::DOM;
-use Data::Dump::Streamer;
+#use Data::Dump::Streamer;
 use base 'MDOM::Node';
 use List::MoreUtils qw( before all any );
 #use List::Util qw( first );
