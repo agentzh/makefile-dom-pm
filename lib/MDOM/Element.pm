@@ -471,38 +471,6 @@ Elements, inline-parsed code strings or L<MDOM::Document::Fragment> objects.
 Returns true if the Element was inserted, false if it can not be inserted,
 or C<undef> if you do not provide a L<MDOM::Element> object as a parameter.
 
-=begin testing __insert_before 6
-
-my $Document = MDOM::Document->new( \"print 'Hello World';" );
-isa_ok( $Document, 'MDOM::Document' );
-my $semi = $Document->find_first('Token::Structure');
-isa_ok( $semi, 'MDOM::Token::Structure' );
-is( $semi->content, ';', 'Got expected token' );
-my $foo = MDOM::Token::Word->new('foo');
-isa_ok( $foo, 'MDOM::Token::Word' );
-is( $foo->content, 'foo', 'Created Word token' );
-$semi->__insert_before( $foo );
-is( $Document->serialize, "print 'Hello World'foo;",
-	'__insert_before actually inserts' );
-
-=end testing
-
-=begin testing insert_before after __insert_before 6
-
-my $Document = MDOM::Document->new( \"print 'Hello World';" );
-isa_ok( $Document, 'MDOM::Document' );
-my $semi = $Document->find_first('Token::Structure');
-isa_ok( $semi, 'MDOM::Token::Structure' );
-is( $semi->content, ';', 'Got expected token' );
-my $foo = MDOM::Token::Word->new('foo');
-isa_ok( $foo, 'MDOM::Token::Word' );
-is( $foo->content, 'foo', 'Created Word token' );
-$semi->insert_before( $foo );
-is( $Document->serialize, "print 'Hello World'foo;",
-	'insert_before actually inserts' );
-
-=end testing
-
 =cut
 
 sub __insert_before {
@@ -527,38 +495,6 @@ Elements, inline-parsed code strings or L<MDOM::Document::Fragment> objects.
 
 Returns true if the Element was inserted, false if it can not be inserted,
 or C<undef> if you do not provide a L<MDOM::Element> object as a parameter.
-
-=begin testing __insert_after 6
-
-my $Document = MDOM::Document->new( \"print 'Hello World';" );
-isa_ok( $Document, 'MDOM::Document' );
-my $string = $Document->find_first('Token::Quote');
-isa_ok( $string, 'MDOM::Token::Quote' );
-is( $string->content, "'Hello World'", 'Got expected token' );
-my $foo = MDOM::Token::Word->new('foo');
-isa_ok( $foo, 'MDOM::Token::Word' );
-is( $foo->content, 'foo', 'Created Word token' );
-$string->__insert_after( $foo );
-is( $Document->serialize, "print 'Hello World'foo;",
-	'__insert_after actually inserts' );
-
-=end testing
-
-=begin testing insert_after after __insert_after 6
-
-my $Document = MDOM::Document->new( \"print 'Hello World';" );
-isa_ok( $Document, 'MDOM::Document' );
-my $string = $Document->find_first('Token::Quote');
-isa_ok( $string, 'MDOM::Token::Quote' );
-is( $string->content, "'Hello World'", 'Got expected token' );
-my $foo = MDOM::Token::Word->new('foo');
-isa_ok( $foo, 'MDOM::Token::Word' );
-is( $foo->content, 'foo', 'Created Word token' );
-$string->insert_after( $foo );
-is( $Document->serialize, "print 'Hello World'foo;",
-	'insert_after actually inserts' );
-
-=end testing
 
 =cut
 

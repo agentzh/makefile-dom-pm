@@ -276,6 +276,8 @@ sub _element_string {
 			my $content = $Element->content;
 			$content =~ s/\n/\\n/g;
 			$content =~ s/\t/\\t/g;
+                        $content =~ s/'/\\'/g;
+                        $content =~ s/\r/\\r/g;
 			$string .= "  \t'$content'";
 		}
 	} elsif ( $Element->isa('MDOM::Structure') ) {

@@ -4,7 +4,7 @@ package MDOM::Token::Comment;
 
 =head1 NAME
 
-MDOM::Token::Comment - A comment in Perl source code
+MDOM::Token::Comment - A comment in Makefile source code
 
 =head1 INHERITANCE
 
@@ -16,11 +16,8 @@ MDOM::Token::Comment - A comment in Perl source code
 
   # This is a MDOM::Token::Comment
   
-  print "Hello World!"; # So it this
-  
-  $string =~ s/ foo  # This, unfortunately, is not :(
-        bar
-  	/w;
+  foo: bar # So is this one
+  	echo 'hello'
 
 =head1 DESCRIPTION
 
@@ -63,7 +60,7 @@ use base 'MDOM::Token';
 
 use vars qw{$VERSION};
 BEGIN {
-	$VERSION = '1.118';
+	$VERSION = '0.0.1';
 }
 
 ### XS -> MDOM/XS.xs:_MDOM_Token_Comment__significant 0.900+

@@ -523,34 +523,6 @@ and were removed, B<non-recursively>. This might also be zero, so avoid a
 simple true/false test on the return false of the C<prune> method. It
 returns C<undef> on error, which you probably B<should> test for.
 
-=begin testing prune 2
-
-# Avoids a bug in old Perls relating to the detection of scripts
-# Known to occur in ActivePerl 5.6.1 and at least one 5.6.2 install.
-my $hashbang = reverse 'lrep/nib/rsu/!#'; 
-my $document = MDOM::Document->new( \<<"END_PERL" );
-$hashbang
-
-use strict;
-
-sub one { 1 }
-sub two { 2 }
-sub three { 3 }
-
-print one;
-print "\n";
-print three;
-print "\n";
-
-exit;
-END_PERL
-
-isa_ok( $document, 'MDOM::Document' );
-ok( defined($document->prune ('MDOM::Statement::Sub')),
-	'Pruned multiple subs ok' );
-
-=end testing
-
 =cut
 
 sub prune {

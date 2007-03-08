@@ -4,7 +4,7 @@ package MDOM::Token;
 
 =head1 NAME
 
-MDOM::Token - A single token of Perl source code
+MDOM::Token - A single token of Makefile source code
 
 =head1 INHERITANCE
 
@@ -15,6 +15,8 @@ MDOM::Token - A single token of Perl source code
 
 C<MDOM::Token> is the abstract base class for all Tokens. In MDOM terms, a "Token" is
 a L<MDOM::Element> that directly represents bytes of source code.
+
+The implementation and POD are borrowed directly from L<PPI::Token>.
 
 =head1 METHODS
 
