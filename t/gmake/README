@@ -1,0 +1,25 @@
+README
+======
+
+This is a port of GNU make 3.81 beta4's test suit with
+some additions of Agent Zhang.
+
+To run this test suit, the following steps should be 
+followed:
+
+  * Set the GNU_MAKE_PATH environment to the gnu make 
+    utility you want to test. If GNU_MAKE_PATH is not 
+    set, then 'make' will be used.
+  * Ensure the current directory is the foler where
+    this README file is in.
+  * Enter the following command to start the tester:
+      prove -I../.. -r
+
+By default, this GNU `make' test suit will run on a `sh'
+simulator witten in pure perl, say, the script
+`../../script/sh'. To use a differen shell, set the
+GNU_SHELL_PATH to the path of that shell. For instance,
+
+   export GNU_SHELL_PATH=/bin/sh
+
+will use the local `sh' to speed up the testing process.

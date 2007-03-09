@@ -1,0 +1,10 @@
+README
+======
+
+The tests hosted in this directory are for testing ../../script/sh
+To harness this tester against another shell, just set the
+TEST_SHELL_PATH environment to the (full) path of the shell or simply
+the name of the shell if the shell is in PATH. For example:
+
+	set TEST_SHELL_PATH=/bin/sh
+	set TEST_SHELL_PATH=bash

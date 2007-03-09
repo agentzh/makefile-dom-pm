@@ -1,0 +1,82 @@
+#: XXX <file-name>
+#:
+#: Description:
+#:   XXX $description
+#: Details:
+#:   XXX $details
+#:
+#: XXX <create-date> <last-modif-date>
+
+use t::Backend::Gnu;
+
+plan tests => 3 * blocks();
+
+XXX Personal intializations goes here...
+
+run_tests;
+
+__DATA__
+
+
+=== TEST 0: XXX Test title
+XXX Description goes here
+XXX Note that the following sections are all optional.
+
+--- filename
+XXX Makefile name
+
+--- source
+XXX Makefile content
+
+--- options
+XXX Commandline options to invoke `make'
+
+--- goals
+XXX `make' goals fed to the commandline
+
+--- pre
+XXX arbitrary chunk of Perl code that does preprocessing
+XXX (before the `make' run)
+
+--- touch
+XXX file list to be touched
+
+--- utouch
+XXX file list preceeding by a specified time period (in sec)
+
+--- post
+XXX arbitrary chunk Perl code that does postprocessing
+XXX (after the `make' run)
+
+--- found
+XXX file list which are supposed to exist after the `make' run
+
+--- not_found
+XXX file list which are supposed to be nonexistent after the `make' run
+
+--- stdout
+XXX Expected stdout
+
+--- stderr
+XXX Expected stderr
+
+--- stdout_like
+XXX expected stdout using regex
+
+--- stderr_like
+XXX expected stderr using regex
+
+--- success:            XXX true OR false
+
+--- error_code:         XXX Exit code
+
+
+
+=== TEST 1: XXX
+XXX More and more...
+
+
+XXX More tests go on...
+
+
+XXX Foot note: this is the template for */*.t
