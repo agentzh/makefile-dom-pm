@@ -59,7 +59,61 @@ foo.c bar.c baz.c
 
 
 
-=== TEST 5: sort
+=== TEST 5: strip
+--- source
+
+empty =
+a = a  b  $(empty)
+all: ;
+	echo '$(strip $a)'
+	echo '$a'
+
+--- stdout
+echo 'a b'
+a b
+echo 'a  b  '
+a  b  
+
+--- success: true
+
+
+
+=== TEST 5: strip
+--- source
+
+empty =
+a = $(empty)  a  b  $(empty)
+all: ;
+	echo '$(strip $a)'
+	echo '$a'
+
+--- stdout
+echo 'a b'
+a b
+echo '  a  b  '
+  a  b  
+
+--- success: true
+--- SKIP
+
+
+=== TEST 6: foundstring
+--- source
+
+all:
+	echo '$(findstring a,b c)'
+	echo '$(findstring a,a b c)'
+
+--- stdout
+echo ''
+
+echo 'a'
+a
+
+--- success: true
+
+
+=== TEST 6: sort
 --- source
 
 var = $(sort b.c a.c c.c)
@@ -73,7 +127,7 @@ a.c b.c c.c
 
 
 
-=== TEST 6: sort
+=== TEST 7: sort
 --- source
 
 all: ; @echo '$(sort foo bar lose)'
