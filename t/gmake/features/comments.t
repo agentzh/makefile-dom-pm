@@ -12,8 +12,6 @@
 #:   the comment really continued, we place an echo command with some
 #:   text on the line which should never execute since it should be
 #:   within a comment
-#:
-#: 2006-01-29 2006-02-10
 
 use t::Gmake;
 
