@@ -206,7 +206,28 @@ main1.o main2.o
 
 
 
-=== TEST 16: sort
+=== TEST 16: filter (with duplicate items)
+--- source
+
+all: ; @echo '$(filter %.c,foo.c foo.c)'
+
+--- stdout
+foo.c foo.c
+--- success: true
+
+
+
+=== TEST 17: filter (no hit)
+--- source
+
+all: ; @echo '$(filter %.cpp,foo.c foo.c)'
+
+--- stdout eval: "\n"
+--- success: true
+
+
+
+=== TEST 18: sort
 --- source
 
 var = $(sort b.c a.c c.c)
@@ -220,7 +241,7 @@ a.c b.c c.c
 
 
 
-=== TEST 17: sort
+=== TEST 19: sort
 --- source
 
 all: ; @echo '$(sort foo bar lose)'
@@ -231,7 +252,7 @@ bar foo lose
 
 
 
-=== TEST 18: sort (duplicate items)
+=== TEST 20: sort (duplicate items)
 --- source
 
 all: ; @echo '$(sort b aa aa b)'
@@ -242,7 +263,7 @@ aa b
 
 
 
-=== TEST 19: sort (extra spaces)
+=== TEST 21: sort (extra spaces)
 --- source
 
 all: ; echo '${sort   z    b  }'
