@@ -167,7 +167,46 @@ b found
 
 
 
-=== TEST 13: sort
+=== TEST 13: filter (2 patterns)
+--- source
+
+sources := foo.c bar.c baz.s ugh.h
+all: ; @echo '$(filter %.c %.s,$(sources))'
+
+--- stdout
+foo.c bar.c baz.s
+--- success: true
+
+
+
+=== TEST 14: filter (1 pattern)
+--- source
+
+sources := foo.c bar.c baz.s ugh.h
+all: ; @echo '$(filter %.s,$(sources))'
+
+--- stdout
+baz.s
+--- success: true
+
+
+
+=== TEST 15: filter (no %)
+--- source
+
+objects=main1.o foo.o main2.o bar.o
+mains=main1.o main2.o
+
+all: ; @echo '$(filter $(mains),$(objects))'
+
+--- stdout
+main1.o main2.o
+
+--- success: true
+
+
+
+=== TEST 16: sort
 --- source
 
 var = $(sort b.c a.c c.c)
@@ -181,7 +220,7 @@ a.c b.c c.c
 
 
 
-=== TEST 14: sort
+=== TEST 17: sort
 --- source
 
 all: ; @echo '$(sort foo bar lose)'
@@ -192,7 +231,7 @@ bar foo lose
 
 
 
-=== TEST 15: sort (duplicate items)
+=== TEST 18: sort (duplicate items)
 --- source
 
 all: ; @echo '$(sort b aa aa b)'
@@ -203,7 +242,7 @@ aa b
 
 
 
-=== TEST 16: sort (extra spaces)
+=== TEST 19: sort (extra spaces)
 --- source
 
 all: ; echo '${sort   z    b  }'
