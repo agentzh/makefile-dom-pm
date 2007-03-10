@@ -46,7 +46,26 @@ x.c.o bar.o
 
 
 
-=== TEST 4: patsubst (non-matching items)
+=== TEST 4: patsubst (no % in replacement)
+--- source
+
+all: ; @echo '${patsubst %,foo,a b c}'
+--- stdout
+foo foo foo
+--- success: true
+
+
+
+=== TEST 5: patsubst (no % in pattern nor replacement)
+--- source
+all: ; @echo '$(patsubst a,foo,a ab abc)'
+--- stdout
+foo ab abc
+--- success: true
+
+
+
+=== TEST 6: patsubst (non-matching items)
 --- source
 
 all: ; @echo '$(patsubst %.c,%.o,a.c.v b.c)'
@@ -57,7 +76,7 @@ a.c.v b.o
 
 
 
-=== TEST 5: patsubst (curly braces)
+=== TEST 7: patsubst (curly braces)
 --- source
 
 all: ; @echo '${patsubst %.c, %.o ,a.c b.c }'
@@ -68,7 +87,7 @@ all: ; @echo '${patsubst %.c, %.o ,a.c b.c }'
 
 
 
-=== TEST 6: substitution reference
+=== TEST 8: substitution reference
 --- source
 
 objects = foo.o bar.o baz.o
@@ -81,7 +100,7 @@ foo.c bar.c baz.c
 
 
 
-=== TEST 7: strip
+=== TEST 9: strip
 --- source
 
 empty =
@@ -100,7 +119,7 @@ a  b
 
 
 
-=== TEST 8: strip
+=== TEST 10: strip
 --- source
 
 empty =
@@ -120,7 +139,7 @@ echo '  a  b  '
 
 
 
-=== TEST 9: findstring
+=== TEST 11: findstring
 --- source
 
 all:
@@ -137,7 +156,7 @@ a
 
 
 
-=== TEST 10: findstring (partial match)
+=== TEST 12: findstring (partial match)
 --- source
 
 all: ; @echo '$(findstring  b,abc) found'
@@ -148,7 +167,7 @@ b found
 
 
 
-=== TEST 11: sort
+=== TEST 13: sort
 --- source
 
 var = $(sort b.c a.c c.c)
@@ -162,7 +181,7 @@ a.c b.c c.c
 
 
 
-=== TEST 12: sort
+=== TEST 14: sort
 --- source
 
 all: ; @echo '$(sort foo bar lose)'
@@ -173,7 +192,7 @@ bar foo lose
 
 
 
-=== TEST 13: sort (duplicate items)
+=== TEST 15: sort (duplicate items)
 --- source
 
 all: ; @echo '$(sort b aa aa b)'
@@ -184,7 +203,7 @@ aa b
 
 
 
-=== TEST 14: sort (extra spaces)
+=== TEST 16: sort (extra spaces)
 --- source
 
 all: ; echo '${sort   z    b  }'
