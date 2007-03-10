@@ -78,7 +78,7 @@ a  b
 
 
 
-=== TEST 5: strip
+=== TEST 6: strip
 --- source
 
 empty =
@@ -97,7 +97,8 @@ echo '  a  b  '
 --- SKIP
 
 
-=== TEST 6: foundstring
+
+=== TEST 7: foundstring
 --- source
 
 all:
@@ -113,7 +114,8 @@ a
 --- success: true
 
 
-=== TEST 6: sort
+
+=== TEST 8: sort
 --- source
 
 var = $(sort b.c a.c c.c)
@@ -127,7 +129,7 @@ a.c b.c c.c
 
 
 
-=== TEST 7: sort
+=== TEST 9: sort
 --- source
 
 all: ; @echo '$(sort foo bar lose)'
