@@ -195,7 +195,7 @@ baz.s
 --- source
 
 objects=main1.o foo.o main2.o bar.o
-mains=main1.o main2.o
+mains=main2.o main1.o
 
 all: ; @echo '$(filter $(mains),$(objects))'
 
@@ -227,7 +227,44 @@ all: ; @echo '$(filter %.cpp,foo.c foo.c)'
 
 
 
-=== TEST 18: sort
+=== TEST 18: filter (partial match)
+--- source
+
+all: ; @echo '$(filter %.c,a.c.v b.c)'
+
+--- stdout
+b.c
+--- success: true
+
+
+
+=== TEST 19: filter-out
+--- source
+
+sources := foo.c bar.c baz.s ugh.h
+all: ; @echo '$(filter-out %.c %.s,$(sources))'
+
+--- stdout
+ugh.h
+--- success: true
+
+
+
+=== TEST 20: filter-out (no %)
+--- source
+
+objects=main1.o foo.o main2.o bar.o
+mains=main2.o main1.o
+
+all: ; @echo '$(filter-out $(mains),$(objects))'
+
+--- stdout
+foo.o bar.o
+--- success: true
+
+
+
+=== TEST 21: sort
 --- source
 
 var = $(sort b.c a.c c.c)
@@ -241,7 +278,7 @@ a.c b.c c.c
 
 
 
-=== TEST 19: sort
+=== TEST 22: sort
 --- source
 
 all: ; @echo '$(sort foo bar lose)'
@@ -252,7 +289,7 @@ bar foo lose
 
 
 
-=== TEST 20: sort (duplicate items)
+=== TEST 23: sort (duplicate items)
 --- source
 
 all: ; @echo '$(sort b aa aa b)'
@@ -263,7 +300,7 @@ aa b
 
 
 
-=== TEST 21: sort (extra spaces)
+=== TEST 24: sort (extra spaces)
 --- source
 
 all: ; echo '${sort   z    b  }'
