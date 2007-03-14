@@ -676,3 +676,36 @@ all: ; @echo '$(words) found'
 --- success: true
 --- SKIP
 
+
+
+=== TEST 58: words (1 arg)
+--- source
+
+all: ; @echo '$(words foo)'
+
+--- stdout
+1
+--- success: true
+
+
+
+=== TEST 59: words (colon)
+--- source
+
+all: ; @echo '$(words foo:bar baz)'
+
+--- stdout
+2
+--- success: true
+
+
+=== TEST 60: words (empty var)
+--- source
+
+empty =
+all: ; @echo '$(words $(empty)) found'
+
+--- stdout
+0 found
+--- success: true
+
