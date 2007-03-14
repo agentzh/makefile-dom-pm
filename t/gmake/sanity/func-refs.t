@@ -699,6 +699,7 @@ all: ; @echo '$(words foo:bar baz)'
 --- success: true
 
 
+
 === TEST 60: words (empty var)
 --- source
 
@@ -709,6 +710,8 @@ all: ; @echo '$(words $(empty)) found'
 0 found
 --- success: true
 
+
+
 === TEST 61: firstword
 --- source
 
@@ -716,5 +719,37 @@ all: ; @echo '$(firstword foo bar)'
 
 --- stdout
 foo
+--- success: true
+
+
+
+=== TEST 62: firstword (0 arg)
+--- source
+
+all: ; @echo '$(firstword )'
+
+--- stdout eval: "\n"
+--- success: true
+
+
+
+=== TEST 63: firsword (empty var as arg)
+--- source
+
+empty =
+all: ; @echo '$(firstword $(empty))'
+
+--- stdout eval: "\n"
+--- success: true
+
+
+
+=== TEST 64: firstword (too many args)
+--- source
+
+all: ; @echo '$(firstword hello,world haha)'
+
+--- stdout
+hello,world
 --- success: true
 
