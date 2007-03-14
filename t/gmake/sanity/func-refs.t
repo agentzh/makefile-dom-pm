@@ -1133,7 +1133,17 @@ all: ; @echo '$(realpath x/.y/././/z/../..)'
 
 
 
-=== TEST 98: abspath
+=== TEST 98: realpath (non-existing entries)
+--- source
+
+all: ; @echo '$(realpath x/.y/././/z/../..)'
+
+--- stdout eval: "\n"
+--- success: true
+
+
+
+=== TEST 99: abspath
 --- source
 
 all: ; @echo '$(abspath ././/a.c)'
@@ -1144,7 +1154,7 @@ all: ; @echo '$(abspath ././/a.c)'
 
 
 
-=== TEST 99: abspath (.. and .)
+=== TEST 100: abspath (.. and .)
 --- source
 
 all:
@@ -1152,5 +1162,16 @@ all:
 
 --- stdout preprocess
 #PWD#/x
+--- success: true
+
+
+
+=== TEST 101: abspath (plain file)
+--- source
+
+all: ; @echo '$(abspath foo.c)'
+
+--- stdout preprocess
+#PWD#/foo.c
 --- success: true
 
