@@ -950,6 +950,8 @@ all: ; @echo '$(suffix )'
 --- stdout eval: "\n"
 --- success: true
 
+
+
 === TEST 83: suffix
 --- source
 
@@ -957,5 +959,37 @@ all: ; @echo '$(suffix a.c.v readme.txt foo. bar/)'
 
 --- stdout
 .v .txt .
+--- success: true
+
+
+
+=== TEST 84: basename
+--- source
+
+all: ; @echo '$(basename src/foo.c src-1.0/bar.c hacks)'
+
+--- stdout
+src/foo src-1.0/bar hacks
+--- success: true
+
+
+
+=== TEST 85: basename (empty arg)
+--- source
+
+all: ; @echo '$(basename )'
+
+--- stdout eval: "\n"
+--- success: true
+
+
+
+=== TEST 86: basename
+--- source
+
+all: ; @echo '$(basename a.c.v readme.txt foo. bar/)'
+
+--- stdout
+a.c readme foo bar/
 --- success: true
 
