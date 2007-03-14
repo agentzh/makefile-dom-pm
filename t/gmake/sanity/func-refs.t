@@ -842,3 +842,47 @@ all: ; @echo '$(lastword haha hello,world )'
 hello,world
 --- success: true
 
+
+
+=== TEST 73: dir
+--- source
+
+all: ; @echo '$(dir src/foo.c hacks)'
+
+--- stdout
+src/ ./
+--- success: true
+
+
+
+=== TEST 74: dir (too many args)
+--- source
+
+all: ; @echo '$(dir a,b,c foo/)'
+
+--- stdout
+./ foo/
+--- success: true
+
+
+
+=== TEST 75: dir (~/...)
+--- source
+
+all: ; @echo '$(dir ~/tmp/pugs/ readme.txt)'
+
+--- stdout
+~/tmp/pugs/ ./
+
+--- success: true
+
+
+
+=== TEST 76: dir (empty arg)
+--- source
+
+all: ; @echo '$(dir )'
+
+--- stdout eval: "\n"
+--- success: true
+
