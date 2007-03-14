@@ -1095,3 +1095,22 @@ global.h
 bar.c baz.c global.h
 --- success: true
 
+
+
+=== TEST 95: wildcard (non-existing files)
+--- source
+
+all: ; @echo '$(wildcard This_file_not_exist)'
+--- stdout eval: "\n"
+--- success: true
+
+
+
+=== TEST 96: wildcard (~)
+--- source
+
+all: ; @echo '$(wildcard ~/*)'
+
+--- stdout_like: /home/[^/]+/\S+.*
+--- success: true
+
