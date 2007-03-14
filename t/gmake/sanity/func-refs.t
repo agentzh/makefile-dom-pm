@@ -1114,3 +1114,43 @@ all: ; @echo '$(wildcard ~/*)'
 --- stdout_like: /home/[^/]+/\S+.*
 --- success: true
 
+
+
+=== TEST 97: realpath
+--- pre
+mkdir 'x';
+mkdir 'x/.y';
+mkdir 'x/.y/z';
+--- source
+
+all: ; @echo '$(realpath x/.y/././/z/../..)'
+	@echo '$(realpath x/.y/../.y/././z/..)'
+
+--- stdout preprocess
+#PWD#/x
+#PWD#/x/.y
+--- success: true
+
+
+
+=== TEST 98: abspath
+--- source
+
+all: ; @echo '$(abspath ././/a.c)'
+
+--- stdout preprocess
+#PWD#/a.c
+--- success: true
+
+
+
+=== TEST 99: abspath (.. and .)
+--- source
+
+all:
+	@echo '$(abspath x/.y/././/z/../../)'
+
+--- stdout preprocess
+#PWD#/x
+--- success: true
+
