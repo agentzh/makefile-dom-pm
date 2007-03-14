@@ -993,3 +993,25 @@ all: ; @echo '$(basename a.c.v readme.txt foo. bar/)'
 a.c readme foo bar/
 --- success: true
 
+
+
+=== TEST 87: addsuffix
+--- source
+
+all: ; @echo '$(addsuffix .c,foo bar)'
+
+--- stdout
+foo.c bar.c
+--- success: true
+
+
+
+=== TEST 88: addsuffix (trailing/leading spaces)
+--- source
+
+all: ; @echo '$(addsuffix .c  , foo bar )'
+
+--- stdout
+foo.c   bar.c  
+--- success: true
+
