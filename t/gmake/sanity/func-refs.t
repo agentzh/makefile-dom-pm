@@ -1015,3 +1015,24 @@ all: ; @echo '$(addsuffix .c  , foo bar )'
 foo.c   bar.c  
 --- success: true
 
+
+
+=== TEST 89: addsuffix
+--- source
+
+all: ; @echo '$(addsuffix .c,a.c.v readme.txt foo. bar/)'
+
+--- stdout
+a.c.v.c readme.txt.c foo..c bar/.c
+--- success: true
+
+
+
+=== TEST 90: addsuffix
+--- source
+
+all: ; @echo '$(addsuffix zzz,agent  ~/tmp)'
+--- stdout
+agentzzz ~/tmpzzz
+--- success: true
+
