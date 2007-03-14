@@ -1,6 +1,6 @@
 use t::Gmake;
 
-plan tests => 2 * blocks();
+plan tests => 2 * blocks() + 1;
 
 run_tests;
 
@@ -42,7 +42,18 @@ echo ' bbc '
 
 
 
-=== TEST 4: patsubst
+=== TEST 4: subst (trailing space in from)
+--- source
+
+all: ; @echo '$(subst a ,b, a b)'
+
+--- stdout
+ bb
+--- success: true
+
+
+
+=== TEST 5: patsubst
 --- source
 
 c_files = editor.c main.c  buffer.c
@@ -57,7 +68,7 @@ editor.o main.o buffer.o
 
 
 
-=== TEST 5: patsubst
+=== TEST 6: patsubst
 --- source
 
 all: ; @echo '$(patsubst %.c,%.o,x.c.c bar.c)'
@@ -69,7 +80,7 @@ x.c.o bar.o
 
 
 
-=== TEST 6: patsubst (no % in replacement)
+=== TEST 7: patsubst (no % in replacement)
 --- source
 
 all: ; @echo '${patsubst %,foo,a b c}'
@@ -79,7 +90,7 @@ foo foo foo
 
 
 
-=== TEST 7: patsubst (no % in pattern nor replacement)
+=== TEST 8: patsubst (no % in pattern nor replacement)
 --- source
 all: ; @echo '$(patsubst a,foo,a ab abc)'
 --- stdout
@@ -88,7 +99,7 @@ foo ab abc
 
 
 
-=== TEST 8: patsubst (non-matching items)
+=== TEST 9: patsubst (non-matching items)
 --- source
 
 all: ; @echo '$(patsubst %.c,%.o,a.c.v b.c)'
@@ -99,7 +110,7 @@ a.c.v b.o
 
 
 
-=== TEST 9: patsubst (curly braces)
+=== TEST 10: patsubst (curly braces)
 --- source
 
 all: ; @echo '${patsubst %.c, %.o ,a.c b.c }'
@@ -110,7 +121,7 @@ all: ; @echo '${patsubst %.c, %.o ,a.c b.c }'
 
 
 
-=== TEST 10: substitution reference
+=== TEST 11: substitution reference
 --- source
 
 objects = foo.o bar.o baz.o
@@ -123,7 +134,7 @@ foo.c bar.c baz.c
 
 
 
-=== TEST 11: strip
+=== TEST 12: strip
 --- source
 
 empty =
@@ -142,7 +153,7 @@ a  b
 
 
 
-=== TEST 12: strip
+=== TEST 13: strip
 --- source
 
 empty =
@@ -162,7 +173,7 @@ echo '  a  b  '
 
 
 
-=== TEST 13: findstring
+=== TEST 14: findstring
 --- source
 
 all:
@@ -179,7 +190,7 @@ a
 
 
 
-=== TEST 14: findstring (partial match)
+=== TEST 15: findstring (partial match)
 --- source
 
 all: ; @echo '$(findstring  b,abc) found'
@@ -190,7 +201,7 @@ b found
 
 
 
-=== TEST 15: filter (2 patterns)
+=== TEST 16: filter (2 patterns)
 --- source
 
 sources := foo.c bar.c baz.s ugh.h
@@ -202,7 +213,7 @@ foo.c bar.c baz.s
 
 
 
-=== TEST 16: filter (1 pattern)
+=== TEST 17: filter (1 pattern)
 --- source
 
 sources := foo.c bar.c baz.s ugh.h
@@ -214,7 +225,7 @@ baz.s
 
 
 
-=== TEST 17: filter (no %)
+=== TEST 18: filter (no %)
 --- source
 
 objects=main1.o foo.o main2.o bar.o
@@ -229,7 +240,7 @@ main1.o main2.o
 
 
 
-=== TEST 18: filter (with duplicate items)
+=== TEST 19: filter (with duplicate items)
 --- source
 
 all: ; @echo '$(filter %.c,foo.c foo.c)'
@@ -240,7 +251,7 @@ foo.c foo.c
 
 
 
-=== TEST 19: filter (no hit)
+=== TEST 20: filter (no hit)
 --- source
 
 all: ; @echo '$(filter %.cpp,foo.c foo.c)'
@@ -250,7 +261,7 @@ all: ; @echo '$(filter %.cpp,foo.c foo.c)'
 
 
 
-=== TEST 20: filter (partial match)
+=== TEST 21: filter (partial match)
 --- source
 
 all: ; @echo '$(filter %.c,a.c.v b.c)'
@@ -261,7 +272,7 @@ b.c
 
 
 
-=== TEST 21: filter-out
+=== TEST 22: filter-out
 --- source
 
 sources := foo.c bar.c baz.s ugh.h
@@ -273,7 +284,7 @@ ugh.h
 
 
 
-=== TEST 22: filter-out (no %)
+=== TEST 23: filter-out (no %)
 --- source
 
 objects=main1.o foo.o main2.o bar.o
@@ -287,7 +298,7 @@ foo.o bar.o
 
 
 
-=== TEST 23: sort
+=== TEST 24: sort
 --- source
 
 var = $(sort b.c a.c c.c)
@@ -301,7 +312,7 @@ a.c b.c c.c
 
 
 
-=== TEST 24: sort
+=== TEST 25: sort
 --- source
 
 all: ; @echo '$(sort foo bar lose)'
@@ -312,7 +323,7 @@ bar foo lose
 
 
 
-=== TEST 25: sort (0 is not empty)
+=== TEST 26: sort (0 is not empty)
 --- source
 
 a = 0
@@ -324,7 +335,7 @@ all: ; @echo $(sort $a $b)
 
 
 
-=== TEST 26: sort (empty arg)
+=== TEST 27: sort (empty arg)
 --- source
 
 all: ; echo '$(sort ) found'
@@ -336,7 +347,7 @@ echo ' found'
 
 
 
-=== TEST 27: sort (multi-args)
+=== TEST 28: sort (multi-args)
 --- source
 
 all: ; echo '$(sort b,a,c)'
@@ -348,7 +359,7 @@ b,a,c
 
 
 
-=== TEST 28: sort (empty string)
+=== TEST 29: sort (empty string)
 --- source
 
 a =
@@ -358,7 +369,7 @@ all: ; @echo '$(sort $a)'
 
 
 
-=== TEST 29: sort (duplicate items)
+=== TEST 30: sort (duplicate items)
 --- source
 
 all: ; @echo '$(sort b aa aa b)'
@@ -369,7 +380,7 @@ aa b
 
 
 
-=== TEST 30: sort (extra spaces)
+=== TEST 31: sort (extra spaces)
 --- source
 
 all: ; echo '${sort   z    b  }'
@@ -381,11 +392,79 @@ b z
 
 
 
-=== TEST 31: word
+=== TEST 32: word
 --- source
 
 all: ; @echo '$(word 2, foo bar baz)'
 --- stdout
 bar
 --- success: true
+
+
+
+=== TEST 33: word
+--- source
+
+all: ; @echo '$(word 1,foo bar baz )'
+
+--- stdout
+foo
+--- success: true
+
+
+
+=== TEST 34: word (trailing space in n)
+--- source
+
+all: ; @echo '$(word 1 ,foo bar baz )'
+
+--- stdout
+foo
+--- success: true
+
+
+
+=== TEST 35: word (overflow)
+--- source
+
+all: ; @echo '$(word 4,foo bar baz)'
+
+--- stdout eval: "\n"
+--- success: true
+
+
+
+=== TEST 36: word (words are not necessarily \w+)
+--- source
+
+all: ; @echo '$(word 2,5:3 2)'
+
+--- stdout
+2
+--- success: true
+
+
+
+=== TEST 37: word (zero n)
+--- source
+
+all: @echo '$(word 0,a b c)'
+
+--- stdout
+--- stderr preprocess
+#MAKEFILE#:1: *** first argument to `word' function must be greater than 0.  Stop.
+--- success: false
+
+
+
+=== TEST 38: word (non-numeric n)
+--- source
+
+all: ; @echo '$(word a,b)'
+
+--- stdout
+--- stderr preprocess
+#MAKEFILE#:1: *** non-numeric first argument to `word' function: 'a'.  Stop.
+
+--- retval: 2
 
