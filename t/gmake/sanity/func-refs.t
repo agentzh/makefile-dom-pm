@@ -289,7 +289,51 @@ bar foo lose
 
 
 
-=== TEST 23: sort (duplicate items)
+=== TEST 23: sort (0 is not empty)
+--- source
+
+a = 0
+b = 0
+all: ; @echo $(sort $a $b)
+--- stdout
+0
+--- success: true
+
+
+
+=== TEST 24: sort (empty arg)
+--- source
+
+all: ; echo '$(sort ) found'
+
+--- stdout
+echo ' found'
+ found
+--- success: true
+
+
+=== TEST 24: sort (multi-args)
+--- source
+
+all: ; echo '$(sort b,a,c)'
+
+--- stdout
+echo 'b,a,c'
+b,a,c
+--- success: true
+
+
+=== TEST 25: sort (empty string)
+--- source
+
+a =
+all: ; @echo '$(sort $a)'
+--- stdout eval: "\n"
+--- success: true
+
+
+
+=== TEST 26: sort (duplicate items)
 --- source
 
 all: ; @echo '$(sort b aa aa b)'
@@ -300,7 +344,7 @@ aa b
 
 
 
-=== TEST 24: sort (extra spaces)
+=== TEST 27: sort (extra spaces)
 --- source
 
 all: ; echo '${sort   z    b  }'
