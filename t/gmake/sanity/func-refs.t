@@ -712,7 +712,7 @@ all: ; @echo '$(words $(empty)) found'
 
 
 
-=== TEST 61: firstword
+=== TEST 61: firstword (2 args)
 --- source
 
 all: ; @echo '$(firstword foo bar)'
@@ -723,7 +723,18 @@ foo
 
 
 
-=== TEST 62: firstword (0 arg)
+=== TEST 62: firstword (1 arg)
+--- source
+
+all: ; @echo '$(firstword foo)'
+
+--- stdout
+foo
+--- success: true
+
+
+
+=== TEST 63: firstword (0 arg)
 --- source
 
 all: ; @echo '$(firstword )'
@@ -733,7 +744,7 @@ all: ; @echo '$(firstword )'
 
 
 
-=== TEST 63: firsword (empty var as arg)
+=== TEST 64: firstword (empty var as arg)
 --- source
 
 empty =
@@ -744,10 +755,64 @@ all: ; @echo '$(firstword $(empty))'
 
 
 
-=== TEST 64: firstword (too many args)
+=== TEST 65: firstword (too many args)
 --- source
 
 all: ; @echo '$(firstword hello,world haha)'
+
+--- stdout
+hello,world
+--- success: true
+
+
+
+=== TEST 66: lastword (2 args)
+--- source
+
+all: ; @echo '$(lastword foo bar)'
+
+--- stdout
+bar
+--- success: true
+
+
+
+=== TEST 67: lastword (1 arg)
+--- source
+
+all: ; @echo '$(lastword foo)'
+
+--- stdout
+foo
+--- success: true
+
+
+
+=== TEST 68: lastword (0 arg)
+--- source
+
+all: ; @echo '$(lastword )'
+
+--- stdout eval: "\n"
+--- success: true
+
+
+
+=== TEST 69: lastword (empty var as arg)
+--- source
+
+empty =
+all: ; @echo '$(lastword $(empty))'
+
+--- stdout eval: "\n"
+--- success: true
+
+
+
+=== TEST 70: lastword (too many args)
+--- source
+
+all: ; @echo '$(lastword haha hello,world )'
 
 --- stdout
 hello,world
