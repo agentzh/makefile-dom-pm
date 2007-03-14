@@ -1036,3 +1036,62 @@ all: ; @echo '$(addsuffix zzz,agent  ~/tmp)'
 agentzzz ~/tmpzzz
 --- success: true
 
+
+
+=== TEST 91: addprefix
+--- source
+
+all: ; @echo '$(addprefix src/,foo bar)'
+
+--- stdout
+src/foo src/bar
+--- success: true
+
+
+
+=== TEST 92: addprefix (leading/trailing spaces)
+--- source
+
+all: ; @echo '$(addprefix src/ ,  foo  bar  )'
+
+--- stdout
+src/ foo src/ bar
+--- success: true
+
+
+
+=== TEST 93: join
+--- source
+
+all:
+	@echo '$(join a b,.c .o)'
+	@echo '$(join a b,.c)'
+	@echo '$(join a b,.c .o .h)'
+	@echo '$(join a b,)'
+	@echo '$(join , a  b )'
+
+--- stdout
+a.c b.o
+a.c b
+a.c b.o .h
+a b
+a b
+--- success: true
+
+
+
+=== TEST 94: wildcard (existing files)
+--- touch: foo.c bar.c baz.c global.h
+--- source
+
+all:
+	@echo '$(sort $(wildcard *.c))'
+	@echo '$(sort $(wildcard *.h))'
+	@echo '$(sort $(wildcard *b*.[ch]))'
+
+--- stdout
+bar.c baz.c foo.c
+global.h
+bar.c baz.c global.h
+--- success: true
+
