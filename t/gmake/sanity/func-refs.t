@@ -886,3 +886,76 @@ all: ; @echo '$(dir )'
 --- stdout eval: "\n"
 --- success: true
 
+
+
+=== TEST 77: notdir
+--- source
+
+all: ; @echo '$(notdir src/foo.c hacks)'
+
+--- stdout
+foo.c hacks
+--- success: true
+
+
+
+=== TEST 78: notdir (too many args)
+--- source
+
+all: ; @echo '$(notdir a,b,c foo/)'
+
+--- stdout
+a,b,c 
+--- success: true
+
+
+
+=== TEST 79: notdir (~/...)
+--- source
+
+all: ; @echo '$(notdir ~/tmp/pugs/ readme.txt)'
+
+--- stdout
+ readme.txt
+--- success: true
+
+
+
+=== TEST 80: notdir (empty arg)
+--- source
+
+all: ; @echo '$(notdir )'
+
+--- stdout eval: "\n"
+--- success: true
+
+
+
+=== TEST 81: suffix
+--- source
+
+all: ; @echo '$(suffix src/foo.c src-1.0/bar.c hacks)'
+
+--- stdout
+.c .c
+--- success: true
+
+
+
+=== TEST 82: suffix (empty arg)
+--- source
+
+all: ; @echo '$(suffix )'
+
+--- stdout eval: "\n"
+--- success: true
+
+=== TEST 83: suffix
+--- source
+
+all: ; @echo '$(suffix a.c.v readme.txt foo. bar/)'
+
+--- stdout
+.v .txt .
+--- success: true
+
