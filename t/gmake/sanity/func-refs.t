@@ -709,3 +709,12 @@ all: ; @echo '$(words $(empty)) found'
 0 found
 --- success: true
 
+=== TEST 61: firstword
+--- source
+
+all: ; @echo '$(firstword foo bar)'
+
+--- stdout
+foo
+--- success: true
+
