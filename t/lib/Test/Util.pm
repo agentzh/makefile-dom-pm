@@ -89,15 +89,16 @@ sub test_shell_command ($$@) {
     my ($stdout, $stderr);
     run3($cmd, \undef, \$stdout, \$stderr);
     my $errcode = $?;
+    $errcode >>= 8;
     my $success = ($errcode == 0);
 
     my $errcode2 = $block->error_code;
-    if ($errcode2 and $errcode2 =~ /\d+/s) {
+    if ($errcode2 and $errcode2 =~ /\d+/) {
         $errcode2 = $&;
     }
 
     my $success2 = $block->success;
-    if ($success2 and $success2 =~ /\w+/s) {
+    if ($success2 and $success2 =~ /\w+/) {
         $success2 = lc($&);
     }
 

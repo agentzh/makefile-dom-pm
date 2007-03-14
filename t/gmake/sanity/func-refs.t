@@ -1,6 +1,6 @@
 use t::Gmake;
 
-plan tests => 2 * blocks() + 1;
+plan tests => 2 * blocks() + 2;
 
 run_tests;
 
@@ -453,7 +453,7 @@ all: @echo '$(word 0,a b c)'
 --- stdout
 --- stderr preprocess
 #MAKEFILE#:1: *** first argument to `word' function must be greater than 0.  Stop.
---- success: false
+--- error_code: 2
 
 
 
@@ -466,5 +466,79 @@ all: ; @echo '$(word a,b)'
 --- stderr preprocess
 #MAKEFILE#:1: *** non-numeric first argument to `word' function: 'a'.  Stop.
 
---- retval: 2
+--- error_code: 2
+
+
+
+=== TEST 39: wordlist (e == words)
+--- source
+
+all: ; @echo '$(wordlist 2 , 3 , foo bar baz)'
+--- stdout
+bar baz
+--- success: true
+
+
+
+=== TEST 40: wordlist
+--- source
+
+all: ; @echo '$(wordlist 2,2,foo bar baz)'
+
+--- stdout
+bar
+--- success: true
+
+
+
+=== TEST 41: wordlist (s > e)
+--- source
+
+all: ; @echo '$(wordlist 2,1,foo bar baz)'
+
+--- stdout eval: "\n"
+--- success: true
+
+
+
+=== TEST 42: wordlist (s == e)
+--- source
+
+all: ; @echo '$(wordlist 1,1,foo bar baz)'
+
+--- stdout
+foo
+--- success: true
+
+
+
+=== TEST 43: wordlist (more words than s)
+--- source
+
+all: ; @echo '$(wordlist 2,3,foo bar baz boz lose)'
+
+--- stdout
+bar baz
+--- success: true
+
+
+
+=== TEST 44: wordlist (e > words)
+--- source
+
+all: ; @echo '$(wordlist 2,5, foo bar baz)'
+
+--- stdout
+bar baz
+--- success: true
+
+
+
+=== TEST 45: wordlist (s = limit, e = limit)
+--- source
+
+all: ; @echo '$(wordlist 1, 0, foo bar baz)'
+
+--- stdout eval: "\n"
+--- success: true
 
