@@ -52,6 +52,7 @@ all: ; @echo '$(subst a ,b, a b)'
 --- success: true
 
 
+
 === TEST 5: subst (too many args)
 --- source
 
@@ -61,7 +62,9 @@ all: ; @echo '$(subst l,k,hello, world)'
 hekko, workd
 --- success: true
 
-=== TEST 5: patsubst
+
+
+=== TEST 6: patsubst
 --- source
 
 c_files = editor.c main.c  buffer.c
@@ -76,7 +79,7 @@ editor.o main.o buffer.o
 
 
 
-=== TEST 6: patsubst
+=== TEST 7: patsubst
 --- source
 
 all: ; @echo '$(patsubst %.c,%.o,x.c.c bar.c)'
@@ -88,7 +91,7 @@ x.c.o bar.o
 
 
 
-=== TEST 7: patsubst (no % in replacement)
+=== TEST 8: patsubst (no % in replacement)
 --- source
 
 all: ; @echo '${patsubst %,foo,a b c}'
@@ -98,7 +101,7 @@ foo foo foo
 
 
 
-=== TEST 8: patsubst (no % in pattern nor replacement)
+=== TEST 9: patsubst (no % in pattern nor replacement)
 --- source
 all: ; @echo '$(patsubst a,foo,a ab abc)'
 --- stdout
@@ -107,7 +110,7 @@ foo ab abc
 
 
 
-=== TEST 9: patsubst (non-matching items)
+=== TEST 10: patsubst (non-matching items)
 --- source
 
 all: ; @echo '$(patsubst %.c,%.o,a.c.v b.c)'
@@ -118,7 +121,7 @@ a.c.v b.o
 
 
 
-=== TEST 10: patsubst (curly braces)
+=== TEST 11: patsubst (curly braces)
 --- source
 
 all: ; @echo '${patsubst %.c, %.o ,a.c b.c }'
@@ -129,7 +132,7 @@ all: ; @echo '${patsubst %.c, %.o ,a.c b.c }'
 
 
 
-=== TEST 11: patsubst (too many args)
+=== TEST 12: patsubst (too many args)
 --- source
 all: ; @echo '$(patsubst %.c,%.o,a,b.c b,f.c)'
 --- stdout
@@ -138,7 +141,7 @@ a,b.o b,f.o
 
 
 
-=== TEST 12: substitution reference
+=== TEST 13: substitution reference
 --- source
 
 objects = foo.o bar.o baz.o
@@ -151,7 +154,7 @@ foo.c bar.c baz.c
 
 
 
-=== TEST 13: strip
+=== TEST 14: strip
 --- source
 
 empty =
@@ -170,7 +173,7 @@ a  b
 
 
 
-=== TEST 14: strip
+=== TEST 15: strip
 --- source
 
 empty =
@@ -190,7 +193,7 @@ echo '  a  b  '
 
 
 
-=== TEST 15: strip (too many args)
+=== TEST 16: strip (too many args)
 --- source
 
 all: ; @echo '$(strip hello, world )'
@@ -200,7 +203,7 @@ hello, world
 
 
 
-=== TEST 16: findstring
+=== TEST 17: findstring
 --- source
 
 all:
@@ -217,7 +220,7 @@ a
 
 
 
-=== TEST 17: findstring (partial match)
+=== TEST 18: findstring (partial match)
 --- source
 
 all: ; @echo '$(findstring  b,abc) found'
@@ -228,7 +231,7 @@ b found
 
 
 
-=== TEST 18: findstring (too many args)
+=== TEST 19: findstring (too many args)
 --- source
 
 pat = hello,world
@@ -240,7 +243,7 @@ hello,world
 
 
 
-=== TEST 19: filter (2 patterns)
+=== TEST 20: filter (2 patterns)
 --- source
 
 sources := foo.c bar.c baz.s ugh.h
@@ -252,7 +255,7 @@ foo.c bar.c baz.s
 
 
 
-=== TEST 20: filter (1 pattern)
+=== TEST 21: filter (1 pattern)
 --- source
 
 sources := foo.c bar.c baz.s ugh.h
@@ -264,7 +267,7 @@ baz.s
 
 
 
-=== TEST 21: filter (no %)
+=== TEST 22: filter (no %)
 --- source
 
 objects=main1.o foo.o main2.o bar.o
@@ -279,7 +282,7 @@ main1.o main2.o
 
 
 
-=== TEST 22: filter (too many args)
+=== TEST 23: filter (too many args)
 --- source
 
 pat = hello,world
@@ -291,7 +294,7 @@ hello,world
 
 
 
-=== TEST 23: filter (with duplicate items)
+=== TEST 24: filter (with duplicate items)
 --- source
 
 all: ; @echo '$(filter %.c,foo.c foo.c)'
@@ -302,7 +305,7 @@ foo.c foo.c
 
 
 
-=== TEST 24: filter (no hit)
+=== TEST 25: filter (no hit)
 --- source
 
 all: ; @echo '$(filter %.cpp,foo.c foo.c)'
@@ -312,7 +315,7 @@ all: ; @echo '$(filter %.cpp,foo.c foo.c)'
 
 
 
-=== TEST 25: filter (partial match)
+=== TEST 26: filter (partial match)
 --- source
 
 all: ; @echo '$(filter %.c,a.c.v b.c)'
@@ -323,7 +326,7 @@ b.c
 
 
 
-=== TEST 26: filter-out
+=== TEST 27: filter-out
 --- source
 
 sources := foo.c bar.c baz.s ugh.h
@@ -335,7 +338,7 @@ ugh.h
 
 
 
-=== TEST 27: filter-out (no %)
+=== TEST 28: filter-out (no %)
 --- source
 
 objects=main1.o foo.o main2.o bar.o
@@ -349,7 +352,7 @@ foo.o bar.o
 
 
 
-=== TEST 28: filter-out (too many args)
+=== TEST 29: filter-out (too many args)
 --- source
 
 all: ; @echo '$(filter-out foo,foo hello,world)'
@@ -360,7 +363,7 @@ hello,world
 
 
 
-=== TEST 29: sort
+=== TEST 30: sort
 --- source
 
 var = $(sort b.c a.c c.c)
@@ -374,7 +377,7 @@ a.c b.c c.c
 
 
 
-=== TEST 30: sort
+=== TEST 31: sort
 --- source
 
 all: ; @echo '$(sort foo bar lose)'
@@ -385,7 +388,7 @@ bar foo lose
 
 
 
-=== TEST 31: sort (0 is not empty)
+=== TEST 32: sort (0 is not empty)
 --- source
 
 a = 0
@@ -397,7 +400,7 @@ all: ; @echo $(sort $a $b)
 
 
 
-=== TEST 32: sort (empty arg)
+=== TEST 33: sort (empty arg)
 --- source
 
 all: ; echo '$(sort ) found'
@@ -409,7 +412,7 @@ echo ' found'
 
 
 
-=== TEST 33: sort (multi-args)
+=== TEST 34: sort (multi-args)
 --- source
 
 all: ; echo '$(sort b,a,c)'
@@ -421,7 +424,7 @@ b,a,c
 
 
 
-=== TEST 34: sort (empty string)
+=== TEST 35: sort (empty string)
 --- source
 
 a =
@@ -431,7 +434,7 @@ all: ; @echo '$(sort $a)'
 
 
 
-=== TEST 35: sort (duplicate items)
+=== TEST 36: sort (duplicate items)
 --- source
 
 all: ; @echo '$(sort b aa aa b)'
@@ -442,7 +445,7 @@ aa b
 
 
 
-=== TEST 36: sort (extra spaces)
+=== TEST 37: sort (extra spaces)
 --- source
 
 all: ; echo '${sort   z    b  }'
@@ -454,7 +457,7 @@ b z
 
 
 
-=== TEST 37: word
+=== TEST 38: word
 --- source
 
 all: ; @echo '$(word 2, foo bar baz)'
@@ -464,7 +467,7 @@ bar
 
 
 
-=== TEST 38: word
+=== TEST 39: word
 --- source
 
 all: ; @echo '$(word 1,foo bar baz )'
@@ -475,7 +478,7 @@ foo
 
 
 
-=== TEST 39: word (trailing space in n)
+=== TEST 40: word (trailing space in n)
 --- source
 
 all: ; @echo '$(word 1 ,foo bar baz )'
@@ -486,7 +489,7 @@ foo
 
 
 
-=== TEST 40: word (overflow)
+=== TEST 41: word (overflow)
 --- source
 
 all: ; @echo '$(word 4,foo bar baz)'
@@ -496,7 +499,7 @@ all: ; @echo '$(word 4,foo bar baz)'
 
 
 
-=== TEST 41: word (words are not necessarily \w+)
+=== TEST 42: word (words are not necessarily \w+)
 --- source
 
 all: ; @echo '$(word 2,5:3 2)'
@@ -507,7 +510,7 @@ all: ; @echo '$(word 2,5:3 2)'
 
 
 
-=== TEST 42: word (zero n)
+=== TEST 43: word (zero n)
 --- source
 
 all: @echo '$(word 0,a b c)'
@@ -519,7 +522,7 @@ all: @echo '$(word 0,a b c)'
 
 
 
-=== TEST 43: word (non-numeric n)
+=== TEST 44: word (non-numeric n)
 --- source
 
 all: ; @echo '$(word a,b)'
@@ -532,7 +535,7 @@ all: ; @echo '$(word a,b)'
 
 
 
-=== TEST 44: wordlist (e == words)
+=== TEST 45: wordlist (e == words)
 --- source
 
 all: ; @echo '$(wordlist 2 , 3 , foo bar baz)'
@@ -542,7 +545,7 @@ bar baz
 
 
 
-=== TEST 45: wordlist
+=== TEST 46: wordlist
 --- source
 
 all: ; @echo '$(wordlist 2,2,foo bar baz)'
@@ -553,7 +556,7 @@ bar
 
 
 
-=== TEST 46: wordlist (s > e)
+=== TEST 47: wordlist (s > e)
 --- source
 
 all: ; @echo '$(wordlist 2,1,foo bar baz)'
@@ -563,7 +566,7 @@ all: ; @echo '$(wordlist 2,1,foo bar baz)'
 
 
 
-=== TEST 47: wordlist (s == e)
+=== TEST 48: wordlist (s == e)
 --- source
 
 all: ; @echo '$(wordlist 1,1,foo bar baz)'
@@ -574,7 +577,7 @@ foo
 
 
 
-=== TEST 48: wordlist (more words than s)
+=== TEST 49: wordlist (more words than s)
 --- source
 
 all: ; @echo '$(wordlist 2,3,foo bar baz boz lose)'
@@ -585,7 +588,7 @@ bar baz
 
 
 
-=== TEST 49: wordlist (e > words)
+=== TEST 50: wordlist (e > words)
 --- source
 
 all: ; @echo '$(wordlist 2,5, foo bar baz)'
@@ -596,7 +599,7 @@ bar baz
 
 
 
-=== TEST 50: wordlist (too many args)
+=== TEST 51: wordlist (too many args)
 --- source
 
 all: ; @echo '$(wordlist 2,3, hello,world bar baz)'
@@ -607,7 +610,7 @@ bar baz
 
 
 
-=== TEST 51: word (too few args)
+=== TEST 52: word (too few args)
 --- source
 
 all: ; @echo '$(wordlist 2,foo bar)'
@@ -620,7 +623,7 @@ all: ; @echo '$(wordlist 2,foo bar)'
 
 
 
-=== TEST 52: wordlist (s = limit, e = limit)
+=== TEST 53: wordlist (s = limit, e = limit)
 --- source
 
 all: ; @echo '$(wordlist 1, 0, foo bar baz)'
@@ -630,7 +633,7 @@ all: ; @echo '$(wordlist 1, 0, foo bar baz)'
 
 
 
-=== TEST 53: words
+=== TEST 54: words
 --- source
 
 all: ; @echo '$(words foo   bar baz )'
@@ -641,7 +644,7 @@ all: ; @echo '$(words foo   bar baz )'
 
 
 
-=== TEST 54: words (comma in args)
+=== TEST 55: words (comma in args)
 --- source
 
 all: ; @echo '$(words hello,word   bar baz )'
@@ -652,7 +655,7 @@ all: ; @echo '$(words hello,word   bar baz )'
 
 
 
-=== TEST 55: words (empty args)
+=== TEST 56: words (empty args)
 --- source
 
 all: ; @echo '$(words ) found'
@@ -663,7 +666,7 @@ all: ; @echo '$(words ) found'
 
 
 
-=== TEST 56: words (empty args and no space)
+=== TEST 57: words (empty args and no space)
 --- source
 
 all: ; @echo '$(words) found'
