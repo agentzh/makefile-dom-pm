@@ -634,7 +634,7 @@ bar baz
 
 
 
-=== TEST 54: word (too few args)
+=== TEST 54: wordlist (too few args)
 --- source
 
 all: ; @echo '$(wordlist 2,foo bar)'
