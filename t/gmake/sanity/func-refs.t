@@ -1538,3 +1538,58 @@ all: ; @echo '$(and a,b,$(shell echo " "),d) found'
 d found
 --- success: true
 
+
+
+=== TEST 130: foreach
+--- source
+
+var = dude
+comma = ,
+foo := $(foreach var,a b c,$(var)$(comma))
+all:
+	@echo '$(foo)'
+	@echo '$(var)'
+
+--- stdout
+a, b, c,
+dude
+--- success: true
+
+
+
+=== TEST 131: foreach (dynamic binding)
+--- source
+
+var = dude
+comma = ,
+rvar = var
+list = a b c
+foo := $(foreach $(rvar),$(shell echo "$(list)"),$(var)$(comma))
+all:
+	@echo '$(foo)'
+	@echo '$(var)'
+
+--- stdout
+a, b, c,
+dude
+--- success: true
+
+
+
+=== TEST 132: foreach (var not defined initially)
+--- source
+
+comma = ,
+rvar = var
+list = a b c
+foo := $(foreach $(rvar),$(shell echo "$(list)"),$(var)$(comma))
+all:
+	@echo '$(foo)'
+	@echo '$(var) found'
+
+--- stdout
+a, b, c,
+ found
+--- success: true
+--- SKIP
+
