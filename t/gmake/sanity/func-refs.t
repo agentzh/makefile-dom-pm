@@ -1,6 +1,6 @@
 use t::Gmake;
 
-plan tests => 2 * blocks() + 3;
+plan tests => 2 * blocks() + 6;
 
 run_tests;
 
@@ -1173,5 +1173,155 @@ all: ; @echo '$(abspath foo.c)'
 
 --- stdout preprocess
 #PWD#/foo.c
+--- success: true
+
+
+
+=== TEST 102: shell (newlines)
+--- source
+
+all: ; echo '$(shell echo "hello \nworld!\n")'
+
+--- stdout
+echo 'hello  world!'
+hello  world!
+
+--- success: true
+
+
+
+=== TEST 103: shell (trailing newlines)
+--- source
+
+all: ; echo '$(shell echo "hello\n\n")'
+
+--- stdout
+echo 'hello'
+hello
+--- success: true
+
+
+
+=== TEST 104: shell (\r\n)
+--- source
+
+all: ; echo '$(shell echo "hello, \r\nworld!\r\n")'
+
+--- stdout
+echo 'hello,  world!'
+hello,  world!
+
+--- success: true
+
+
+
+=== TEST 105: shell (\r)
+--- source
+
+all: ; @echo '$(shell echo "hello, \rworld!")'
+
+--- stdout eval: "hello, \rworld!\n"
+--- success: true
+
+
+
+=== TEST 106: shell (stdout not polluted)
+--- source
+
+var = $(shell echo "dog cat")
+all : ; @echo "$(lastword $(var)) $(firstword $(var))"
+
+--- stdout
+cat dog
+--- success: true
+
+
+
+=== TEST 107: nested shell
+--- source
+
+foo := $(shell echo "$(shell echo "hello"), $(shell echo "world")!")
+all: ; @echo '$(foo)'
+
+--- stdout
+hello, world!
+
+--- success: true
+
+
+
+=== TEST 108: if (empty)
+--- source
+
+empty =
+all: ; @echo '$(if $(empty),yes,no)'
+	@echo '$(if  $(empty) , yes , no )'
+
+--- stdout
+no
+ no 
+--- success: true
+
+
+
+=== TEST 109: if (space)
+--- source
+
+empty =
+space = $(empty) #
+
+all:
+	echo '$(space)'
+	echo '$(if $(space),yes,no)'
+
+--- stdout
+echo ' '
+ 
+echo 'yes'
+yes
+--- success: true
+
+
+
+=== TEST 110: if (plain string)
+--- source
+
+all: ; echo '$(if okay, yes , no )'
+
+--- stdout
+echo ' yes '
+ yes 
+--- success: true
+
+
+
+=== TEST 111: if (empty argument)
+--- source
+
+all: ; echo '$(if ,yes,no)'
+	echo '$(if ,,no)'
+	echo '$(if ,,) found'
+
+--- stdout
+echo 'no'
+no
+echo 'no'
+no
+echo ' found'
+ found
+
+--- success: true
+
+
+
+=== TEST 112: if (side-effects)
+--- source
+
+foo := $(if okay,$(shell touch foo_yes),$(shell touch foo_no))
+bar := $(if ,$(shell touch bar_yes),$(shell touch bar_no))
+all: ;
+
+--- found: foo_yes bar_no
+--- not_found: foo_no bar_yes
 --- success: true
 
