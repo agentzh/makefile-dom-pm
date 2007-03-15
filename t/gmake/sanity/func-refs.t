@@ -1267,17 +1267,9 @@ no
 === TEST 109: if (space)
 --- source
 
-empty =
-space = $(empty) #
-
-all:
-	echo '$(space)'
-	echo '$(if $(space),yes,no)'
+all: ; @echo '$(if $(shell echo " "),yes,no)'
 
 --- stdout
-echo ' '
- 
-echo 'yes'
 yes
 --- success: true
 
@@ -1323,5 +1315,16 @@ all: ;
 
 --- found: foo_yes bar_no
 --- not_found: foo_no bar_yes
+--- success: true
+
+
+
+=== TEST 113: if (0 is true)
+--- source
+
+all: ; @echo '$(if 0,yes,no)'
+
+--- stdout
+yes
 --- success: true
 
