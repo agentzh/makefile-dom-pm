@@ -1,6 +1,6 @@
 use t::Gmake;
 
-plan tests => 2 * blocks() + 9;
+plan tests => 2 * blocks() + 12;
 
 run_tests;
 
@@ -1473,5 +1473,68 @@ all: ; @echo '$(var)'
 --- not_found: c
 --- stdout
 foo
+--- success: true
+
+
+
+=== TEST 125: and
+--- source
+
+all: ; echo '$(and a,b,,d) found'
+
+--- stdout
+echo ' found'
+ found
+--- success: true
+
+
+
+=== TEST 126: and (0 is true)
+--- source
+
+all: ; @echo '$(and a,b,0,d)'
+
+--- stdout
+d
+--- success: true
+
+
+
+=== TEST 127: and (side-effects)
+--- source
+
+empty =
+var := $(and $(shell touch a && echo a),$(shell touch b && echo b),$(empty),$(shell touch d && echo d))
+all: ; @echo '$(var) found'
+
+--- stdout
+ found
+--- found: a b
+--- not_found: d
+--- success: true
+
+
+
+=== TEST 128: and (spaces before expansion trimmed)
+--- source
+
+empty =
+all: ; @echo '$(and a,b,  ,d) found'
+	@echo '$(and a,b, $(empty) ,d) found'
+
+--- stdout
+ found
+ found
+--- success: true
+
+
+
+=== TEST 129: and (spaces after expansion are NOT trimmed)
+--- source
+
+all: ; @echo '$(and a,b,$(shell echo " "),d) found'
+
+--- stdout
+d found
 --- success: true
 
