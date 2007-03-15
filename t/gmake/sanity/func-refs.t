@@ -1,6 +1,6 @@
 use t::Gmake;
 
-plan tests => 2 * blocks() + 6;
+plan tests => 2 * blocks() + 9;
 
 run_tests;
 
@@ -1326,5 +1326,152 @@ all: ; @echo '$(if 0,yes,no)'
 
 --- stdout
 yes
+--- success: true
+
+
+
+=== TEST 114: if (no else)
+--- source
+
+output = yes!
+all: ; @echo '$(if true,$(output))'
+	@echo '$(if ,$(output)) found'
+
+--- stdout
+yes!
+ found
+--- success: true
+
+
+
+=== TEST 115: or
+--- source
+
+empty =
+all: ; echo '$(or $(empty),$(empty))'
+	echo '$(or $(empty),second)'
+	echo '$(or first,$(empty))'
+
+--- stdout
+echo ''
+
+echo 'second'
+second
+echo 'first'
+first
+--- success: true
+
+
+
+=== TEST 116: or (0 is true)
+--- source
+
+empty =
+all: ; echo '$(or $(empty),0,2)'
+
+--- stdout
+echo '0'
+0
+
+--- success: true
+
+
+
+=== TEST 117: or (multiple args)
+--- source
+
+empty =
+all: ; echo '$(or $(empty),$(empty),,foo)'
+
+--- stdout
+echo 'foo'
+foo
+--- success: true
+
+
+
+=== TEST 118: or (trim first? Yes!)
+--- source
+
+empty =
+all: ; echo '$(or $(empty) , other)'
+
+--- stdout
+echo 'other'
+other
+--- success: true
+
+
+
+=== TEST 119: or (1 arg)
+--- source
+
+empty =
+all: ; @echo '$(or foo) $(or $(empty)) found'
+
+--- stdout
+foo  found
+--- success: true
+
+
+
+=== TEST 120: or (0 arg)
+--- source
+
+empty =
+all: ; @echo '$(or ) found'
+
+--- stdout
+ found
+--- success: true
+
+
+
+=== TEST 121: or (trim after? No!)
+--- source
+
+all: ; echo '$(or $(shell echo " "),other) found'
+
+--- stdout
+echo '  found'
+  found
+--- success: true
+
+
+
+=== TEST 122: or (nonempty arguments)
+--- source
+
+all: ; echo '$(or foo,bar,baz)'
+
+--- stdout
+echo 'foo'
+foo
+--- success: true
+
+
+
+=== TEST 123: or (false values)
+--- source
+
+empty =
+all: ; @echo '$(or $(empty),,$(shell echo ""),foo,bar)'
+
+--- stdout
+foo
+--- success: true
+
+
+
+=== TEST 124: or (side-effects)
+--- source
+
+var := $(or $(shell touch a),$(shell touch b),foo,$(shell touch c))
+all: ; @echo '$(var)'
+
+--- found: a b
+--- not_found: c
+--- stdout
+foo
 --- success: true
 
