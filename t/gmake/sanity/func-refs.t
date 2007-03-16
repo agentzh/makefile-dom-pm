@@ -1,6 +1,6 @@
 use t::Gmake;
 
-plan tests => 2 * blocks() + 12;
+plan tests => 2 * blocks() + 21;
 
 run_tests;
 
@@ -1592,4 +1592,121 @@ a, b, c,
  found
 --- success: true
 --- SKIP
+
+
+
+=== TEST 133: error (with args)
+--- source
+
+all: ; echo '$(error hello, world! ) found'
+
+--- stdout
+--- stderr preprocess
+#MAKEFILE#:1: *** hello, world! .  Stop.
+--- error_code: 2
+
+
+
+=== TEST 134: error (with nested func refs)
+--- source
+
+all: ; echo '$(error $(shell echo "hello, world!")) found'
+
+--- stdout
+--- stderr preprocess
+#MAKEFILE#:1: *** hello, world!.  Stop.
+--- error_code: 2
+
+
+
+=== TEST 135: error (empty arg)
+--- source
+
+all: ; $(error )
+
+--- stdout
+--- stderr preprocess
+#MAKEFILE#:1: *** .  Stop.
+--- error_code: 2
+
+
+
+=== TEST 136: warning (with args)
+--- source
+
+all: ; echo '$(warning hello, world! ) found'
+
+--- stdout
+echo ' found'
+ found
+--- stderr preprocess
+#MAKEFILE#:1: hello, world! 
+--- success: true
+
+
+
+=== TEST 137: warning (with nested func refs)
+--- source
+
+all: ; echo '$(warning $(shell echo "hello, world!")) found'
+
+--- stdout
+echo ' found'
+ found
+--- stderr preprocess
+#MAKEFILE#:1: hello, world!
+--- success: true
+
+
+
+=== TEST 138: warning (empty arg)
+--- source
+
+all: ; echo '$(warning ) found'
+
+--- stdout
+echo ' found'
+ found
+--- stderr preprocess
+#MAKEFILE#:1: 
+--- success: true
+
+
+
+=== TEST 139: info (with args)
+--- source
+
+all: ; echo '$(info hello, world! ) found'
+
+--- stdout
+hello, world! 
+echo ' found'
+ found
+--- stderr
+--- success: true
+
+
+
+=== TEST 140: info (with nested func refs)
+--- source
+
+all: ; echo '$(info $(shell echo "hello, world!")) found'
+
+--- stdout
+hello, world!
+echo ' found'
+ found
+--- stderr
+--- success: true
+
+
+
+=== TEST 141: info (empty arg)
+--- source
+
+all: ; @echo 'hey! $(info ) found'
+
+--- stdout eval: "\nhey!  found\n"
+--- stderr
+--- success: true
 
