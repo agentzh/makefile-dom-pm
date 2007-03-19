@@ -25,7 +25,7 @@ use strict;
 use Scalar::Util 'refaddr';
 use Params::Util '_INSTANCE',
                  '_ARRAY';
-use MDOM::Node       ();
+use MDOM::Node      ();
 use Clone           ();
 use List::MoreUtils ();
 use overload 'bool' => sub () { 1 },
@@ -37,7 +37,7 @@ use overload 'bool' => sub () { 1 },
 
 use vars qw{$VERSION $errstr %_PARENT};
 BEGIN {
-	$VERSION = '1.118';
+	$VERSION = '0.0.1';
 	$errstr  = '';
 
 	# Master Child -> Parent index
@@ -67,6 +67,10 @@ Returns true if the Element is significant, or false it not.
 
 ### XS -> MDOM/XS.xs:_MDOM_Element__significant 0.845+
 sub significant { 1 }
+
+sub lineno {
+    $_[0]->{lineno};
+}
 
 =pod
 

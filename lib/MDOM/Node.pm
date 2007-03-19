@@ -71,12 +71,8 @@ BEGIN {
 
 sub new {
 	my $class = ref $_[0] || $_[0];
-	bless { children => [] }, $class;
+	bless { children => [], lineno => $. }, $class;
 }
-
-
-
-
 
 #####################################################################
 # PDOM Methods

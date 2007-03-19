@@ -21,7 +21,7 @@ build_requires  ('Test::Base'      => '0.53');
 #build_requires  ('Cwd'             => '3.12');
 #build_requiers  ('FindBin'         => '1.47');
 
-tests('t/*.t t/*/*.t t/*/*/*t t/*/*/*/*.t');
+tests('t/mdom/*.t t/mdom/*/*.t'); # t/*/*.t t/*/*/*t t/*/*/*/*.t');
 
 auto_install;
 WriteAll;

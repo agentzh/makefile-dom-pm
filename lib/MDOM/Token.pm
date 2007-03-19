@@ -57,13 +57,15 @@ sub new {
             $class = shift;
         }
 		return bless {
-			content => (defined $_[0] ? "$_[0]" : '')
+			content => (defined $_[0] ? "$_[0]" : ''),
+                        lineno => $.,
 			}, $class;
 	} elsif ( @_ == 3 ) {
 		# MDOM::Token->new( $class, $content );
 		my $class = substr( $_[0], 0, 12 ) eq 'MDOM::Token::' ? $_[1] : "MDOM::Token::$_[1]";
 		return bless {
-			content => (defined $_[2] ? "$_[2]" : '')
+			content => (defined $_[2] ? "$_[2]" : ''),
+                        lineno => $.,
 			},  $class;
 	}
 
@@ -95,9 +97,6 @@ sub set_class {
 
 	1;
 }
-
-
-
 
 
 #####################################################################
