@@ -37,18 +37,18 @@ __DATA__
 --- src
 a := 3
 --- lhs
-'a', ' '
+'a'
 --- op
 ':='
 --- rhs
-' ', '3', "\n"
+'3'
 
 
 === TEST 2:
 --- src
  foo bar=hello, world !  # this is a comment
 --- lhs
-' ', 'foo', ' ', 'bar'
+'foo', ' ', 'bar'
 --- op
 '='
 --- rhs
@@ -61,9 +61,9 @@ a := 3
 @D ?= hello \
 	world!
 --- lhs
-'@D', ' '
+'@D'
 --- op
 '?='
 --- rhs
-' ', 'hello', ' ', "\\\n", "\t", 'world!', "\n"
+'hello', ' ', "\\\n", "\t", 'world!'
 

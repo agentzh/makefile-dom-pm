@@ -2,6 +2,7 @@ package MDOM::Assignment;
 
 use strict;
 use base 'MDOM::Node';
+use MDOM::Util qw( trim_tokens );
 
 sub lhs ($) {
     my ($self) = @_;
@@ -48,6 +49,9 @@ sub _parse ($) {
             push @rhs, $elem;
         }
     }
+    trim_tokens(\@lhs);
+    pop @rhs if $rhs[-1] eq "\n";
+    shift @rhs if $rhs[0]->class eq 'MDOM::Token::Whitespace';
     $self->{lhs} = \@lhs;
     $self->{rhs} = \@rhs;
     $self->{op}  = $op;
