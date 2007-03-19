@@ -128,9 +128,6 @@ Returns the basic code as a string (excluding here-doc content).
 sub content { '' }
 
 
-
-
-
 #####################################################################
 # Naigation Methods
 
