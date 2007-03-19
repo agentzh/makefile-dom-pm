@@ -16,14 +16,20 @@ run {
     my @expected_lhs = eval $block->lhs;
     die "eval lhs failed ($name) - $@" if $@;
     is fmt(@got_lhs), fmt(@expected_lhs), "lhs array okay - $name";
-    is scalar($assign->lhs), join('', @expected_lhs), "lhs calar okay - $name";
+    is
+        join('', @{ scalar($assign->lhs) }),
+        join('', @expected_lhs),
+        "lhs calar okay - $name";
 
     ok $assign, "Assignment obj okay - $name";
     my @got_rhs = $assign->rhs;
     my @expected_rhs = eval $block->rhs;
     die "eval rhs failed ($name) - $@" if $@;
     is fmt(@got_rhs), fmt(@expected_rhs), "rhs array okay - $name";
-    is scalar($assign->rhs), join('', @expected_rhs), "rhs calar okay - $name";
+    is
+        join('', @{ scalar($assign->rhs) }),
+        join('', @expected_rhs),
+        "rhs calar okay - $name";
 
 };
 

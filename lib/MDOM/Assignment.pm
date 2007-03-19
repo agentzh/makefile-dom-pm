@@ -8,22 +8,14 @@ sub lhs ($) {
     my ($self) = @_;
     $self->_parse if !defined $self->{op};
     my $tokens = $self->{lhs};
-
-    return wantarray ?
-        @$tokens
-        :
-        join '', map { $_->content } @$tokens;
+    wantarray ? @$tokens : $tokens;
 }
 
 sub rhs ($) {
     my ($self) = @_;
     $self->_parse if !defined $self->{op};
     my $tokens = $self->{rhs};
-
-    return wantarray ?
-                @$tokens
-            :
-                join '', map { $_->content } @$tokens;
+    wantarray ? @$tokens : $tokens;
 }
 
 sub op {
