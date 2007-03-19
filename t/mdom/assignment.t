@@ -1,7 +1,7 @@
 use Test::Base;
 use MDOM::Document::Gmake;
 
-plan tests => 7 * blocks();
+plan tests => 8 * blocks();
 
 run {
     my $block = shift;
@@ -31,6 +31,8 @@ run {
         join('', @expected_rhs),
         "rhs calar okay - $name";
 
+    is $assign->op, $block->op, "op okay - $name";
+
 };
 
 sub fmt {
@@ -44,8 +46,7 @@ __DATA__
 a := 3
 --- lhs
 'a'
---- op
-':='
+--- op: :=
 --- rhs
 '3'
 
@@ -55,8 +56,7 @@ a := 3
  foo bar=hello, world !  # this is a comment
 --- lhs
 'foo', ' ', 'bar'
---- op
-'='
+--- op: =
 --- rhs
 'hello,', ' ', 'world', ' ', '!', '  '
 
@@ -68,8 +68,7 @@ a := 3
 	world!
 --- lhs
 '@D'
---- op
-'?='
+--- op: ?=
 --- rhs
 'hello', ' ', "\\\n", "\t", 'world!'
 

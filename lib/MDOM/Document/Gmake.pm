@@ -190,7 +190,7 @@ sub _tokenize_normal {
             $next_token = MDOM::Token::Whitespace->new($&);
             #push @tokens, $next_token;
         }
-        elsif (/(?x) \G (?: := | \?= | \+= | [=:;] )/gc) {
+        elsif (/(?x) \G (?: :: | := | \?= | \+= | [=:;] )/gc) {
             $next_token = MDOM::Token::Separator->new($&);
         }
         elsif (my $res = extract_interp($_)) {
@@ -348,7 +348,7 @@ sub _parse_normal {
             return $node;
         }
     }
-    if (@sep >= 2 && $sep[0] eq ':' and $sep[1] eq ';') {
+    if (@sep >= 2 && $sep[0] =~ /^::?$/ and $sep[1] eq ';') {
         #### Found simple rule with inlined command...
         my $rule = MDOM::Rule::Simple->new;
         my @t = before { $_ eq ';' } @tokens;
@@ -372,7 +372,7 @@ sub _parse_normal {
         $context = RULE if $context == VOID;
         return $rule;
     }
-    elsif (@sep >= 2 && $sep[0] eq ':' and $sep[1] eq ':') {
+    elsif (@sep >= 2 && $sep[0] eq ':' and $sep[1] =~ /^::?$/) {
         #### Found static pattern rule...
         my $rule = MDOM::Rule::StaticPattern->new;
         my @t = before { $_ eq ';' } @tokens;
@@ -397,7 +397,7 @@ sub _parse_normal {
         $context = RULE if $context == VOID;
         return $rule;
     }
-    elsif (@sep == 1 && $sep[0] eq ':') {
+    elsif (@sep == 1 && $sep[0] =~ /^::?$/) {
         #### Found simple rule without inlined command...
         my $rule = MDOM::Rule::Simple->new;
         $rule->__add_elements(@tokens);
