@@ -28,7 +28,6 @@
 #:   the -s option and check that make did not echo the echo
 #:   command before printing the message.
 #:
-#: 2006-01-30 2006-02-10
 
 use t::Gmake;
 
@@ -97,9 +96,10 @@ rm $::example
 --- source:      $::source
 --- touch:       $::example
 --- options:     -s
---- stdout expand
+--- stdout
 This makefile did not clean the dir... good
 --- stderr
 --- error_code
 0
 --- found:       $::example
+
