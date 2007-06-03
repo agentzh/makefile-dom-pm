@@ -48,3 +48,4 @@ target: # this ; is just a comment \
 #MAKE#: Nothing to be done for `target'.
 --- stderr
 --- success:    true
+

@@ -2,6 +2,7 @@
 
 package Test::Make::Base;
 
+#use Smart::Comments;
 use Test::Base -Base;
 use Test::Make::Util;
 use File::Temp qw( tempdir tempfile );
@@ -43,6 +44,7 @@ sub set_make ($$) {
     } else {
         $MAKE = '';
     }
+    ### $MAKE
     #$MAKE =~ s{\\}{/}g;
 }
 
@@ -170,15 +172,20 @@ sub run_make($$) {
     my $goals    = $block->goals || '';
 
     @MakeExe = split_arg($MAKEPATH) if not @MakeExe;
-    my @args = @MakeExe;
     #warn Dumper($filename);
-    if ($filename) {
-        push @args, '-f', $filename;
+    my (@pre, @post);
+    if ($filename and $options !~ /-f\s+\S+/) {
+        push @pre, '-f', $filename;
     }
     if ($SHELL and $options !~ m/SHELL\s*=\s*/) {
-        push @args, "SHELL=$SHELL";
+        push @post, "SHELL=$SHELL";
     }
-    my $cmd = [ @args, process_args("$options $goals") ];
+    my $cmd = [
+        @MakeExe,
+        @pre,
+        process_args("$options $goals"),
+        @post,
+    ];
     #warn Dumper($cmd);
     test_shell_command( $block, $cmd, %Filters );
 }
@@ -193,6 +200,7 @@ sub quote {
 sub preprocess {
     my $s = shift;
     return if not defined $s;
+    ### $Test::Make::Bae::MAKE
     $s =~ s/\#MAKE\#/$Test::Make::Base::MAKE/gsi;
     $s =~ s/\#MAKEPATH\#/$Test::Make::Base::MAKEPATH/gs;
     $s =~ s/\#MAKEFILE\#/$Test::Make::Base::MAKEFILE/gs;
