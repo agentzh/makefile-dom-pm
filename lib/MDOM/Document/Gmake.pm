@@ -9,7 +9,7 @@ use Makefile::DOM;
 use base 'MDOM::Node';
 use List::MoreUtils qw( before all any );
 use List::Util qw( first );
-use Smart::Comments;
+#use Smart::Comments;
 #use Smart::Comments '###', '####';
 
 my %_map;

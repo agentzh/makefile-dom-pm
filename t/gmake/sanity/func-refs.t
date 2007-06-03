@@ -213,7 +213,7 @@ echo '  a  b  '
   a  b  
 
 --- success: true
---- SKIP
+--- TODO
 
 
 
@@ -530,14 +530,14 @@ all: ; @echo '$(word 2,5:3 2)'
 
 --- stdout
 2
---- success: true
+--- error_code: 0
 
 
 
 === TEST 45: word (zero n)
 --- source
 
-all: @echo '$(word 0,a b c)'
+all: ; @echo '$(word 0,a b c)'
 
 --- stdout
 --- stderr preprocess
@@ -698,7 +698,7 @@ all: ; @echo '$(words) found'
 --- stdout
  found
 --- success: true
---- SKIP
+--- TODO
 
 
 
@@ -1591,18 +1591,19 @@ all:
 a, b, c,
  found
 --- success: true
---- SKIP
+--- TODO
 
 
 
 === TEST 133: error (with args)
 --- source
 
-all: ; echo '$(error hello, world! ) found'
+var = found
+all: ; echo '$(error hello, world! ) $(var)'
 
 --- stdout
 --- stderr preprocess
-#MAKEFILE#:1: *** hello, world! .  Stop.
+#MAKEFILE#:2: *** hello, world! .  Stop.
 --- error_code: 2
 
 
@@ -1610,11 +1611,13 @@ all: ; echo '$(error hello, world! ) found'
 === TEST 134: error (with nested func refs)
 --- source
 
+# this is
+ ## a comment
 all: ; echo '$(error $(shell echo "hello, world!")) found'
 
 --- stdout
 --- stderr preprocess
-#MAKEFILE#:1: *** hello, world!.  Stop.
+#MAKEFILE#:3: *** hello, world!.  Stop.
 --- error_code: 2
 
 
