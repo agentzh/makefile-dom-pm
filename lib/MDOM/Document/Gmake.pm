@@ -9,6 +9,7 @@ use Makefile::DOM;
 use base 'MDOM::Node';
 use List::MoreUtils qw( before all any );
 use List::Util qw( first );
+use Smart::Comments;
 #use Smart::Comments '###', '####';
 
 my %_map;
@@ -182,6 +183,7 @@ sub _tokenize_normal {
     my @tokens;
     my $pending_token = '';
     my $next_token;
+    ### TOKENIZING: $_
     while (1) {
         # "token = $pending_token";
         #warn pos;
@@ -203,7 +205,7 @@ sub _tokenize_normal {
             my $c = $1;
             if ($c eq "\n") {
                 push @tokens, MDOM::Token::Bare->new($pending_token)
-                    if $pending_token;
+                    if $pending_token ne '';
                 push @tokens, MDOM::Token::Continuation->new("\\\n");
                 return @tokens;
             } else {
@@ -212,7 +214,7 @@ sub _tokenize_normal {
         }
         elsif (/(?x) \G (\# [^\n]*) \\ \n/sgc) {
             my $s = $1;
-            push @tokens, MDOM::Token::Bare->new($pending_token) if $pending_token;
+            push @tokens, MDOM::Token::Bare->new($pending_token) if $pending_token ne '';
             push @tokens, MDOM::Token::Comment->new($s);
             push @tokens, MDOM::Token::Continuation->new("\\\n");
             return @tokens;
@@ -224,7 +226,7 @@ sub _tokenize_normal {
             last;
         }
         if ($next_token) {
-            if ($pending_token) {
+            if ($pending_token ne '') {
                 push @tokens, MDOM::Token::Bare->new($pending_token);
                 $pending_token = '';
             }
@@ -232,6 +234,7 @@ sub _tokenize_normal {
             $next_token = undef;
         }
     }
+    ### parse_normal result: @tokens
     @tokens;
 }
 
@@ -296,7 +299,7 @@ sub _tokenize_comment {
     my $pending_token = '';
     while (1) {
         if (/(?x) \G \n /gc) {
-            push @tokens, MDOM::Token::Comment->new($pending_token) if $pending_token;
+            push @tokens, MDOM::Token::Comment->new($pending_token) if $pending_token ne '';
             push @tokens, MDOM::Token::Whitespace->new("\n");
             return @tokens;
             #push @tokens, $next_token;
@@ -304,7 +307,7 @@ sub _tokenize_comment {
         elsif (/(?x) \G \\ ([\\\n]) /gcs) {
             my $c = $1;
             if ($c eq "\n") {
-                push @tokens, MDOM::Token::Comment->new($pending_token) if $pending_token;
+                push @tokens, MDOM::Token::Comment->new($pending_token) if $pending_token ne '';
                 push @tokens, MDOM::Token::Continuation->new("\\\n");
                 return @tokens;
             } else {
@@ -323,6 +326,7 @@ sub _tokenize_comment {
 
 sub _parse_normal {
     my @tokens = @_;
+    ### fed to _parse_normal: @tokens
     my @sep = grep { $_->isa('MDOM::Token::Separator') } @tokens;
     #### Separators: @sep
     if (@tokens == 1) {
@@ -407,6 +411,7 @@ sub _parse_normal {
     }
     elsif (@sep && $sep[0] =~ /(?x) ^ (?: = | := | \+= | \?= ) $/) {
         my $assign = MDOM::Assignment->new;
+        ### Assignment tokens: @tokens
         $assign->__add_elements(@tokens);
         $saved_context = VOID;
         $context = VOID if $context == RULE;

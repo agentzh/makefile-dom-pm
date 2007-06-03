@@ -1,6 +1,9 @@
 package MDOM::Assignment;
 
 use strict;
+use warnings;
+
+#use Smart::Comments;
 use base 'MDOM::Node';
 use MDOM::Util qw( trim_tokens );
 
@@ -27,6 +30,7 @@ sub op {
 sub _parse ($) {
     my ($self) = @_;
     my @elems = $self->elements;
+    ### Assignment elems: @elems
     my (@lhs, @rhs, $op);
     for my $elem (@elems) {
         if (!$op) {
