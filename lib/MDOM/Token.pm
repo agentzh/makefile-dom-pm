@@ -176,4 +176,17 @@ sub insert_after {
 	'';
 }
 
+=pod
+
+=head2 source
+
+Returns the makefile source for the current token
+
+=cut
+
+sub source {
+    my $self = shift;
+    return $self->content;
+}
+
 1;

@@ -11,7 +11,6 @@
 #:   Then we do the same thing for parallel builds: double-colon
 #:   targets should always be built serially.
 #:
-#: 2006-01-30 2006-02-14
 
 use t::Gmake;
 
@@ -203,3 +202,5 @@ one
 two
 --- stderr
 --- success:           true
+--- SKIP
+

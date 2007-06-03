@@ -15,23 +15,23 @@ MDOM::Node - Abstract MDOM Node class, an Element that can contain other Element
 
   # Create a typical node (a Document in this case)
   my $Node = MDOM::Document->new;
-  
+
   # Add an element to the node( in this case, a token )
   my $Token = MDOM::Token::Word->new('my');
   $Node->add_element( $Token );
-  
+
   # Get the elements for the Node
   my @elements = $Node->children;
-  
+
   # Find all the barewords within a Node
   my $barewords = $Node->find( 'MDOM::Token::Word' );
-  
+
   # Find by more complex criteria
   my $my_tokens = $Node->find( sub { $_[1]->content eq 'my' } );
-  
+
   # Remove all the whitespace
   $Node->prune( 'MDOM::Token::Whitespace' );
-  
+
   # Remove by more complex criteria
   $Node->prune( sub { $_[1]->content eq 'my' } );
 
@@ -99,7 +99,7 @@ C<MDOM::Node>. Because Elements maintain links to their parent, an
 Element can only be added to a single Node.
 
 Returns true if the L<MDOM::Element> was added. Returns C<undef> if the
-Element was already within another Node, or the method is not passed 
+Element was already within another Node, or the method is not passed
 a L<MDOM::Element> object.
 
 =cut
@@ -320,10 +320,10 @@ class name (full or shortened), or a C<CODE>/function reference.
 
   # Find all single quotes in a Document (which is a Node)
   $Document->find('MDOM::Quote::Single');
-  
+
   # The same thing with a shortened class name
   $Document->find('Quote::Single');
-  
+
   # Anything more elaborate, we so with the sub
   $Document->find( sub {
   	# At the top level of the file...
@@ -503,6 +503,19 @@ sub remove_child {
 	delete $_PARENT{refaddr $child};
 
 	$child;
+}
+
+=pod
+
+=head2 source
+
+Returns the makefile source for the current node
+
+=cut
+
+sub source {
+    my $self = shift;
+    join '', map { $_->source } $self->children;
 }
 
 =pod

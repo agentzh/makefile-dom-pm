@@ -213,7 +213,6 @@ echo '  a  b  '
   a  b  
 
 --- success: true
---- TODO
 
 
 
@@ -698,7 +697,6 @@ all: ; @echo '$(words) found'
 --- stdout
  found
 --- success: true
---- TODO
 
 
 
@@ -1591,7 +1589,6 @@ all:
 a, b, c,
  found
 --- success: true
---- TODO
 
 
 

@@ -189,7 +189,6 @@ building all...
 --- success:       true
 
 
-
 === TEST 10: ditto, but trickier
 --- source
 rule = all:

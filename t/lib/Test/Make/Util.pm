@@ -36,7 +36,7 @@ sub touch (@) {
 # Touch with a time offset.  To DTRT, call touch() then use stat() to get the
 # access/mod time for each file and apply the offset.
 
-sub utouch (@) {
+sub utouch ($@) {
     my $off = shift;
     my @files = @_;
     foreach my $file (@files) {

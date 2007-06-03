@@ -158,7 +158,13 @@ sub process_utouch ($) {
     my $block = shift;
     my $buf = $block->utouch;
     return if not $buf;
-    utouch(split /\s+/, $buf);
+    my @pairs = split /\s+/, $buf;
+    ### @pairs
+    while (@pairs) {
+        my $time = shift @pairs;
+        my $file = shift @pairs;
+        utouch($time => $file);
+    }
 }
 
 sub set_filters (@) {
