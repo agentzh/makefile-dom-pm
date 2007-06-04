@@ -1,7 +1,6 @@
 #: mult_rules2.t
 #: Extension to mult_rules.t
 #: Copyright (c) 2006 Agent Zhang
-#: 2006-02-11 2006-02-14
 
 use t::Gmake;
 
@@ -82,3 +81,4 @@ abc.mk:2: warning: ignoring old commands for target `foo.o'
 --- stdout
 no,no,no
 --- success:      true
+

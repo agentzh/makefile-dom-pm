@@ -3,8 +3,6 @@
 #: Description:
 #:   Check GNU make export/unexport commands.
 #: Details:
-#:
-#: 2006-01-31 2006-02-13
 
 # t::Backend cleans out our environment for us during startup 
 # so we don't have to worry about that here.

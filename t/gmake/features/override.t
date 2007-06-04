@@ -3,8 +3,6 @@
 #: Description:
 #:   The following test creates a makefile to ...
 #: Details:
-#:
-#: 2006-02-11 2006-02-11
 
 use t::Gmake;
 
@@ -28,3 +26,4 @@ First comes the definition.
 Then comes the override.
 --- stderr
 --- success:      true
+
