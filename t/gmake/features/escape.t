@@ -6,8 +6,6 @@
 #:   Make sure that escaping of `:' works in target names.
 #:   Make sure escaping of whitespace works in target names.
 #:   Make sure that escaping of '#' works.
-#:
-#: 2006-01-31 2006-02-12
 
 use t::Gmake;
 
@@ -96,3 +94,4 @@ foo#bar.ext = foo#bar.ext
 --- stderr
 --- error_code
 0
+
