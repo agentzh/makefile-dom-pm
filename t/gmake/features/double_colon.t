@@ -10,7 +10,6 @@
 #:     - Double-colon targets that aren't the goal target.
 #:   Then we do the same thing for parallel builds: double-colon
 #:   targets should always be built serially.
-#:
 
 use t::Gmake;
 

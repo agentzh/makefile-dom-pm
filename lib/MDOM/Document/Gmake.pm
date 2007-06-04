@@ -201,7 +201,7 @@ sub _tokenize_normal {
         elsif (/(?x) \G \$. /gc) {
             $next_token = MDOM::Token::Interpolation->new($&);
         }
-        elsif (/(?x) \G \\ ([\#\\\n]) /gcs) {
+        elsif (/(?x) \G \\ ([\#\\\n:]) /gcs) {
             my $c = $1;
             if ($c eq "\n") {
                 push @tokens, MDOM::Token::Bare->new($pending_token)
@@ -263,7 +263,7 @@ sub _tokenize_command {
         elsif ($s =~ /(?x) \G \$. /gc) {
             $next_token = MDOM::Token::Interpolation->new($&);
         }
-        elsif ($s =~ /(?x) \G \\ ([\#\\\n]) /gcs) {
+        elsif ($s =~ /(?x) \G \\ ([\#\\\n:]) /gcs) {
             my $c = $1;
             if ($c eq "\n" && pos $s == $strlen) {
                 $next_token = MDOM::Token::Continuation->new("\\\n");
@@ -304,7 +304,7 @@ sub _tokenize_comment {
             return @tokens;
             #push @tokens, $next_token;
         }
-        elsif (/(?x) \G \\ ([\\\n]) /gcs) {
+        elsif (/(?x) \G \\ ([\\\n#:]) /gcs) {
             my $c = $1;
             if ($c eq "\n") {
                 push @tokens, MDOM::Token::Comment->new($pending_token) if $pending_token ne '';
