@@ -11,7 +11,14 @@ use t::Gmake;
 
 plan tests => 3 * blocks();
 
-our $source = <<'_EOC_';
+use_source_ditto;
+
+run_tests;
+
+__DATA__
+
+=== TEST #1 -- basics
+--- source
 
 all: one.x two.x three.x
 FOO = foo
@@ -34,9 +41,64 @@ a%: BBB += ddd
 .PHONY: ab
 ab: ; @echo $(AAA); echo $(BBB)
 
-_EOC_
+--- stdout
+one.x: one two baz
+two.x: foo four baz
+three.x: foo four three
+--- stderr
+--- success:            true
 
-our $source2 = <<'_EOC_';
+
+
+=== TEST #2 -- try the override feature
+--- source ditto
+--- options:            BAZ=five
+--- stdout
+one.x: one two five
+two.x: foo four five
+three.x: foo four three
+--- stderr
+--- success:            true
+
+
+
+=== TEST #3 -- make sure patterns are inherited properly
+--- source ditto
+--- options:            four.x
+--- stdout
+baz: foo two baz
+four.x: foo two baz
+--- stderr
+--- success:            true
+
+
+
+=== TEST #4 -- test multiple patterns matching the same target
+--- source ditto
+--- options:            ab
+--- stdout
+aaa bbb
+ccc ddd
+--- stderr
+--- success:            true
+
+
+
+=== TEST #5 -- test pattern-specific exported variables
+--- source
+/%: export foo := foo
+
+/bar:
+	@echo $(foo) $$foo
+--- stdout
+foo foo
+--- stderr
+--- success:            true
+
+
+
+=== TEST #6 -- test expansion of pattern-specific simple variables
+--- source
 
 .PHONY: all
 
@@ -72,72 +134,6 @@ endif
 
 global := new $$t
 
-_EOC_
-
-run_tests;
-
-__DATA__
-
-=== TEST #1 -- basics
---- source expand:      $::source
---- stdout
-one.x: one two baz
-two.x: foo four baz
-three.x: foo four three
---- stderr
---- success:            true
-
-
-
-=== TEST #2 -- try the override feature
---- source expand:      $::source
---- options:            BAZ=five
---- stdout
-one.x: one two five
-two.x: foo four five
-three.x: foo four three
---- stderr
---- success:            true
-
-
-
-=== TEST #3 -- make sure patterns are inherited properly
---- source expand:      $::source
---- options:            four.x
---- stdout
-baz: foo two baz
-four.x: foo two baz
---- stderr
---- success:            true
-
-
-
-=== TEST #4 -- test multiple patterns matching the same target
---- source expand:      $::source
---- options:            ab
---- stdout
-aaa bbb
-ccc ddd
---- stderr
---- success:            true
-
-
-
-=== TEST #5 -- test pattern-specific exported variables
---- source
-/%: export foo := foo
-
-/bar:
-	@echo $(foo) $$foo
---- stdout
-foo foo
---- stderr
---- success:            true
-
-
-
-=== TEST #6 -- test expansion of pattern-specific simple variables
---- source expand:     $::source2
 --- stdout
 normal: global: orginal $t pattern:  inherit: ;
 pattrn: global: orginal $t pattern:  inherit: ;
@@ -147,10 +143,11 @@ pattrn: global: orginal $t pattern:  inherit: ;
 
 
 === TEST #7 -- test expansion of pattern-specific recursive variables
---- source expand:      $::source2
+--- source ditto
 --- options:            rec=1
 --- stdout
 normal: global: new $t pattern: good $t inherit: good $t;
 pattrn: global: new $t pattern: good $t inherit: good $t;
 --- stderr
 --- success:            true
+
