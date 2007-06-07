@@ -41,6 +41,7 @@ sub set_make ($$) {
     #die $stderr;
     if ($stderr =~ /^(\S+)\s*:/) {
         $MAKE = $1;
+        $MAKE =~ s/(.*[\\\/])//;
     } else {
         $MAKE = '';
     }
