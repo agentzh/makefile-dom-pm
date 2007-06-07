@@ -248,7 +248,7 @@ sub _tokenize_command {
     my $pending_token = '';
     my $next_token;
     my $strlen = length $s;
-    if ($s =~ /(?x) \G (\s*) ([\@+\-]) /gc) {
+    while ($s =~ /(?x) \G (\s*) ([\@+\-]) /gc) {
         my ($whitespace, $modifier) = ($1, $2);
         if ($whitespace) {
             push @tokens, MDOM::Token::Whitespace->new($whitespace);

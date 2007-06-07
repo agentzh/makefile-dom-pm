@@ -277,3 +277,37 @@ MDOM::Document::Gmake
     MDOM::Token::Bare	'; \\n\tdo                       \\n\t\t$(JAVAC) $$d/*.java; \\n\tdone'
     MDOM::Token::Whitespace		'\n'
 
+
+
+=== TEST 11: multi-modifiers
+--- src
+all:
+	@ - exit
+        -@ exit 1
+        @-exit 1
+--- dom
+MDOM::Document::Gmake
+  MDOM::Rule::Simple
+    MDOM::Token::Bare         'all'
+    MDOM::Token::Separator            ':'
+    MDOM::Token::Whitespace           '\n'
+  MDOM::Command
+    MDOM::Token::Separator            '\t'
+    MDOM::Token::Modifier             '@'
+    MDOM::Token::Whitespace           ' '
+    MDOM::Token::Modifier             '-'
+    MDOM::Token::Bare         ' exit'
+    MDOM::Token::Whitespace           '\n'
+  MDOM::Unknown
+    MDOM::Token::Whitespace           '        '
+    MDOM::Token::Modifier             '-'
+    MDOM::Token::Modifier             '@'
+    MDOM::Token::Bare         ' exit 1'
+    MDOM::Token::Whitespace           '\n'
+  MDOM::Unknown
+    MDOM::Token::Whitespace           '        '
+    MDOM::Token::Modifier             '@'
+    MDOM::Token::Modifier             '-'
+    MDOM::Token::Bare         'exit 1'
+    MDOM::Token::Whitespace           '\n'
+

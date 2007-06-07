@@ -29,3 +29,35 @@ hello, world!
 --- stderr
 --- error_code: 0
 
+
+
+=== TEST 3: recursive vars (deep)
+--- source
+foo = hello
+bar = $(foo), world
+baz = $(bar)!
+
+all:;@echo '$(baz)'
+
+--- stdout
+hello, world!
+--- stderr
+--- error_code: 0
+
+
+
+=== TEST 4: stacked cmd modifiers
+--- source
+all:
+	@ - exit 1
+	-@ exit 1
+	@-exit 1
+--- stderr
+make: [all] Error 1 (ignored)
+make: [all] Error 1 (ignored)
+make: [all] Error 1 (ignored)
+
+--- stdout
+--- error_code: 0
+--- ONLY
+
