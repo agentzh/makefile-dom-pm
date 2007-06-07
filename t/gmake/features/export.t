@@ -11,8 +11,7 @@ use t::Gmake;
 
 plan tests => 3 * blocks;
 
-our $makefile = <<'_EOC_';
-_EOC_
+use_source_ditto;
 
 run_tests;
 

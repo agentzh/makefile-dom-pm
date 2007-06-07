@@ -2,6 +2,8 @@ use t::Gmake;
 
 plan tests => 3 * blocks;
 
+use_source_ditto;
+
 run_tests;
 
 __DATA__

@@ -5,8 +5,6 @@
 #: Details:
 #:   Create makefiles with various combinations of normal and order-only
 #:   prerequisites and ensure they behave properly.  Test the $| variable.
-#:
-#: 2006-02-11 2006-02-11
 
 use t::Gmake;
 

@@ -22,7 +22,7 @@ our @EXPORT_BASE = qw(set_make set_shell set_filters);
 
 our ($SHELL, $PERL, $MAKE, $MAKEPATH, $MAKEFILE, $PWD);
 our (@MakeExe, %Filters);
-our ($SourceDitto, $SavedSource);
+our ($UseSourceDitto, $SavedSource);
 
 # default filters for expected values
 #filters {
@@ -69,7 +69,7 @@ BEGIN {
 }
 
 sub use_source_ditto () {
-    $SourceDitto = 1;
+    $UseSourceDitto = 1;
 }
 
 sub run_test ($) {
@@ -100,7 +100,7 @@ sub run_test ($) {
         $MAKEFILE = $filename;
         $MAKEFILE =~ s,\\,/,g;
         $block->run_filters;
-        $SavedSource = $block->source;
+        $SavedSource = $block->source if $UseSourceDitto;
         print $fh $block->source;
         close $fh;
     } else {
@@ -236,6 +236,9 @@ sub expand {
 }
 
 sub ditto {
+    if (!defined $UseSourceDitto) {
+        die "Error: ditto found while no use_source_ditto call.\n";
+    }
     $SavedSource;
 }
 

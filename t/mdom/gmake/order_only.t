@@ -20,3 +20,39 @@ MDOM::Document::Gmake
       MDOM::Token::Separator          ';'
       MDOM::Token::Whitespace         '\n'
 
+
+
+=== TEST 2:
+--- src
+foo: a b| c d
+--- dom
+MDOM::Document::Gmake
+  MDOM::Rule::Simple
+    MDOM::Token::Bare         'foo'
+    MDOM::Token::Separator            ':'
+    MDOM::Token::Whitespace           ' '
+    MDOM::Token::Bare         'a'
+    MDOM::Token::Whitespace           ' '
+    MDOM::Token::Bare         'b'
+    MDOM::Token::Bare         '|'
+    MDOM::Token::Whitespace           ' '
+    MDOM::Token::Bare         'c'
+    MDOM::Token::Whitespace           ' '
+    MDOM::Token::Bare         'd'
+    MDOM::Token::Whitespace           '\n'
+
+
+
+=== TEST 3:
+--- src
+foo: a|
+--- dom
+MDOM::Document::Gmake
+  MDOM::Rule::Simple
+    MDOM::Token::Bare         'foo'
+    MDOM::Token::Separator            ':'
+    MDOM::Token::Whitespace           ' '
+    MDOM::Token::Bare         'a'
+    MDOM::Token::Bare         '|'
+    MDOM::Token::Whitespace           '\n'
+
