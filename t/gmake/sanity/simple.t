@@ -52,12 +52,32 @@ all:
 	@ - exit 1
 	-@ exit 1
 	@-exit 1
---- stderr
-make: [all] Error 1 (ignored)
-make: [all] Error 1 (ignored)
-make: [all] Error 1 (ignored)
+--- stderr preprocess
+#MAKE#: [all] Error 1 (ignored)
+#MAKE#: [all] Error 1 (ignored)
+#MAKE#: [all] Error 1 (ignored)
 
 --- stdout
 --- error_code: 0
---- ONLY
+
+
+
+=== TEST 5: canned seq of commands
+the last newline should be excluded from
+the verbatim variable's value
+--- source
+define foo
+    echo wow
+    echo '
+endef
+
+all:; $(foo)hello'
+
+--- stdout
+echo wow
+wow
+echo 'hello'
+hello
+--- stderr
+--- error_code: 0
 
