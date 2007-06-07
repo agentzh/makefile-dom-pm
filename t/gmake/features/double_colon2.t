@@ -30,16 +30,27 @@ touch all
 --- utouch
 -1 bar
 -2 foo
--3 baz
+-1 baz
+-1 bit
 --- source
-all: foo; touch $@
+all: foo bit; touch $@
 
-foo:: bar; echo bar && touch $@
+foo:: bar
+	@echo first
+	touch $@
 
-foo:: baz; echo baz && touch $@
+foo:: baz
+	@echo second
+	touch $@
+
+bit: foo ; @echo bit
+
 --- stdout
-echo bar && touch foo
-bar
+first
+touch foo
+second
+touch foo
+bit
 touch all
 --- stderr
 --- error_code: 0
