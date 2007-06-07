@@ -3,8 +3,6 @@
 #: Description:
 #:   Test pattern rules.
 #: Details:
-#:
-#: 2006-02-13 2006-02-14
 
 # Removed unnecessary $(dir) and $dir from the tests.
 #   -- agent
@@ -121,8 +119,7 @@ foo.bar:
 --- stdout
 --- stderr preprocess
 #MAKE#: *** [foo.bar] Error 1
---- error_code eval
-2 * 256
+--- error_code: 2
 
 
 
