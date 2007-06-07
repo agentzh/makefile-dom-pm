@@ -88,13 +88,7 @@ then the second recipe is used."
 -1 a.y1
 -4 b.h
 -4 a.c
---- source
-a.o :: a.c b.h
-	@echo first
-
-a.o :: a.y1 b.h
-	@echo second
-
+--- source ditto
 --- stdout
 second
 --- stderr
@@ -114,13 +108,7 @@ definitions appear in the makefile."
 -3 a.y1
 -1 b.h
 -4 a.c
---- source
-a.o :: a.c b.h
-	@echo first
-
-a.o :: a.y1 b.h
-	@echo second
-
+--- source ditto
 --- stdout
 first
 second
