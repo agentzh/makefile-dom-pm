@@ -195,6 +195,10 @@ sub _tokenize_normal {
         elsif (/(?x) \G (?: :: | := | \?= | \+= | [=:;] )/gc) {
             $next_token = MDOM::Token::Separator->new($&);
         }
+        elsif (/(?x) \G \| /gc) {
+            # XXX This should be a separator...
+            $next_token = MDOM::Token::Bare->new($&);
+        }
         elsif (my $res = extract_interp($_)) {
             $next_token = MDOM::Token::Interpolation->new($res);
         }
