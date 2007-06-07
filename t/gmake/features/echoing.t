@@ -27,79 +27,68 @@
 #:   file didn't exist. Lastly, we run the first test again with
 #:   the -s option and check that make did not echo the echo
 #:   command before printing the message.
-#:
 
 use t::Gmake;
 
 plan tests => 4 * blocks;
-
-our $example        = "EXAMPLE_FILE";
-
-our $source = <<_EOC_;
-all: 
-	echo This makefile did not clean the dir... good
-clean: 
-	\@rm $example
-_EOC_
-
-filters {
-    source     => [qw< expand >],
-    touch      => [qw< expand >],
-    found      => [qw< expand >],
-    not_found  => [qw< expand >],
-};
 
 run_tests;
 
 __DATA__
 
 === TEST #1: echo both the command and the string to be echoed
---- source:      $::source
---- touch:       $::example
+--- source
+
+all: 
+	echo This makefile did not clean the dir... good
+clean: 
+	@rm EXAMPLE_FILE
+
+--- touch:       EXAMPLE_FILE
 --- stdout
 echo This makefile did not clean the dir... good
 This makefile did not clean the dir... good
 --- stderr
 --- error_code
 0
---- found:       $::example
+--- found:       EXAMPLE_FILE
 
 
 
 === TEST #2: take action, no command echo
---- source:      $::source
---- touch:       $::example
+--- source ditto
+--- touch:       EXAMPLE_FILE
 --- goals:       clean
 --- stdout
 --- stderr
 --- error_code
 0
---- not_found:   $::example
+--- not_found:   EXAMPLE_FILE
 
 
 
 === TEST #3: no action taken, echo command only
---- source:      $::source
---- touch:       $::example
+--- source ditto
+--- touch:       EXAMPLE_FILE
 --- options:     -n
 --- goals:       clean
---- stdout expand
-rm $::example
+--- stdout
+rm EXAMPLE_FILE
 --- stderr
 --- error_code
 0
---- found:       $::example
+--- found:       EXAMPLE_FILE
 
 
 
 === TEST #4: quiet mode, only execute the echo command
---- source:      $::source
---- touch:       $::example
+--- source ditto
+--- touch:       EXAMPLE_FILE
 --- options:     -s
 --- stdout
 This makefile did not clean the dir... good
 --- stderr
 --- error_code
 0
---- found:       $::example
+--- found:       EXAMPLE_FILE
 

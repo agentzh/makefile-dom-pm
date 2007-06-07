@@ -12,6 +12,14 @@ use t::Gmake;
 plan tests => 3 * blocks;
 
 our $makefile = <<'_EOC_';
+_EOC_
+
+run_tests;
+
+__DATA__
+
+=== TEST 0: basics
+--- source
 
 FOO = foo
 BAR = bar
@@ -42,20 +50,12 @@ all:
 	@echo "FOO=$(FOO) BAR=$(BAR) BAZ=$(BAZ) BOZ=$(BOZ) BITZ=$(BITZ) BOTZ=$(BOTZ)"
 	@echo "FOO=$$FOO BAR=$$BAR BAZ=$$BAZ BOZ=$$BOZ BITZ=$$BITZ BOTZ=$$BOTZ"
 
-_EOC_
 
-run_tests;
-
-__DATA__
-
-=== TEST 0: basics
---- source expand:             $::makefile
 --- stdout
 FOO=foo BAR=bar BAZ=baz BOZ=boz BITZ=bitz BOTZ=botz
 FOO= BAR= BAZ=baz BOZ=boz BITZ=bitz BOTZ=
 --- stderr
---- error_code
-0
+--- error_code: 0
 
 
 
@@ -63,61 +63,56 @@ FOO= BAR= BAZ=baz BOZ=boz BITZ=bitz BOTZ=
 This test must be performed after TEST 3 and TEST 4, or the latters
 will fail on Cygwin.  -- agent
 --- pre:                       $::ExtraENV{FOO} = 1;
---- source expand:             $::makefile
+--- source ditto
 --- stdout
 FOO=foo BAR=bar BAZ=baz BOZ=boz BITZ=bitz BOTZ=botz
 FOO=foo BAR= BAZ=baz BOZ=boz BITZ=bitz BOTZ=
 --- stderr
---- error_code
-0
+--- error_code: 0
 
 
 
 === TEST 2: global export.  Explicit unexport takes precedence.
 --- options:                   EXPORT_ALL=1
---- source expand:             $::makefile
+--- source ditto
 --- stdout
 FOO=foo BAR=bar BAZ=baz BOZ=boz BITZ=bitz BOTZ=botz
 FOO=foo BAR=bar BAZ=baz BOZ=boz BITZ=bitz BOTZ=
 --- stderr
---- error_code
-0
+--- error_code: 0
 
 
 
 === TEST 3: global unexport.  Explicit export takes precedence.
 --- options:                   UNEXPORT_ALL=1
---- source expand:             $::makefile
+--- source ditto
 --- stdout
 FOO=foo BAR=bar BAZ=baz BOZ=boz BITZ=bitz BOTZ=botz
 FOO= BAR= BAZ=baz BOZ=boz BITZ=bitz BOTZ=
 --- stderr
---- error_code
-0
+--- error_code: 0
 
 
 
 === TEST 4: both: in the above makefile the unexport comes last so that rules.
 --- options:                   EXPORT_ALL=1 UNEXPORT_ALL=1
---- source expand:             $::makefile
+--- source ditto
 --- stdout
 FOO=foo BAR=bar BAZ=baz BOZ=boz BITZ=bitz BOTZ=botz
 FOO= BAR= BAZ=baz BOZ=boz BITZ=bitz BOTZ=
 --- stderr
---- error_code
-0
+--- error_code: 0
 
 
 
 === TEST 5: test the pseudo target.
 --- options:                   EXPORT_ALL_PSEUDO=1
---- source expand:             $::makefile
+--- source ditto
 --- stdout
 FOO=foo BAR=bar BAZ=baz BOZ=boz BITZ=bitz BOTZ=botz
 FOO=foo BAR=bar BAZ=baz BOZ=boz BITZ=bitz BOTZ=
 --- stderr
---- error_code
-0
+--- error_code: 0
 
 
 
@@ -144,8 +139,7 @@ all:
 foo=f-ok bar=b-ok
 foo=f-ok bar=b-ok
 --- stderr
---- error_code
-0
+--- error_code: 0
 
 
 
@@ -174,8 +168,7 @@ all:
 foo=f-ok bar=b-ok
 foo= bar=
 --- stderr
---- error_code
-0
+--- error_code: 0
 
 
 
@@ -203,8 +196,7 @@ all: ; @echo A=$$A B=$$B C=$$C D=$$D E=$$E F=$$F G=$$G H=$$H I=$$I J=$$J
 --- stdout
 A=a B=b C=c D=d E=e F=f G=g H=h I=i J=j
 --- stderr
---- error_code
-0
+--- error_code: 0
 
 
 
@@ -236,5 +228,5 @@ all: ; @echo A=$$A B=$$B C=$$C D=$$D E=$$E F=$$F G=$$G H=$$H I=$$I J=$$J
 --- stdout
 A= B= C= D= E= F= G= H= I= J=
 --- stderr
---- error_code
-0
+--- error_code: 0
+

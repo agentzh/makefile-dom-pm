@@ -40,12 +40,36 @@ d :: d ; @echo oops
 
 _EOC_
 
+use_source_ditto;
+
 run_tests;
 
 __DATA__
 
 === TEST 0: A simple double-colon rule that isn't the goal target.
---- source expand:    $::source
+--- source
+
+all: baz
+
+foo:: f1.h ; @echo foo FIRST
+foo:: f2.h ; @echo foo SECOND
+
+bar:: ; @echo aaa; sleep 1; echo aaa done
+bar:: ; @echo bbb
+
+baz:: ; @echo aaa
+baz:: ; @echo bbb
+
+biz:: ; @echo aaa
+biz:: two ; @echo bbb
+
+two: ; @echo two
+
+f1.h f2.h: ; @echo $@
+
+d :: ; @echo ok
+d :: d ; @echo oops
+
 --- goals:             all
 --- stdout
 aaa
@@ -57,7 +81,7 @@ bbb
 
 
 === TEST 1: As above, in parallel
---- source expand:     $::source
+--- source ditto
 --- options:           -j10
 --- goals:             all
 --- stdout
@@ -70,7 +94,7 @@ bbb
 
 
 === TEST 2: A simple double-colon rule that is the goal target
---- source expand:     $::source
+--- source ditto
 --- goals:             bar
 --- stdout
 aaa
@@ -83,7 +107,7 @@ bbb
 
 
 === TEST 3: As above, in parallel
---- source expand:     $::source
+--- source ditto
 --- options:           -j10
 --- goals:             bar
 --- stdout
@@ -97,7 +121,7 @@ bbb
 
 
 === TEST 4: Each double-colon rule is supposed to be run individually
---- source expand:     $::source
+--- source ditto
 --- utouch:            -5 f2.h
 --- touch:             foo
 --- goals: foo
@@ -111,7 +135,7 @@ foo FIRST
 
 
 === TEST 5: Again, in parallel.
---- source expand:     $::source
+--- source ditto
 --- options:           -j10
 --- utouch:            -5 f2.h
 --- touch:             foo
@@ -126,7 +150,7 @@ foo FIRST
 
 
 === TEST 6: Each double-colon rule is supposed to be run individually
---- source expand:     $::source
+--- source ditto
 --- utouch:            -5 f1.h
 --- touch:             foo
 --- goals:             foo
@@ -140,7 +164,7 @@ foo SECOND
 
 
 === TEST 7: Again, in parallel.
---- source expand:        $::source
+--- source ditto
 --- options:              -j10
 --- utouch:               -5 f1.h
 --- touch:                foo
@@ -155,7 +179,7 @@ foo SECOND
 
 
 === TEST 8: Test circular dependency check; PR/1671
---- source expand:        $::source
+--- source ditto
 --- goals:                d
 --- stdout
 ok
@@ -169,7 +193,7 @@ oops
 
 === TEST 8: I don't grok why this is different than the above, but it is...
 Hmm... further testing indicates this might be timing-dependent?
---- source expand:        $::source
+--- source ditto
 --- goals:                biz
 --- options:              -j10
 --- stdout

@@ -14,15 +14,15 @@ use Time::HiRes qw( time );
 #use Data::Dumper::Simple;
 
 our @EXPORT = qw(
-    run_test run_tests create_file
+    run_test run_tests create_file use_source_ditto
     $MAKE $PERL $SHELL
 );
 
 our @EXPORT_BASE = qw(set_make set_shell set_filters);
 
 our ($SHELL, $PERL, $MAKE, $MAKEPATH, $MAKEFILE, $PWD);
-our @MakeExe;
-our %Filters;
+our (@MakeExe, %Filters);
+our ($SourceDitto, $SavedSource);
 
 # default filters for expected values
 #filters {
@@ -68,6 +68,10 @@ BEGIN {
     filters_delay();
 }
 
+sub use_source_ditto () {
+    $SourceDitto = 1;
+}
+
 sub run_test ($) {
     my $block = shift;
 
@@ -96,6 +100,7 @@ sub run_test ($) {
         $MAKEFILE = $filename;
         $MAKEFILE =~ s,\\,/,g;
         $block->run_filters;
+        $SavedSource = $block->source;
         print $fh $block->source;
         close $fh;
     } else {
@@ -228,6 +233,10 @@ sub expand {
     my $s = shift;
     return if not $s;
     return eval(qq{"$s"});
+}
+
+sub ditto {
+    $SavedSource;
 }
 
 1;
