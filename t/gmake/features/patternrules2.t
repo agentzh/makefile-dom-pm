@@ -51,3 +51,34 @@ touch foo.c
 echo foo.c >foo.o
 --- stderr
 --- success:            true
+
+
+
+=== TEST 3:
+Implicit rules are applied in a reversed order if they have
+the same level of generality.
+--- source
+.PHONY: all
+all: foo.c foo.o
+
+%.h %.c: %.in
+	touch $*.h
+	touch $*.c
+
+%.o: %.c
+	echo $+ >$@
+
+%.o: %.c
+	@echo wrong rule
+
+foo.in:
+	touch $@
+
+--- stdout
+touch foo.in
+touch foo.h
+touch foo.c
+wrong rule
+--- stderr
+--- success:            true
+

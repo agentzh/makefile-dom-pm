@@ -81,3 +81,18 @@ hello
 --- stderr
 --- error_code: 0
 
+
+
+=== TEST 6: Simple implicit rule
+--- source
+all: foo.c
+
+%.c : %.in
+	touch $*.c
+
+foo.in: ; @:
+--- stdout
+touch foo.c
+--- stderr
+--- error_code: 0
+

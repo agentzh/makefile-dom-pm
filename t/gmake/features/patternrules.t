@@ -150,3 +150,4 @@ touch foo.c
 echo foo.c foo.h >foo.o
 --- stderr
 --- success:            true
+
