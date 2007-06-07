@@ -25,5 +25,5 @@ all:
 First comes the definition.
 Then comes the override.
 --- stderr
---- success:      true
+--- error_code: 0
 
