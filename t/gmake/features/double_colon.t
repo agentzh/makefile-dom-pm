@@ -201,5 +201,4 @@ one
 two
 --- stderr
 --- success:           true
---- SKIP
 

@@ -54,12 +54,12 @@ is used to make a.o."
 -2 a.o
 -1 a.c
 -3 b.h
--3 a.y
+-3 a.y1
 --- source
 a.o :: a.c b.h
 	@echo first
 
-a.o :: a.y b.h
+a.o :: a.y1 b.h
 	@echo second
 --- stdout
 first
@@ -139,5 +139,4 @@ one
 two
 --- stderr
 --- success:           true
---- SKIP
 
