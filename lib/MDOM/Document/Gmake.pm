@@ -154,15 +154,23 @@ sub _tokenize {
                 ### Slurping one more continued command line...
                 $tokens[-2]->add_content("\\\n");
                 pop @tokens;
-                $self->last_token->add_content(join '', @tokens);
-           } else {
+                for my $token (@tokens) {
+                    if ($token->class =~ /Interpolation/ or
+                            $self->last_token->class =~ /Interpolation/) {
+                        $self->last_token->parent->__add_element($token);
+                    } else {
+                        $self->last_token->add_content($token);
+                    }
+                }
+          } else {
                 ### Completing command slurping: @tokens
                 ### Switching back to context: _state_str($saved_context)
                 $context = RULE;
                 my $last = pop @tokens;
                 ### last_token: $self->last_token
                 for my $token (@tokens) {
-                    if ($token->class =~ /Interpolation/ or $self->last_token->class =~ /Interpolation/) {
+                    if ($token->class =~ /Interpolation/ or
+                            $self->last_token->class =~ /Interpolation/) {
                         $self->last_token->parent->__add_element($token);
                     } else {
                         $self->last_token->add_content($token);

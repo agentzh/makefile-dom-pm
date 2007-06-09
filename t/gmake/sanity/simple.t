@@ -96,3 +96,40 @@ touch foo.c
 --- stderr
 --- error_code: 0
 
+
+
+=== TEST 7: command modifier before AND after ref expansion
+--- source
+ECHO = @ echo 'hello'
+all: ; @ $(ECHO)
+--- stdout
+hello
+--- stderr
+--- error_code: 0
+
+
+
+=== TEST 8: no makefile
+--- stdout
+--- stderr preprocess
+#MAKE#: *** No targets specified and no makefile found.  Stop.
+--- error_code: 2
+
+
+
+=== TEST 9: interpolations in continued commands
+--- source
+FOO = foo
+BAR = bar
+BAZ = baz
+BIT = bit
+
+all:
+	@echo $(FOO) \
+   $(BAR) $(BAZ) \
+	$(BIT)
+--- stdout
+foo bar baz bit
+--- stderr
+--- error_code:  0
+

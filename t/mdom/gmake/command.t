@@ -274,7 +274,11 @@ MDOM::Document::Gmake
     MDOM::Token::Separator            '\t'
     MDOM::Token::Bare         'for d in '
     MDOM::Token::Interpolation        '$(source_dirs)'
-    MDOM::Token::Bare	'; \\n\tdo                       \\n\t\t$(JAVAC) $$d/*.java; \\n\tdone'
+    MDOM::Token::Bare	'; \\n\tdo                       \\n\t\t'
+    MDOM::Token::Interpolation          '$(JAVAC)'
+    MDOM::Token::Bare         ' '
+    MDOM::Token::Interpolation      '$$'
+    MDOM::Token::Bare           'd/*.java; \\n\tdone'
     MDOM::Token::Whitespace		'\n'
 
 
@@ -328,5 +332,30 @@ MDOM::Document::Gmake
     MDOM::Token::Separator            '\t'
     MDOM::Token::Bare               '\\n\techo '
     MDOM::Token::Interpolation        '$@'
+    MDOM::Token::Whitespace           '\n'
+
+
+
+=== TEST 13: ditto (with interpolations)
+--- src
+all:
+	@echo $(FOO) \
+   $(BAR) \
+	$(BIT)
+--- dom
+MDOM::Document::Gmake
+  MDOM::Rule::Simple
+    MDOM::Token::Bare         'all'
+    MDOM::Token::Separator            ':'
+    MDOM::Token::Whitespace           '\n'
+  MDOM::Command
+    MDOM::Token::Separator            '\t'
+    MDOM::Token::Modifier             '@'
+    MDOM::Token::Bare         'echo '
+    MDOM::Token::Interpolation                '$(FOO)'
+    MDOM::Token::Bare         ' \\n   '
+    MDOM::Token::Interpolation  '$(BAR)'
+    MDOM::Token::Bare           ' \\n\t'
+    MDOM::Token::Interpolation                '$(BIT)'
     MDOM::Token::Whitespace           '\n'
 
