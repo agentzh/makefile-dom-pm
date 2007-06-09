@@ -311,3 +311,22 @@ MDOM::Document::Gmake
     MDOM::Token::Bare         'exit 1'
     MDOM::Token::Whitespace           '\n'
 
+
+
+=== TEST 12: line continuations in commands
+--- src
+all:
+	\
+	echo $@
+--- dom
+MDOM::Document::Gmake
+  MDOM::Rule::Simple
+    MDOM::Token::Bare         'all'
+    MDOM::Token::Separator            ':'
+    MDOM::Token::Whitespace           '\n'
+  MDOM::Command
+    MDOM::Token::Separator            '\t'
+    MDOM::Token::Bare               '\\n\techo '
+    MDOM::Token::Interpolation        '$@'
+    MDOM::Token::Whitespace           '\n'
+

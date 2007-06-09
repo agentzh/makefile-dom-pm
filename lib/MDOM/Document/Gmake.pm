@@ -3,14 +3,15 @@ package MDOM::Document::Gmake;
 use strict;
 use warnings;
 
+#use Smart::Comments;
+#use Smart::Comments '###', '####';
+
 use Text::Balanced qw( gen_extract_tagged );
 use Makefile::DOM;
 #use Data::Dump::Streamer;
 use base 'MDOM::Node';
 use List::MoreUtils qw( before all any );
 use List::Util qw( first );
-#use Smart::Comments;
-#use Smart::Comments '###', '####';
 
 my %_map;
 BEGIN {
@@ -91,17 +92,23 @@ sub _tokenize {
                 ### Found a command in RULE context...
                 @tokens = _tokenize_command($_);
                 #warn "*@tokens*";
+                ### Tokens for the command: @tokens
                 unshift @tokens, MDOM::Token::Separator->new("\t");
                 if ($tokens[-1]->isa('MDOM::Token::Continuation')) {
                     ### Switching context to COMMAND...
                     $saved_context = $context;
                     $context = COMMAND;
-                    $tokens[-2]->add_content("\\\n");
                     pop @tokens;
+                    if ($tokens[-1]->class =~ /Bare$/) {
+                        $tokens[-1]->add_content("\\\n");
+                    } else {
+                        push @tokens, MDOM::Token::Bare->new("\\\n");
+                    }
                 }
                 my $cmd = MDOM::Command->new;
                 $cmd->__add_elements(@tokens);
                 $self->__add_element($cmd);
+                ### command (post): $cmd
                 next;
             } else {
                 @tokens = _tokenize_normal($_);
@@ -142,17 +149,25 @@ sub _tokenize {
            }
         } elsif ($context == COMMAND) {
             @tokens = _tokenize_command($_);
+            ### more tokens for the cmd: @tokens
             if ($tokens[-1]->isa('MDOM::Token::Continuation')) {
                 ### Slurping one more continued command line...
                 $tokens[-2]->add_content("\\\n");
                 pop @tokens;
                 $self->last_token->add_content(join '', @tokens);
            } else {
-                ### Completing command slurping...
+                ### Completing command slurping: @tokens
                 ### Switching back to context: _state_str($saved_context)
                 $context = RULE;
                 my $last = pop @tokens;
-                $self->last_token->add_content(join '', @tokens);
+                ### last_token: $self->last_token
+                for my $token (@tokens) {
+                    if ($token->class =~ /Interpolation/ or $self->last_token->class =~ /Interpolation/) {
+                        $self->last_token->parent->__add_element($token);
+                    } else {
+                        $self->last_token->add_content($token);
+                    }
+                }
                 $self->last_token->parent->__add_element($last);
             }
         } elsif ($context == UNKNOWN) {

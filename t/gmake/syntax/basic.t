@@ -28,8 +28,7 @@ c:; echo  'hello!'
 --- stdout
 --- stderr_like
 .*?commands commence before first target.*?
---- error_code
-512
+--- error_code: 2
 
 
 
@@ -85,8 +84,7 @@ a: \#b
 --- stdout
 --- stderr preprocess
 #MAKE#: *** No rule to make target `#b', needed by `a'.  Stop.
---- error_code
-512
+--- error_code: 2
 
 
 
@@ -99,8 +97,7 @@ a: \3b
 --- stdout
 --- stderr preprocess
 #MAKE#: *** No rule to make target `\3b', needed by `a'.  Stop.
---- error_code
-512
+--- error_code:  2
 
 
 
@@ -128,6 +125,27 @@ a
 
 
 === TEST 9: line continuation
+s/\techo/    echo/ won't work for pgmake-db
+--- source
+a: \
+	b; \
+	echo $@
+
+b: ; echo $@
+
+--- stdout
+echo b
+b
+\
+	echo a
+a
+--- stderr
+--- error_code: 0
+
+
+
+=== TEST 10: line continuation
+s/\techo/    echo/ won't work for pgmake-db
 --- source
 a: \
 	b; \
@@ -142,12 +160,12 @@ b
     echo a
 a
 --- stderr
---- error_code
-0
+--- error_code: 0
+--- SKIP
 
 
 
-=== TEST 10: variables with a single character name:
+=== TEST 11: variables with a single character name:
 --- source
 a = foo
 all: ; echo $a
@@ -160,7 +178,7 @@ foo
 
 
 
-=== TEST 11: escaped $
+=== TEST 12: escaped $
 --- source
 a = foo
 all: ; echo \$a
@@ -173,7 +191,7 @@ foo
 
 
 
-=== TEST 12: unescaped '#'
+=== TEST 13: unescaped '#'
 --- source
 
 all: foo\\# hello
@@ -188,7 +206,7 @@ foo\
 
 
 
-=== TEST 13: when no space between words and '#'
+=== TEST 14: when no space between words and '#'
 --- source
 
 \#a: foo#hello
@@ -204,7 +222,7 @@ foo
 
 
 
-=== TEST 14: comment indented with tabs
+=== TEST 15: comment indented with tabs
 --- source
 	# blah
 a: ; echo hi
@@ -217,7 +235,7 @@ hi
 
 
 
-=== TEST 15: multi-line comment indented with tabs
+=== TEST 16: multi-line comment indented with tabs
 --- source
 	# blah \
 hello!\
@@ -232,7 +250,7 @@ hi
 
 
 
-=== TEST 16: dynamics of rules
+=== TEST 17: dynamics of rules
 --- source
 foo = : b
 a $(foo)
@@ -249,23 +267,23 @@ a
 
 
 
-=== TEST 17: disabled suffix rules
+=== TEST 18: disabled suffix rules
 --- source
 .SUFFIXES:
 
 all: .c.o
 .c.o:
-	echo "hello $<!"
+	echo 'hello $<!'
 --- stdout
-echo "hello !"
+echo 'hello !'
 hello !
 --- stderr
---- error_code
-0
+--- error_code:  0
+--- SKIP
 
 
 
-=== TEST 18: static pattern rules with ";" command
+=== TEST 19: static pattern rules with ";" command
 --- source
 
 foo.o bar.o: %.o: %.c ; echo blah
@@ -283,7 +301,7 @@ blah
 
 
 
-=== TEST 19: var assignment changed the "rule context" to VOID
+=== TEST 20: var assignment changed the "rule context" to VOID
 --- source
 
 a: b
@@ -293,12 +311,11 @@ foo = bar
 --- stdout
 --- stderr preprocess
 #MAKEFILE#:3: *** commands commence before first target.  Stop.
---- error_code
-512
+--- error_code:  2
 
 
 
-=== TEST 20: whitespace before command modifier
+=== TEST 21: whitespace before command modifier
 --- source
 
 all:
@@ -312,7 +329,7 @@ all
 
 
 
-=== TEST 21: multi-word define directive
+=== TEST 22: multi-word define directive
 --- source
 
 define a b
@@ -331,7 +348,7 @@ foo
 
 
 
-=== TEST 22: odd define directive
+=== TEST 23: odd define directive
 --- source
 
 define a = 3
@@ -350,7 +367,7 @@ foo
 
 
 
-=== TEST 23: define directive with a preceding tab
+=== TEST 24: define directive with a preceding tab
 --- source
 
 	define a
@@ -369,7 +386,7 @@ foo
 
 
 
-=== TEST 24: variable assignment with a preceding tab
+=== TEST 25: variable assignment with a preceding tab
 --- source
 
 	a = foo

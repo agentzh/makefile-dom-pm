@@ -47,7 +47,7 @@ two.x: foo four baz
 three.x: foo four three
 --- stderr
 --- success:            true
-
+--- ONLY
 
 
 === TEST #2 -- try the override feature

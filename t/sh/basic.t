@@ -1,6 +1,5 @@
 #: basic.t
 #: test the very basic syntax of `sh'
-#: 2006-02-02 2006-02-03
 
 use t::Shell;
 

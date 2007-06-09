@@ -23,12 +23,12 @@ run {
         "targets calar okay - $name";
 
     ok $rule, "Assignment obj okay - $name";
-    my @got_prereqs = $rule->prereqs;
+    my @got_prereqs = $rule->normal_prereqs;
     my @expected_prereqs = eval $block->prereqs;
     die "eval prereqs failed ($name) - $@" if $@;
     is fmt(@got_prereqs), fmt(@expected_prereqs), "prereqs array okay - $name";
     is
-        join('', @{ scalar($rule->prereqs) }),
+        join('', @{ scalar($rule->normal_prereqs) }),
         join('', @expected_prereqs),
         "prereqs calar okay - $name";
 
