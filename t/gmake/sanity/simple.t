@@ -133,3 +133,37 @@ foo bar baz bit
 --- stderr
 --- error_code:  0
 
+
+
+=== TEST 10: break lines
+http://www.mail-archive.com/bug-make@gnu.org/msg04658.html
+--- source
+
+A=this is long line 1 that I would li\
+ke to break
+B=this is long line 2 that I would li$(\
+)ke to break
+
+g:
+	@echo $A
+	@echo $B
+
+--- stdout
+this is long line 1 that I would li ke to break
+this is long line 2 that I would like to break
+--- stderr
+--- error_code: 0
+
+
+
+=== TEST 11: $()
+--- source
+
+g:
+	@echo '$() got'
+
+--- stdout
+ got
+--- stderr
+--- error_code: 0
+

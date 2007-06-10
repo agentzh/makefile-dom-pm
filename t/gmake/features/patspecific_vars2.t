@@ -214,7 +214,7 @@ foo
 end
 --- stderr
 --- error_code:  0
---- ONLY
+
 
 
 === TEST 15: ?=
