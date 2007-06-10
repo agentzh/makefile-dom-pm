@@ -6,7 +6,5 @@ then
     exit 1
 fi
 rm t/gmake/mech/$1/*.t
-script/p4_to_t.pl -o t/gmake/mech/$1 ../make/tests/scripts/$1/*
-fjoin -o $1.txt t/gmake/mech/$1/*.t
-./test-make mech/$1
+script/p4_to_t.pl -o t/gmake/mech/$1 ../make/tests/scripts/$1/* && fjoin -o $1.txt t/gmake/mech/$1/*.t > /dev/null 2>&1 && ./test-make mech/$1
 

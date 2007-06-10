@@ -52,10 +52,17 @@ for my $infile (@files) {
     my $body = process_comments($p4, \@matched);
     my $pattern = <<'_EOC_';
 if\s+\(((?:!\s*)?-[a-z])\s+(\S+)\)\s+\{
-  \$test_passed = (\d+);
+\s+\$test_passed = (\d+);
 \}
 _EOC_
     my $count = $body =~ s/$pattern/\&X::file_test('$1', $2, $3);\n/g;
+
+    $pattern = <<'_EOC_';
+if \(\(-f (\S+)\)\|\|\(-f (\S+)\)\|\|\(-f (\S+)\)\|\|\(-f (\S+)\)\) \{
+\s+\$test_passed = 0;
+\}
+_EOC_
+    $count += 4 * ($body =~ s/$pattern/\&X::file_test('-f', $1, 0);\n\&X::file_test('-f', $2, 0);\n&X::file_test('-f', $3, 0);\n&X::file_test('-f', $4, 0);\n/g);
     if ($body =~ /\$test_passed\b/) {
         warn "WARNING: \$test_passed involved...\n";
     }
