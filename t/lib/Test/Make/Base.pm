@@ -15,7 +15,7 @@ use Time::HiRes qw( time );
 
 our @EXPORT = qw(
     run_test run_tests create_file use_source_ditto
-    $MAKE $PERL $SHELL
+    $MAKE $PERL $SHELL $PWD
 );
 
 our @EXPORT_BASE = qw(set_make set_shell set_filters);
@@ -189,7 +189,7 @@ sub run_make($$) {
     if ($filename and $options !~ /-f\s+\S+/) {
         push @pre, '-f', $filename;
     }
-    if ($SHELL and $options !~ m/SHELL\s*=\s*/) {
+    if ($SHELL and $options !~ m/SHELL\s*=\s*/ and $^O eq 'MSWin32') {
         push @post, "SHELL=$SHELL";
     }
     my $cmd = [

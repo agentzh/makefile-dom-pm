@@ -133,9 +133,12 @@ sub comment ($) {
 package main;
 
 #use Smart::Comments;
-use subs qw(unlink);
+use subs qw(unlink cwd);
+use Test::MockClass qw(Cwd);
 
 my $makefile = 'test.mk';
+my $mkpath = '#MAKE#';
+my $make_path = 'make';
 my $workdir = '.';
 my $pathsep = '/';
 my $description = '';
@@ -149,6 +152,7 @@ my $parallel_jobs = 1;
 my $make_name = '#MAKE#';
 my $port_type = ($^O eq 'MSWin32' || $^O eq 'Cygwin') ? 'MSWin32' : 'UNIX';
 my %extraENV = ();
+my $pwd = '#PWD#';
 
 # local vars used by the test scripts
 my (@touchedfiles, $VP, $cleanit_error, $delete_error_code);
@@ -156,6 +160,11 @@ $delete_error_code = 2;
 
 my $test_passed;
 my $vos = 0;
+
+sub cwd {
+    #die "Called!";
+    "#PWD#";
+}
 
 sub resetENV () {
     %extraENV = ();
@@ -302,6 +311,8 @@ END {
         # --- options
         # --- goals
         my $options = $block->{options};
+        #die $options if $options =~ /other/;
+        $options =~ s/\\(.)/$1/g;
         if (defined $options and $options ne '') {
             $options =~ s/^\s+|\s+$//g;
             if ($options =~ /(?:\w+|\S+=\S+|-[\w-]+|\s+)+/) {
@@ -313,7 +324,11 @@ END {
                 }
             }
             $options =~ s/\n+/ /;
-            $str .= "--- options:  $options\n"
+            my $opt = '';
+            if ($options =~ /#[A-Z]+#/) {
+                $opt = ' preprocess';
+            }
+            $str .= "--- options$opt:  $options\n"
                 if $options !~ /^\s*$/;
         }
 

@@ -8,7 +8,7 @@ use FindBin;
 my $UTIL_PATH = File::Spec->catdir($FindBin::Bin, '../../../script');
 my $MAIN_PATH = File::Spec->catdir($FindBin::Bin, '../../../script');
 my $sh_vm  = $PERL . ' ' . File::Spec->catfile($UTIL_PATH, 'sh');
-$sh_vm = 'sh';
+$sh_vm = $^O eq 'MSWin32' ? 'sh' : '/bin/sh';
 my $pgmake = $PERL . ' ' . File::Spec->catfile($MAIN_PATH, 'pgmake');
 $pgmake = 'make';
 
