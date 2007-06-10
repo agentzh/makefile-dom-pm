@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+p=./test-pgmake-db
+if [ $# -ne 0 ]
+then
+    files=sanity/*.t
+fi
+$p syntax/*.t "$files" features/[cdimoq][^x]*.t features/e[^x]*.t features/patternrules*.t features/patspecific_vars2.t
+

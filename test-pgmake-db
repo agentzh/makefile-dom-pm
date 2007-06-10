@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+ulimit -v 500000
+files=`perl -e 'print join " ", map { "t/gmake/$_" } @ARGV' $@`
+GNU_MAKE_PATH=pgmake-db prove -r $files
+

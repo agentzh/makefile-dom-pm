@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+GNU_MAKE_PATH='make' prove t/gmake/$1
+
