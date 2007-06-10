@@ -43,7 +43,7 @@ for my $infile (@files) {
         if ($elem->class =~ /Comment$/) {
             chomp($content);
             next if (any { $_ eq $content } @dummy_comments) or
-                $content =~ /^#\s+-\*-perl-\*-\s*$/ or
+                $content =~ /-\*-perl-\*-/i or
                 $content =~ /^\s*#\s*$/ or
                 $content =~ /^\s*#\s*-+\s*$/;
             push @matched, $content;
@@ -128,9 +128,9 @@ package main;
 #use Smart::Comments;
 use subs qw(unlink);
 
-my $makefile = 'Makefile';
+my $makefile = 'test.mk';
 my $workdir = '.';
-my $pathsep = ':';
+my $pathsep = '/';
 my $description = '';
 my $details = '';
 my ($answer, $example);
@@ -141,6 +141,7 @@ my $has_POSIX = eval { require "POSIX.pm" };
 my $parallel_jobs = 1;
 my $make_name = '#MAKE#';
 my $port_type = ($^O eq 'MSWin32' || $^O eq 'Cygwin') ? 'MSWin32' : 'UNIX';
+my %extraENV = ();
 
 # local vars used by the test scripts
 my (@touchedfiles, $VP, $cleanit_error, $delete_error_code);
@@ -148,6 +149,10 @@ $delete_error_code = 2;
 
 my $test_passed;
 my $vos = 0;
+
+sub resetENV () {
+    %extraENV = ();
+}
 
 sub get_tmpfile {
     "Makefile".$X::count++;
@@ -186,6 +191,8 @@ sub run_make_with_options ($$$$) {
     shift;
     $X::block->{error_code} = shift;
     $X::block->{source} = X::read_file($infile) if $infile;
+    $X::block->{utouch} = {%X::utouch};
+    $X::block->{env} = {%extraENV};
 }
 
 sub compare_output ($$) {
@@ -195,14 +202,18 @@ sub compare_output ($$) {
 }
 
 sub run_make_test ($$$@) {
-    $X::block->{source} = shift;
+    my $source = shift;
+    if (!defined $source) {
+        $source = $X::prev_src;
+    } else {
+        $X::prev_src = $source;
+    }
+    $X::block->{source} = $source;
     $X::block->{options} = shift;
     $X::block->{stdout} = shift;
-    my $exit_code = shift;
-    if (defined $exit_code) {
-        $exit_code >>= 8;
-    }
-    $X::block->{error_code} = $exit_code;
+    $X::block->{error_code} = shift;
+    $X::block->{utouch} = {%X::utouch};
+    $X::block->{env} = {%extraENV};
     push @X::blocks, $X::block;
     $X::block = {};
 }
@@ -215,17 +226,27 @@ END {
     my @groups;
     my $i;
     my $prev_source;
+    my $leading_empty_lines;
     for my $block (@blocks) {
         $i++;
+
+        # === TEST $name
+        # $description
         my $str = "=== " . ($block->{name} || "TEST $i:") . "\n";
         $str .= $block->{description} . "\n"
             if $block->{description};
+
+        # --- source
         my $source = $block->{source};
         if (defined $source) {
             if (defined $prev_source and $source eq $prev_source) {
                 $use_ditto = "\nuse_source_ditto;\n";
                 $str .= "--- source ditto\n";
             } else {
+                if ($source =~ /^\n+/s) {
+                    $leading_empty_lines = length($&);
+                    #die "LEADING: $leading_empty_lines";
+                }
                 my $opt = '';
                 if ($source =~ /#[A-Z]+#/) {
                     $opt = ' preprocess';
@@ -234,8 +255,28 @@ END {
             }
         }
         $prev_source = $source;
+
+        # --- pre:  $ExtraENV{$var} = $value
+        my %env = %{ $block->{env} };
+        if (%env) {
+            my @ln;
+            while (my ($k, $v) = each %env) {
+                $k =~ s/"/\\"/g;
+                $v =~ s/"/\\"/g;
+                push @ln, qq[\$::ExtraENV{"$k"} = "$v"];
+            }
+            if (@ln > 1) {
+                $str .= "\n--- pre\n" . join(";\n", @ln) . ";\n";
+            } else {
+                $str .= "\n--- pre:  @ln;\n";
+            }
+        }
+
+        # --- touch
+        # --- utouch
         my (@touch, @utouch);
-        while (my ($file, $time) = each %X::utouch) {
+        my %utouch = %{ $block->{utouch} };
+        while (my ($file, $time) = each %utouch) {
             if ($time == 0) {
                 push @touch, $file;
             } else {
@@ -250,6 +291,9 @@ END {
         } elsif (@utouch > 1) {
             $str .= "--- utouch\n" . join("\n", @utouch) . "\n";
         }
+
+        # --- options
+        # --- goals
         my $options = $block->{options};
         if (defined $options and $options ne '') {
             $options =~ s/^\s+|\s+$//g;
@@ -262,24 +306,40 @@ END {
                 }
             }
             $options =~ s/\n+/ /;
-            $str .= "--- options:  $options\n";
+            $str .= "--- options:  $options\n"
+                if $options !~ /^\s*$/;
         }
+
+        # --- stdout
         my $stdout = $block->{stdout};
         my $stderr;
         $stdout =~
-            s{^[^\n]*?(?:Error \d+|No such file or directory)[^\n]*\n?}
+            s{^[^\n]*?(?:Error \d+|No such file or directory|  Stop\.|warning)[^\n]*\n?}
             {$stderr .= $&; ''}emsg;
-        if (defined $stdout and $stdout ne '') {
+        if (defined $stdout) {
             my $opt = '';
             if ($stdout =~ /#[A-Z]+#/) {
                 $opt = ' preprocess';
             }
-            $str .= "--- stdout$opt\n$stdout\n";
+            if ($stdout =~ /^\s+$/s) {
+                $stdout =~ s/\n/\\n/g;
+                $str .= qq{--- stdout eval:  "$stdout"\n};
+            } else {
+                $str .= "--- stdout$opt\n$stdout\n";
+            }
         } else {
             $str .= "--- stdout\n";
         }
+
+        # --- stderr
         #$stderr = $block->{stderr};
         if (defined $stderr and $stderr ne '') {
+            if ($leading_empty_lines) {
+                $stderr =~ s/^(#MAKEFILE#:)(\d): /
+                        my $n = $2 - $leading_empty_lines;
+                        $n = 1 if $n < 1;
+                        $1 . $n . ": "/esmg;
+            }
             my $opt = '';
             if ($stderr =~ /#[A-Z]+#/) {
                 $opt = ' preprocess';
@@ -288,25 +348,33 @@ END {
         } else {
             $str .= "--- stderr\n";
         }
+
+        # --- error_code
         my $error_code = $block->{error_code};
         if (defined $error_code) {
+            $error_code >>= 8;
             $str .= "--- error_code:  $error_code\n";
         } else {
             $extra_tests--;
         }
+
+        # --- not_found
         my $not_found = $block->{not_found};
         if (defined $not_found and $not_found !~ /^\s*$/) {
             $str .= "--- not_found: $not_found\n";
         }
+
+        # --- found
         my $found = $block->{found};
         if (defined $found and $found !~ /^\s*$/) {
             $str .= "--- found: $found\n";
         }
 
+        # --- filename
         my $filename = $block->{filename};
         #die $filename;
         if (defined $filename && index($str, $filename) >= 0) {
-            $str = "--- filename:  $filename\n$str";
+            $str =~ s/^--- /--- filename:  $filename\n--- /ms;
         }
         push @groups, $str;
     }
