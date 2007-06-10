@@ -171,7 +171,7 @@ sub resetENV () {
 }
 
 sub get_tmpfile {
-    "Makefile".$X::count++;
+    $makefile
 }
 
 sub unlink {
