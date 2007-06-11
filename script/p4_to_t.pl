@@ -185,7 +185,11 @@ sub unlink {
 
 sub rmfiles {
     for my $file (@_) {
-        delete $utouch{$file};
+        if (!exists $utouch{$file}) {
+            warn "WARNING: removing file $file which is not touched before\n";
+        } else {
+            delete $utouch{$file};
+        }
     }
 }
 
