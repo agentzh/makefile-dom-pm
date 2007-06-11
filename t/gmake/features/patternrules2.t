@@ -82,3 +82,22 @@ wrong rule
 --- stderr
 --- success:            true
 
+
+
+=== TEST 4:
+--- source
+all: foo.x bar.w
+
+%.x: %.h
+	touch $@
+
+%.w: %.hpp ; echo $<
+
+--- touch: foo.h bar.hpp
+--- stdout
+touch foo.x
+echo bar.hpp
+bar.hpp
+--- stderr
+--- error_code:  0
+
