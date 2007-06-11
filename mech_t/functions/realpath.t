@@ -63,7 +63,6 @@ endif
 all: ; @:
 
 --- stdout
-
 --- stderr
 --- error_code:  0
 
@@ -90,7 +89,6 @@ endif
 .PHONY: all
 all: ; @:
 --- stdout
-
 --- stderr
 --- error_code:  0
 

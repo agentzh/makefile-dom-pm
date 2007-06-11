@@ -80,7 +80,6 @@ later foo bar
 --- source ditto
 --- options:  BOGUS=true
 --- stdout
-
 --- stderr
 test.mk:24: *** empty variable name.  Stop.
 

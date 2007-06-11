@@ -183,7 +183,6 @@ deps: ; $(eval deps: foo)
 
 --- pre:  $::ExtraENV{'EVAR'} = '1';
 --- stdout
-
 --- stderr preprocess
 #MAKEFILE#:1: *** prerequisites cannot be defined in command scripts.  Stop.
 --- error_code:  2

@@ -55,7 +55,6 @@ see one during the makefile run phase).
 error: foo.mk ; @echo $@
 
 --- stdout
-
 --- stderr preprocess
 #MAKE#: *** No rule to make target `foo.mk', needed by `error'.  Stop.
 
@@ -95,7 +94,6 @@ all: ; @:
 foo: bar; @:
 
 --- stdout
-
 --- stderr
 --- error_code:  0
 
@@ -117,7 +115,6 @@ foo: bar; @:
 bar:; @exit 1
 
 --- stdout
-
 --- stderr
 --- error_code:  0
 
@@ -135,7 +132,6 @@ include
 -include
 sinclude
 --- stdout
-
 --- stderr
 --- error_code:  0
 

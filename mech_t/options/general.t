@@ -25,7 +25,6 @@ foo 1foo: ; @echo $@
 
 --- options:  -j1foo 2>/dev/null
 --- stdout
-
 --- stderr
 --- error_code:  2
 

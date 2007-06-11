@@ -27,7 +27,6 @@ y = $x
 all: ; @echo $y
 
 --- stdout
-
 --- stderr preprocess
 #MAKEFILE#:2: *** unterminated variable reference.  Stop.
 --- error_code:  2
@@ -40,7 +39,6 @@ Bogus variable value passed on the command line.
 --- source ditto
 --- options:  x=$(other
 --- stdout
-
 --- stderr preprocess
 #MAKEFILE#:3: *** unterminated variable reference.  Stop.
 --- error_code:  2
@@ -61,7 +59,6 @@ z := $y
 all: ; @echo $y
 
 --- stdout
-
 --- stderr preprocess
 #MAKEFILE#:2: *** unterminated variable reference.  Stop.
 --- error_code:  2
@@ -74,7 +71,6 @@ Bogus variable value passed on the command line.
 --- source ditto
 --- options:  x=$(other
 --- stdout
-
 --- stderr preprocess
 #MAKEFILE#:3: *** unterminated variable reference.  Stop.
 --- error_code:  2

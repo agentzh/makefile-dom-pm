@@ -43,7 +43,6 @@ testvar: ; @: $(err)
 
 --- options:  ERROR1=yes
 --- stdout
-
 --- stderr
 test.mk:4: *** error is yes.  Stop.
 
@@ -56,7 +55,6 @@ test.mk:4: *** error is yes.  Stop.
 --- source ditto
 --- options:  ERROR2=no
 --- stdout
-
 --- stderr
 test.mk:8: *** error is no.  Stop.
 
@@ -97,7 +95,6 @@ test.mk:16: *** error is definitely.  Stop.
 --- source ditto
 --- goals:  testvar
 --- stdout
-
 --- stderr
 test.mk:22: *** Error found!.  Stop.
 

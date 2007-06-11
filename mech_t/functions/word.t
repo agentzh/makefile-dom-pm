@@ -72,7 +72,6 @@ wordlist-e2: ; @echo $(wordlist abc ,,$(FOO))
 wordlist-e3: ; @echo $(wordlist 1, 12a ,$(FOO))
 --- options:  word-e1
 --- stdout
-
 --- stderr preprocess
 #MAKEFILE#:3: *** non-numeric first argument to `word' function: ''.  Stop.
 --- error_code:  2
@@ -83,7 +82,6 @@ wordlist-e3: ; @echo $(wordlist 1, 12a ,$(FOO))
 --- source ditto
 --- options:  word-e2
 --- stdout
-
 --- stderr preprocess
 #MAKEFILE#:4: *** non-numeric first argument to `word' function: 'abc '.  Stop.
 --- error_code:  2
@@ -94,7 +92,6 @@ wordlist-e3: ; @echo $(wordlist 1, 12a ,$(FOO))
 --- source ditto
 --- options:  word-e3
 --- stdout
-
 --- stderr preprocess
 #MAKEFILE#:5: *** non-numeric first argument to `word' function: '1a'.  Stop.
 --- error_code:  2
@@ -105,7 +102,6 @@ wordlist-e3: ; @echo $(wordlist 1, 12a ,$(FOO))
 --- source ditto
 --- options:  wordlist-e1
 --- stdout
-
 --- stderr preprocess
 #MAKEFILE#:7: *** non-numeric first argument to `wordlist' function: ''.  Stop.
 --- error_code:  2
@@ -116,7 +112,6 @@ wordlist-e3: ; @echo $(wordlist 1, 12a ,$(FOO))
 --- source ditto
 --- options:  wordlist-e2
 --- stdout
-
 --- stderr preprocess
 #MAKEFILE#:8: *** non-numeric first argument to `wordlist' function: 'abc '.  Stop.
 --- error_code:  2
@@ -127,7 +122,6 @@ wordlist-e3: ; @echo $(wordlist 1, 12a ,$(FOO))
 --- source ditto
 --- options:  wordlist-e3
 --- stdout
-
 --- stderr preprocess
 #MAKEFILE#:9: *** non-numeric second argument to `wordlist' function: ' 12a '.  Stop.
 --- error_code:  2
@@ -147,7 +141,6 @@ word-e: ; @echo $(W)
 wordlist-e: ; @echo $(WL)
 --- options:  word-e x=
 --- stdout
-
 --- stderr preprocess
 #MAKEFILE#:3: *** non-numeric first argument to `word' function: ''.  Stop.
 --- error_code:  2
@@ -158,7 +151,6 @@ wordlist-e: ; @echo $(WL)
 --- source ditto
 --- options:  word-e x=abc
 --- stdout
-
 --- stderr preprocess
 #MAKEFILE#:3: *** non-numeric first argument to `word' function: 'abc'.  Stop.
 --- error_code:  2
@@ -169,7 +161,6 @@ wordlist-e: ; @echo $(WL)
 --- source ditto
 --- options:  word-e x=0
 --- stdout
-
 --- stderr preprocess
 #MAKEFILE#:3: *** first argument to `word' function must be greater than 0.  Stop.
 --- error_code:  2
@@ -180,7 +171,6 @@ wordlist-e: ; @echo $(WL)
 --- source ditto
 --- options:  wordlist-e s= e=
 --- stdout
-
 --- stderr preprocess
 #MAKEFILE#:4: *** non-numeric first argument to `wordlist' function: ''.  Stop.
 --- error_code:  2
@@ -191,7 +181,6 @@ wordlist-e: ; @echo $(WL)
 --- source ditto
 --- options:  wordlist-e s=abc e=
 --- stdout
-
 --- stderr preprocess
 #MAKEFILE#:4: *** non-numeric first argument to `wordlist' function: 'abc'.  Stop.
 --- error_code:  2
@@ -202,7 +191,6 @@ wordlist-e: ; @echo $(WL)
 --- source ditto
 --- options:  wordlist-e s=4 e=12a
 --- stdout
-
 --- stderr preprocess
 #MAKEFILE#:4: *** non-numeric second argument to `wordlist' function: '12a'.  Stop.
 --- error_code:  2
@@ -213,7 +201,6 @@ wordlist-e: ; @echo $(WL)
 --- source ditto
 --- options:  wordlist-e s=0 e=12
 --- stdout
-
 --- stderr preprocess
 #MAKEFILE#:4: *** invalid first argument to `wordlist' function: `0'.  Stop.
 --- error_code:  2

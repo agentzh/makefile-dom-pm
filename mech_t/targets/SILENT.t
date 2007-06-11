@@ -25,7 +25,6 @@ clean:
 --- touch:  EXAMPLE_FILE
 --- goals:  clean
 --- stdout
-
 --- stderr
 --- error_code:  0
 --- not_found:  EXAMPLE_FILE

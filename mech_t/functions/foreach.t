@@ -78,7 +78,6 @@ y = $x
 
 all: ; @echo $y
 --- stdout
-
 --- stderr preprocess
 #MAKEFILE#:1: *** insufficient number of arguments (1) to function `foreach'.  Stop.
 --- error_code:  2
@@ -93,7 +92,6 @@ y := $x
 
 all: ; @echo $y
 --- stdout
-
 --- stderr preprocess
 #MAKEFILE#:1: *** insufficient number of arguments (1) to function `foreach'.  Stop.
 --- error_code:  2

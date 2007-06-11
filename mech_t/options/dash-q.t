@@ -36,7 +36,6 @@ seven: ; \
 --- goals:  one
 --- options:  -q
 --- stdout
-
 --- stderr
 --- error_code:  0
 
@@ -47,7 +46,6 @@ seven: ; \
 --- goals:  two
 --- options:  -q
 --- stdout
-
 --- stderr
 --- error_code:  0
 
@@ -58,7 +56,6 @@ seven: ; \
 --- goals:  three
 --- options:  -q
 --- stdout
-
 --- stderr
 --- error_code:  1
 
@@ -69,7 +66,6 @@ seven: ; \
 --- goals:  four
 --- options:  -q
 --- stdout
-
 --- stderr
 --- error_code:  0
 
@@ -80,7 +76,6 @@ seven: ; \
 --- goals:  five
 --- options:  -q
 --- stdout
-
 --- stderr
 --- error_code:  0
 
@@ -91,7 +86,6 @@ seven: ; \
 --- goals:  six
 --- options:  -q
 --- stdout
-
 --- stderr
 --- error_code:  0
 
@@ -102,7 +96,6 @@ seven: ; \
 --- goals:  seven
 --- options:  -q
 --- stdout
-
 --- stderr
 --- error_code:  1
 
@@ -116,7 +109,6 @@ one:: ; @echo two
 
 --- options:  -q
 --- stdout
-
 --- stderr
 --- error_code:  1
 

@@ -100,7 +100,6 @@ foo.bar:: %.bar: %.baz
 foo.baz: ;@:
 
 --- stdout
-
 --- stderr
 --- error_code:  0
 

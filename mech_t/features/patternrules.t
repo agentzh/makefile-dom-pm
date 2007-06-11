@@ -45,7 +45,6 @@ a: void
 3.implicit-phony:
 
 --- stdout
-
 --- stderr
 --- error_code:  0
 
@@ -125,7 +124,6 @@ $(dir)/foo.bar:
 
 --- options preprocess:  dir=#PWD#
 --- stdout
-
 --- stderr preprocess
 #MAKE#: *** [#PWD#/foo.bar] Error 1
 --- error_code:  2

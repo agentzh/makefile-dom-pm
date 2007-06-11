@@ -351,7 +351,7 @@ END {
         $stdout =~
             s{^[^\n]*?(?:Error \d+|No such file or directory|  Stop\.|warning)[^\n]*\n?}
             {$stderr .= $&; ''}emsg;
-        if (defined $stdout) {
+        if (defined $stdout and $stdout ne '') {
             my $opt = '';
             if ($stdout =~ /#[A-Z]+#/) {
                 $opt = ' preprocess';

@@ -37,7 +37,6 @@ $(objects) : config.h $(extradeps)
 --- touch:  config.h defs.h test.h
 --- options:  extradeps=extra.h
 --- stdout
-
 --- stderr preprocess
 #MAKE#: *** No rule to make target `extra.h', needed by `foo.o'.  Stop.
 

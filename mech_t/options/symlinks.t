@@ -113,7 +113,6 @@ make targ from sym
 === TEST 9:
 --- source ditto
 --- stdout
-
 --- stderr preprocess
 #MAKE#: *** No rule to make target `sym', needed by `targ'.  Stop.
 --- error_code:  2

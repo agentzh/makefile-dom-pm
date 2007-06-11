@@ -53,7 +53,6 @@ baz
 .DEFAULT_GOAL = foo
 
 --- stdout
-
 --- stderr preprocess
 #MAKE#: *** No rule to make target `foo'.  Stop.
 --- error_code:  2
@@ -66,7 +65,6 @@ baz
 .DEFAULT_GOAL := foo bar
 
 --- stdout
-
 --- stderr preprocess
 #MAKE#: *** .DEFAULT_GOAL contains more than one target.  Stop.
 --- error_code:  2

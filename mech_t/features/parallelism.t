@@ -177,7 +177,6 @@ mod_a.o mod_b.o:
 
 --- options:  -j2
 --- stdout
-
 --- stderr
 --- error_code:  0
 

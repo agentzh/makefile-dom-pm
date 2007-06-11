@@ -85,7 +85,6 @@ endif
 all: ; @:
 
 --- stdout
-
 --- stderr
 --- error_code:  0
 

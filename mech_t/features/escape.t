@@ -37,7 +37,6 @@ touch (foo)
 --- source ditto
 --- options:  path=pre:
 --- stdout
-
 --- stderr preprocess
 #MAKEFILE#:1: *** target pattern contains no `%'.  Stop.
 --- error_code:  2
@@ -58,7 +57,6 @@ touch (pre:foo)
 --- source ditto
 --- options:  'path=pre\:'
 --- stdout
-
 --- stderr preprocess
 #MAKEFILE#:1: *** target pattern contains no `%'.  Stop.
 --- error_code:  2
