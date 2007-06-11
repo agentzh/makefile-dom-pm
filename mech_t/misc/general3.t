@@ -9,7 +9,7 @@
 
 use t::Gmake;
 
-plan tests => 3 * blocks() - 10;
+plan tests => 3 * blocks() - 1;
 
 run_tests;
 
@@ -41,6 +41,7 @@ $(STR) $(TAB)
 --- stdout preprocess
 #MAKE#: Nothing to be done for `all'.
 --- stderr
+--- error_code:  0
 
 
 
@@ -69,6 +70,7 @@ all: ; @:
 --- stdout
 true; true
 --- stderr
+--- error_code:  0
 
 
 
@@ -107,6 +109,7 @@ foo bar
 foo bar
 foo bar
 --- stderr
+--- error_code:  0
 
 
 
@@ -151,6 +154,7 @@ foo \
 foo \
     bar
 --- stderr
+--- error_code:  0
 
 
 
@@ -187,6 +191,7 @@ foo bar
 foo     bar
 foo     bar
 --- stderr
+--- error_code:  0
 
 
 
@@ -231,6 +236,7 @@ foo bar
 hi
 foo bar
 --- stderr
+--- error_code:  0
 
 
 
@@ -276,6 +282,7 @@ hi
 foo bar
 hi
 --- stderr
+--- error_code:  0
 
 
 
@@ -328,6 +335,7 @@ hi
 foo \
     bar
 --- stderr
+--- error_code:  0
 
 
 
@@ -372,4 +380,5 @@ foo     bar
 hi
 foo     bar
 --- stderr
+--- error_code:  0
 

@@ -9,7 +9,7 @@
 
 use t::Gmake;
 
-plan tests => 3 * blocks() - 20;
+plan tests => 3 * blocks() - 18;
 
 use_source_ditto;
 
@@ -348,11 +348,12 @@ rules.mk : MYVAR = foo
 --- stdout
 MYVAR= FOOVAR=bar ALLVAR=xxx
 --- stderr
+--- error_code:  0
 
 
 
 === TEST #18
-Test appending to a simple variable containing a " : avoid a
+Test appending to a simple variable containing a "$": avoid a
 double-expansion.  See Savannah bug #15913.
 
 --- source
@@ -363,4 +364,5 @@ foo: ; @echo '$(VAR)'
 --- stdout
 $FOO BAR
 --- stderr
+--- error_code:  0
 

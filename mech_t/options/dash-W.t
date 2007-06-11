@@ -7,7 +7,7 @@
 
 use t::Gmake;
 
-plan tests => 3 * blocks() - 10;
+plan tests => 3 * blocks();
 
 use_source_ditto;
 
@@ -27,6 +27,7 @@ a.x b.x: ; echo >> $@
 echo >> b.x
 echo >> a.x
 --- stderr
+--- error_code:  0
 
 
 
@@ -37,6 +38,7 @@ Run it again: nothing should happen
 --- stdout preprocess
 #MAKE#: `a.x' is up to date.
 --- stderr
+--- error_code:  0
 
 
 
@@ -48,6 +50,7 @@ Now run it with -W b.x: should rebuild a.x
 --- stdout
 echo >> a.x
 --- stderr
+--- error_code:  0
 
 
 
@@ -59,6 +62,7 @@ Put the timestamp for a.x into the future; it should still be remade.
 --- stdout preprocess
 #MAKE#: `a.x' is up to date.
 --- stderr
+--- error_code:  0
 
 
 
@@ -69,6 +73,7 @@ Put the timestamp for a.x into the future; it should still be remade.
 --- stdout
 echo >> a.x
 --- stderr
+--- error_code:  0
 
 
 
@@ -96,6 +101,7 @@ touch baz.x
 --- stderr preprocess
 #MAKEFILE#:2: foo.x: No such file or directory
 
+--- error_code:  0
 
 
 
@@ -112,6 +118,7 @@ touch foo.x
 restarts=1
 touch baz.x
 --- stderr
+--- error_code:  0
 
 
 
@@ -129,6 +136,7 @@ y: x ; @echo cp $< $@
 --- stdout
 cp x-dir/x y
 --- stderr
+--- error_code:  0
 
 
 
@@ -142,6 +150,7 @@ Make sure ./ stripping doesn't interfere with the match.
 --- stdout
 cp x-dir/x y
 --- stderr
+--- error_code:  0
 
 
 
@@ -153,4 +162,5 @@ cp x-dir/x y
 --- stdout
 cp ./x-dir/x y
 --- stderr
+--- error_code:  0
 

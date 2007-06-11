@@ -6,7 +6,7 @@
 
 use t::Gmake;
 
-plan tests => 3 * blocks() - 2;
+plan tests => 3 * blocks();
 
 run_tests;
 
@@ -45,6 +45,7 @@ THE END
 #MAKE#[1]: Leaving directory `#PWD#'
 #MAKE#: Leaving directory `#PWD#'
 --- stderr
+--- error_code:  0
 
 
 
@@ -62,4 +63,5 @@ MAKEOVERRIDES = a=ZZ
 MAKEOVERRIDES = a=AA
 
 --- stderr
+--- error_code:  0
 

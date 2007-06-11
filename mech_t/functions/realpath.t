@@ -6,7 +6,7 @@
 
 use t::Gmake;
 
-plan tests => 3 * blocks() - 2;
+plan tests => 3 * blocks();
 
 run_tests;
 
@@ -65,6 +65,7 @@ all: ; @:
 --- stdout
 
 --- stderr
+--- error_code:  0
 
 
 
@@ -91,4 +92,5 @@ all: ; @:
 --- stdout
 
 --- stderr
+--- error_code:  0
 

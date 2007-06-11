@@ -9,7 +9,7 @@
 
 use t::Gmake;
 
-plan tests => 3 * blocks() - 7;
+plan tests => 3 * blocks() - 4;
 
 use_source_ditto;
 
@@ -94,6 +94,7 @@ ccc ddd
 --- stdout
 foo foo
 --- stderr
+--- error_code:  0
 
 
 
@@ -138,6 +139,7 @@ global := new $$t
 normal: global: orginal $t pattern:  inherit: ;
 pattrn: global: orginal $t pattern:  inherit: ;
 --- stderr
+--- error_code:  0
 
 
 
@@ -148,4 +150,5 @@ pattrn: global: orginal $t pattern:  inherit: ;
 normal: global: new $t pattern: good $t inherit: good $t;
 pattrn: global: new $t pattern: good $t inherit: good $t;
 --- stderr
+--- error_code:  0
 

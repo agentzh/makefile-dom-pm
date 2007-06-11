@@ -6,7 +6,7 @@
 
 use t::Gmake;
 
-plan tests => 3 * blocks() - 2;
+plan tests => 3 * blocks();
 
 run_tests;
 
@@ -43,6 +43,7 @@ baz: ; @echo $@
 --- stdout
 baz
 --- stderr
+--- error_code:  0
 
 
 
@@ -89,4 +90,5 @@ $(call make-rule)
 --- stdout
 foo
 --- stderr
+--- error_code:  0
 

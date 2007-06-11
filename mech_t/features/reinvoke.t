@@ -9,7 +9,7 @@
 
 use t::Gmake;
 
-plan tests => 3 * blocks() - 4;
+plan tests => 3 * blocks();
 
 use_source_ditto;
 
@@ -39,6 +39,7 @@ rebuilding incl.mk
 running rules.
 
 --- stderr
+--- error_code:  0
 
 
 
@@ -55,6 +56,7 @@ rebuilding #MAKEFILE#
 running rules.
 
 --- stderr
+--- error_code:  0
 
 
 
@@ -87,6 +89,7 @@ include $(F)
 hello
 
 --- stderr
+--- error_code:  0
 
 
 
@@ -106,4 +109,5 @@ including: this and the previous one test different parts of the code.
 hello
 
 --- stderr
+--- error_code:  0
 

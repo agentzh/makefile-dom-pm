@@ -6,7 +6,7 @@
 
 use t::Gmake;
 
-plan tests => 3 * blocks() - 4;
+plan tests => 3 * blocks();
 
 run_tests;
 
@@ -57,6 +57,7 @@ arg3 NOT equal arg4
 variable is undefined
 arg4 is defined
 --- stderr
+--- error_code:  0
 
 
 
@@ -92,6 +93,7 @@ all:; @echo DEF=$(DEF) DEF2=$(DEF2) DEF3=$(DEF3)
 --- stdout
 DEF=yes DEF2=yes DEF3=yes
 --- stderr
+--- error_code:  0
 
 
 
@@ -127,6 +129,7 @@ all: ; @echo $(result)
 --- stdout
 success
 --- stderr
+--- error_code:  0
 
 
 
@@ -164,4 +167,5 @@ all: ; @:
 --- stdout
 success
 --- stderr
+--- error_code:  0
 

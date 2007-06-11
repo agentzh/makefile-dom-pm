@@ -62,7 +62,7 @@ FOO= BAR= BAZ=baz BOZ=boz BITZ=bitz BOTZ=
 === TEST 1: make sure vars inherited from the parent are exported
 --- source ditto
 
---- pre:  $::ExtraENV{"FOO"} = "1";
+--- pre:  $::ExtraENV{'FOO'} = '1';
 --- stdout
 FOO=foo BAR=bar BAZ=baz BOZ=boz BITZ=bitz BOTZ=botz
 FOO=foo BAR= BAZ=baz BOZ=boz BITZ=bitz BOTZ=
@@ -75,7 +75,7 @@ FOO=foo BAR= BAZ=baz BOZ=boz BITZ=bitz BOTZ=
 === TEST 2: global export.  Explicit unexport takes precedence.
 --- source ditto
 
---- pre:  $::ExtraENV{"FOO"} = "1";
+--- pre:  $::ExtraENV{'FOO'} = '1';
 --- options:  EXPORT_ALL=1
 --- stdout
 FOO=foo BAR=bar BAZ=baz BOZ=boz BITZ=bitz BOTZ=botz
@@ -89,7 +89,7 @@ FOO=foo BAR=bar BAZ=baz BOZ=boz BITZ=bitz BOTZ=
 === TEST 3: global unexport.  Explicit export takes precedence.
 --- source ditto
 
---- pre:  $::ExtraENV{"FOO"} = "1";
+--- pre:  $::ExtraENV{'FOO'} = '1';
 --- options:  UNEXPORT_ALL=1
 --- stdout
 FOO=foo BAR=bar BAZ=baz BOZ=boz BITZ=bitz BOTZ=botz
@@ -103,7 +103,7 @@ FOO= BAR= BAZ=baz BOZ=boz BITZ=bitz BOTZ=
 === TEST 4: both: in the above makefile the unexport comes last so that rules.
 --- source ditto
 
---- pre:  $::ExtraENV{"FOO"} = "1";
+--- pre:  $::ExtraENV{'FOO'} = '1';
 --- options:  EXPORT_ALL=1 UNEXPORT_ALL=1
 --- stdout
 FOO=foo BAR=bar BAZ=baz BOZ=boz BITZ=bitz BOTZ=botz
@@ -117,7 +117,7 @@ FOO= BAR= BAZ=baz BOZ=boz BITZ=bitz BOTZ=
 === TEST 5: test the pseudo target.
 --- source ditto
 
---- pre:  $::ExtraENV{"FOO"} = "1";
+--- pre:  $::ExtraENV{'FOO'} = '1';
 --- options:  EXPORT_ALL_PSEUDO=1
 --- stdout
 FOO=foo BAR=bar BAZ=baz BOZ=boz BITZ=bitz BOTZ=botz
@@ -149,7 +149,7 @@ all:
 
 
 
---- pre:  $::ExtraENV{"FOO"} = "1";
+--- pre:  $::ExtraENV{'FOO'} = '1';
 --- stdout
 foo=f-ok bar=b-ok
 foo=f-ok bar=b-ok
@@ -182,7 +182,7 @@ all:
 
 
 
---- pre:  $::ExtraENV{"FOO"} = "1";
+--- pre:  $::ExtraENV{'FOO'} = '1';
 --- stdout
 foo=f-ok bar=b-ok
 foo= bar=
@@ -215,7 +215,7 @@ export D E $(SOME)
 all: ; @echo A=$$A B=$$B C=$$C D=$$D E=$$E F=$$F G=$$G H=$$H I=$$I J=$$J
 
 
---- pre:  $::ExtraENV{"FOO"} = "1";
+--- pre:  $::ExtraENV{'FOO'} = '1';
 --- stdout
 A=a B=b C=c D=d E=e F=f G=g H=h I=i J=j
 
@@ -248,17 +248,17 @@ all: ; @echo A=$$A B=$$B C=$$C D=$$D E=$$E F=$$F G=$$G H=$$H I=$$I J=$$J
 
 
 --- pre
-$::ExtraENV{"F"} = "6";
-$::ExtraENV{"A"} = "1";
-$::ExtraENV{"J"} = "10";
-$::ExtraENV{"E"} = "5";
-$::ExtraENV{"B"} = "2";
-$::ExtraENV{"H"} = "8";
-$::ExtraENV{"C"} = "3";
-$::ExtraENV{"D"} = "4";
-$::ExtraENV{"I"} = "9";
-$::ExtraENV{"G"} = "7";
-$::ExtraENV{"FOO"} = "1";
+$::ExtraENV{'F'} = '6';
+$::ExtraENV{'A'} = '1';
+$::ExtraENV{'J'} = '10';
+$::ExtraENV{'E'} = '5';
+$::ExtraENV{'B'} = '2';
+$::ExtraENV{'H'} = '8';
+$::ExtraENV{'C'} = '3';
+$::ExtraENV{'D'} = '4';
+$::ExtraENV{'I'} = '9';
+$::ExtraENV{'G'} = '7';
+$::ExtraENV{'FOO'} = '1';
 --- stdout
 A= B= C= D= E= F= G= H= I= J=
 

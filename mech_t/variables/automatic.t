@@ -6,7 +6,7 @@
 
 use t::Gmake;
 
-plan tests => 3 * blocks() - 6;
+plan tests => 3 * blocks() - 4;
 
 use_source_ditto;
 
@@ -49,7 +49,7 @@ touch #PWD#/foo.x
 
 
 
-=== TEST #1 -- test the SysV emulation of 15806@ etc.
+=== TEST #1 -- test the SysV emulation of $$@ etc.
 --- source preprocess
 dir = #PWD#
 .SECONDEXPANSION:
@@ -122,11 +122,12 @@ mbr.src: ; @:
 --- stdout
 mbr
 --- stderr
+--- error_code:  0
 
 
 
 === TEST #3 -- test for Savannah bug #8154
-Make sure that nonexistent prerequisites are listed in 0, since they are
+Make sure that nonexistent prerequisites are listed in $?, since they are
 considered reasons for the target to be rebuilt.
 See also Savannah bugs #16002 and #16051.
 
@@ -138,4 +139,5 @@ bar: ;
 --- stdout
 $? = bar
 --- stderr
+--- error_code:  0
 

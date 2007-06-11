@@ -6,7 +6,7 @@
 
 use t::Gmake;
 
-plan tests => 3 * blocks() - 5;
+plan tests => 3 * blocks();
 
 use_source_ditto;
 
@@ -14,7 +14,7 @@ run_tests;
 
 __DATA__
 
-=== TEST #0: Test handing of ' in prerequisites with and without second
+=== TEST #0: Test handing of '$' in prerequisites with and without second
 expansion.
 
 --- source
@@ -34,6 +34,7 @@ $
 bar$biz
 foo$bar : bar$baz bar$biz
 --- stderr
+--- error_code:  0
 
 
 
@@ -46,6 +47,7 @@ four
 bariz
 foo$bar : baraz bariz
 --- stderr
+--- error_code:  0
 
 
 
@@ -84,6 +86,7 @@ buz.5
 .6
 
 --- stderr
+--- error_code:  0
 
 
 
@@ -105,6 +108,7 @@ bar
 baz
 
 --- stderr
+--- error_code:  0
 
 
 
@@ -154,4 +158,5 @@ baz.1
 baz.2
 
 --- stderr
+--- error_code:  0
 

@@ -6,7 +6,7 @@
 
 use t::Gmake;
 
-plan tests => 3 * blocks() - 3;
+plan tests => 3 * blocks();
 
 run_tests;
 
@@ -28,6 +28,7 @@ MAKE_RESTARTS=1
 --- stderr preprocess
 #MAKEFILE#:3: foo.x: No such file or directory
 
+--- error_code:  0
 
 
 
@@ -50,6 +51,7 @@ MAKE_RESTARTS=2
 #MAKEFILE#:3: foo.x: No such file or directory
 foo.x:1: bar.x: No such file or directory
 
+--- error_code:  0
 
 
 
@@ -81,4 +83,5 @@ all MAKE_RESTARTS=
 #MAKEFILE#:7: foo.x: No such file or directory
 foo.x:1: bar.x: No such file or directory
 
+--- error_code:  0
 

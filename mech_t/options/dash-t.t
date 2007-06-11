@@ -16,7 +16,7 @@ __DATA__
 
 === TEST 0
 That means, nobody has even tried to make the tests below comprehensive
-bug reported by Henning Makholm <henning.net> on 2001-11-03:
+bug reported by Henning Makholm <henning@makholm.net> on 2001-11-03:
 make 3.79.1 touches only interm-[ab] but reports final-[a] as
 'up to date' without touching them.
 The 'obvious' fix didn't work for double-colon rules, so pay special

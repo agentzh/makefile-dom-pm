@@ -9,7 +9,7 @@
 
 use t::Gmake;
 
-plan tests => 3 * blocks() - 8;
+plan tests => 3 * blocks() - 6;
 
 use_source_ditto;
 
@@ -123,7 +123,7 @@ all: ; @echo "OK"
 
 
 
---- pre:  $::ExtraENV{"EVAR"} = "1";
+--- pre:  $::ExtraENV{'EVAR'} = '1';
 --- stdout
 OK
 
@@ -145,10 +145,11 @@ endef
 $(eval $(FOO))
 
 
---- pre:  $::ExtraENV{"EVAR"} = "1";
+--- pre:  $::ExtraENV{'EVAR'} = '1';
 --- stdout
 hello world
 --- stderr
+--- error_code:  0
 
 
 
@@ -162,11 +163,12 @@ endef
 $(eval $(FOO))
 
 
---- pre:  $::ExtraENV{"EVAR"} = "1";
+--- pre:  $::ExtraENV{'EVAR'} = '1';
 --- stdout
 he\llo
 world
 --- stderr
+--- error_code:  0
 
 
 
@@ -179,7 +181,7 @@ See Savannah bug # 12124.
 --- source
 deps: ; $(eval deps: foo)
 
---- pre:  $::ExtraENV{"EVAR"} = "1";
+--- pre:  $::ExtraENV{'EVAR'} = '1';
 --- stdout
 
 --- stderr preprocess

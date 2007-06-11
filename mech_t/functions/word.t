@@ -11,7 +11,7 @@
 
 use t::Gmake;
 
-plan tests => 3 * blocks() - 3;
+plan tests => 3 * blocks() - 1;
 
 use_source_ditto;
 
@@ -220,7 +220,7 @@ wordlist-e: ; @echo $(WL)
 
 
 
-=== TEST #8 -- test 1000 1001 1000 118 114 113 111 110 46 44 30 29 25 24 20 4firstword )
+=== TEST #8 -- test $(firstword )
 --- source
 
 void :=
@@ -237,10 +237,11 @@ all:
 --- stdout
 foo
 --- stderr
+--- error_code:  0
 
 
 
-=== TEST #9 -- test 1000 1001 1000 118 114 113 111 110 46 44 30 29 25 24 20 4lastword )
+=== TEST #9 -- test $(lastword )
 --- source
 
 void :=
@@ -257,4 +258,5 @@ all:
 --- stdout
 baz
 --- stderr
+--- error_code:  0
 

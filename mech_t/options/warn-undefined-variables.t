@@ -6,7 +6,7 @@
 
 use t::Gmake;
 
-plan tests => 3 * blocks() - 2;
+plan tests => 3 * blocks();
 
 use_source_ditto;
 
@@ -30,6 +30,7 @@ all: ; @echo ref $(EREF) $(UREF)
 --- stdout
 ref
 --- stderr
+--- error_code:  0
 
 
 
@@ -44,4 +45,5 @@ ref
 #MAKEFILE#:6: warning: undefined variable `UNDEFINED'
 #MAKEFILE#:8: warning: undefined variable `UNDEFINED'
 
+--- error_code:  0
 

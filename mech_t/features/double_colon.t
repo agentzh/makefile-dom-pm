@@ -15,7 +15,7 @@
 
 use t::Gmake;
 
-plan tests => 3 * blocks() - 1;
+plan tests => 3 * blocks();
 
 use_source_ditto;
 
@@ -173,19 +173,10 @@ oops
 
 === TEST 9: make sure all rules in s double colon family get executed
 Hmm... further testing indicates this might be timing-dependent?
-#if (1) {
-&run_make_with_options(test.mk, "-j10 biz", &get_logfile, 0);
-ok
-#MAKE#: Circular d <- d dependency dropped.
-oops
- = "aaa
-two
-bbb
-";
-&compare_output(ok
-#MAKE#: Circular d <- d dependency dropped.
-oops
-, &get_logfile(1));
+#if ($parallel_jobs) {
+&run_make_with_options($makefile, "-j10 biz", &get_logfile, 0);
+$answer = "aaa\ntwo\nbbb\n";
+&compare_output($answer, &get_logfile(1));
 #}
 (Savannah bug #14334).
 
@@ -208,4 +199,5 @@ result:: two
 one
 two
 --- stderr
+--- error_code:  0
 

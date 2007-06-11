@@ -16,7 +16,7 @@
 
 use t::Gmake;
 
-plan tests => 3 * blocks() - 8;
+plan tests => 3 * blocks() - 7;
 
 use_source_ditto;
 
@@ -142,4 +142,5 @@ all: version2
 --- stdout
 GOOD
 --- stderr
+--- error_code:  0
 

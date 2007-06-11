@@ -6,7 +6,7 @@
 
 use t::Gmake;
 
-plan tests => 3 * blocks() - 9;
+plan tests => 3 * blocks();
 
 use_source_ditto;
 
@@ -28,6 +28,7 @@ targ: sym ; @echo make $@ from $<
 --- stdout preprocess
 #MAKE#: `targ' is up to date.
 --- stderr
+--- error_code:  0
 
 
 
@@ -40,6 +41,7 @@ targ: sym ; @echo make $@ from $<
 --- stdout
 make targ from sym
 --- stderr
+--- error_code:  0
 
 
 
@@ -50,6 +52,7 @@ make targ from sym
 --- stdout
 make targ from sym
 --- stderr
+--- error_code:  0
 
 
 
@@ -61,6 +64,7 @@ make targ from sym
 --- stdout
 make targ from sym
 --- stderr
+--- error_code:  0
 
 
 
@@ -70,6 +74,7 @@ make targ from sym
 --- stdout preprocess
 #MAKE#: `targ' is up to date.
 --- stderr
+--- error_code:  0
 
 
 
@@ -80,6 +85,7 @@ make targ from sym
 --- stdout preprocess
 #MAKE#: `targ' is up to date.
 --- stderr
+--- error_code:  0
 
 
 
@@ -89,6 +95,7 @@ make targ from sym
 --- stdout preprocess
 #MAKE#: `targ' is up to date.
 --- stderr
+--- error_code:  0
 
 
 
@@ -99,6 +106,7 @@ make targ from sym
 --- stdout
 make targ from sym
 --- stderr
+--- error_code:  0
 
 
 
@@ -118,4 +126,5 @@ make targ from sym
 --- stdout
 make targ from sym
 --- stderr
+--- error_code:  0
 

@@ -9,7 +9,7 @@
 
 use t::Gmake;
 
-plan tests => 3 * blocks() - 4;
+plan tests => 3 * blocks();
 
 use_source_ditto;
 
@@ -29,6 +29,7 @@ foo\#bar.ext: ; @echo "foo#bar.ext = ($@)"
 --- stdout
 touch (foo)
 --- stderr
+--- error_code:  0
 
 
 
@@ -49,6 +50,7 @@ touch (foo)
 --- stdout
 touch (pre:foo)
 --- stderr
+--- error_code:  0
 
 
 
@@ -69,6 +71,7 @@ touch (pre:foo)
 --- stdout
 touch (foo bar)
 --- stderr
+--- error_code:  0
 
 
 
@@ -78,4 +81,5 @@ touch (foo bar)
 --- stdout
 foo#bar.ext = (foo#bar.ext)
 --- stderr
+--- error_code:  0
 

@@ -12,7 +12,7 @@
 
 use t::Gmake;
 
-plan tests => 3 * blocks() - 8;
+plan tests => 3 * blocks();
 
 use_source_ditto;
 
@@ -33,6 +33,7 @@ $(filter %.elc,$(files)): %.elc: %.el ; @echo emacs $<
 --- stdout
 CC -c bar.c -o bar.o
 --- stderr
+--- error_code:  0
 
 
 
@@ -43,6 +44,7 @@ CC -c bar.c -o bar.o
 --- stdout
 CC -c lose.c -o lose.o
 --- stderr
+--- error_code:  0
 
 
 
@@ -53,6 +55,7 @@ CC -c lose.c -o lose.o
 --- stdout
 emacs foo.el
 --- stderr
+--- error_code:  0
 
 
 
@@ -69,6 +72,7 @@ foo: foo%: % %.x % % % y.% % ; @echo $@
 y.
 foo
 --- stderr
+--- error_code:  0
 
 
 
@@ -83,6 +87,7 @@ foo.x bar.x: %.x : ; @echo $@
 --- stdout
 foo.x
 --- stderr
+--- error_code:  0
 
 
 
@@ -97,6 +102,7 @@ foo.baz: ;@:
 --- stdout
 
 --- stderr
+--- error_code:  0
 
 
 
@@ -119,6 +125,7 @@ all.foo.bar:
 all.foo
 all.one all.foo.two
 --- stderr
+--- error_code:  0
 
 
 
@@ -144,4 +151,5 @@ all.foo.bar:
 all.foo
 all.one all-one all.foo.two all.foo-two
 --- stderr
+--- error_code:  0
 

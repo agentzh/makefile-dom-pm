@@ -6,7 +6,7 @@
 
 use t::Gmake;
 
-plan tests => 3 * blocks() - 4;
+plan tests => 3 * blocks();
 
 run_tests;
 
@@ -47,6 +47,7 @@ a: void
 --- stdout
 
 --- stderr
+--- error_code:  0
 
 
 
@@ -74,6 +75,7 @@ foo.in: ; @:
 foo
 foo.out
 --- stderr
+--- error_code:  0
 
 
 
@@ -103,6 +105,7 @@ install: $(dir)/foo.c
 touch #PWD#/foo.c
 #PWD#/foo.o
 --- stderr
+--- error_code:  0
 
 
 
@@ -157,4 +160,5 @@ touch foo.h
 touch foo.c
 echo foo.c foo.h >foo.o
 --- stderr
+--- error_code:  0
 

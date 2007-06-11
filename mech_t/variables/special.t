@@ -6,7 +6,7 @@
 
 use t::Gmake;
 
-plan tests => 3 * blocks() - 1;
+plan tests => 3 * blocks();
 
 run_tests;
 
@@ -35,4 +35,5 @@ X2 = FOO
 LAST = BAR FOO
 
 --- stderr
+--- error_code:  0
 

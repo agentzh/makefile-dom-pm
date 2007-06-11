@@ -9,14 +9,14 @@
 
 use t::Gmake;
 
-plan tests => 3 * blocks() - 2;
+plan tests => 3 * blocks();
 
 run_tests;
 
 __DATA__
 
 === TEST #0
-For 1000 1001 1000 118 114 113 111 110 46 44 30 29 25 24 20 4and ...), it will either be empty or the last value
+For $(and ...), it will either be empty or the last value
 
 --- source
 
@@ -48,11 +48,12 @@ all:
 10
 
 --- stderr
+--- error_code:  0
 
 
 
 === TEST #1
-For 1000 1001 1000 118 114 113 111 110 46 44 30 29 25 24 20 4or ...), it will either be empty or the first true value
+For $(or ...), it will either be empty or the first true value
 
 --- source
 
@@ -87,4 +88,5 @@ short-circuit
 11
 
 --- stderr
+--- error_code:  0
 

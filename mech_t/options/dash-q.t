@@ -8,7 +8,7 @@
 
 use t::Gmake;
 
-plan tests => 3 * blocks() - 5;
+plan tests => 3 * blocks();
 
 use_source_ditto;
 
@@ -38,6 +38,7 @@ seven: ; \
 --- stdout
 
 --- stderr
+--- error_code:  0
 
 
 
@@ -48,6 +49,7 @@ seven: ; \
 --- stdout
 
 --- stderr
+--- error_code:  0
 
 
 
@@ -69,6 +71,7 @@ seven: ; \
 --- stdout
 
 --- stderr
+--- error_code:  0
 
 
 
@@ -79,6 +82,7 @@ seven: ; \
 --- stdout
 
 --- stderr
+--- error_code:  0
 
 
 
@@ -89,6 +93,7 @@ seven: ; \
 --- stdout
 
 --- stderr
+--- error_code:  0
 
 
 

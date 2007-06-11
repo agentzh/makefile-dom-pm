@@ -6,7 +6,7 @@
 
 use t::Gmake;
 
-plan tests => 3 * blocks() - 3;
+plan tests => 3 * blocks();
 
 run_tests;
 
@@ -27,24 +27,26 @@ a.c b.c c.c
 a.c b.c c.c
 x.c.o bar.o
 --- stderr
+--- error_code:  0
 
 
 
 === TEST 2:
 Patsubst without '%'--shouldn't match because the whole word has to match
-in patsubst.  Based on a bug report by Markus Mauhart <qwe123.at>
+in patsubst.  Based on a bug report by Markus Mauhart <qwe123@chello.at>
 
 --- source
 all:;@echo $(patsubst Foo,Repl,FooFoo)
 --- stdout
 FooFoo
 --- stderr
+--- error_code:  0
 
 
 
 === TEST 3:
 Variable subst where a pattern matches multiple times in a single word.
-Based on a bug report by Markus Mauhart <qwe123.at>
+Based on a bug report by Markus Mauhart <qwe123@chello.at>
 
 --- source
 
@@ -53,4 +55,5 @@ all:;@echo $(A:fooBARfoo=REPL)
 --- stdout
 fooBARREPL
 --- stderr
+--- error_code:  0
 

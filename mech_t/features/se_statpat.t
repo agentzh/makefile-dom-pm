@@ -6,7 +6,7 @@
 
 use t::Gmake;
 
-plan tests => 3 * blocks() - 4;
+plan tests => 3 * blocks();
 
 run_tests;
 
@@ -47,6 +47,7 @@ buz.a.5
 a.6
 
 --- stderr
+--- error_code:  0
 
 
 
@@ -69,6 +70,7 @@ bar
 baz
 
 --- stderr
+--- error_code:  0
 
 
 
@@ -118,6 +120,7 @@ baz.a.1
 baz.a.2
 
 --- stderr
+--- error_code:  0
 
 
 
@@ -138,4 +141,5 @@ oo$ba.1
 oo$ba
 
 --- stderr
+--- error_code:  0
 

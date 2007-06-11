@@ -6,7 +6,7 @@
 
 use t::Gmake;
 
-plan tests => 3 * blocks() - 8;
+plan tests => 3 * blocks();
 
 run_tests;
 
@@ -60,6 +60,7 @@ biz
 buz
 
 --- stderr
+--- error_code:  0
 
 
 
@@ -84,6 +85,7 @@ bar
 baz
 
 --- stderr
+--- error_code:  0
 
 
 
@@ -138,6 +140,7 @@ baz.1
 baz.2
 
 --- stderr
+--- error_code:  0
 
 
 
@@ -163,6 +166,7 @@ foo.h
 #PWD#/tmp/bar.o: {#PWD#/tmp/foo/bar.c} #PWD#/tmp/foo/bar.c #PWD#/tmp/bar/bar.c foo.h
 
 --- stderr
+--- error_code:  0
 
 
 
@@ -185,6 +189,7 @@ bar.h
 #PWD#/tmp/foo.o: {#PWD#/tmp/foo.c} {bar.h} #PWD#/tmp/foo.c
 
 --- stderr
+--- error_code:  0
 
 
 
@@ -204,6 +209,7 @@ foo.c
 foo.o: {foo.c} foo.c
 
 --- stderr
+--- error_code:  0
 
 
 
@@ -226,6 +232,7 @@ bar.1
 bar
 
 --- stderr
+--- error_code:  0
 
 
 
@@ -248,4 +255,5 @@ oo$ba.1
 oo$ba
 
 --- stderr
+--- error_code:  0
 

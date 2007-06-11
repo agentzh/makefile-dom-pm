@@ -18,7 +18,7 @@ GOOGLE = bazzle
 all:; @echo "$(GOOGLE)"
 
 
---- pre:  $::ExtraENV{"GOOGLE"} = "boggle";
+--- pre:  $::ExtraENV{'GOOGLE'} = 'boggle';
 --- options:  -e
 --- stdout
 boggle

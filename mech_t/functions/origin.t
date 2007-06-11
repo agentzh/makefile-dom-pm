@@ -18,7 +18,7 @@
 
 use t::Gmake;
 
-plan tests => 3 * blocks() - 1;
+plan tests => 3 * blocks();
 
 run_tests;
 
@@ -45,7 +45,7 @@ all: auto
 auto :
 	@echo $(av)
 
---- pre:  $::ExtraENV{"MAKETEST"} = "1";
+--- pre:  $::ExtraENV{'MAKETEST'} = '1';
 --- options:  -e WHITE=WHITE CFLAGS=
 --- stdout
 undefined default environment default file command line override automatic
@@ -58,4 +58,5 @@ command line
 override
 automatic
 --- stderr
+--- error_code:  0
 

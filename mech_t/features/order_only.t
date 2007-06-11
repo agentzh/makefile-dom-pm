@@ -8,7 +8,7 @@
 
 use t::Gmake;
 
-plan tests => 3 * blocks() - 10;
+plan tests => 3 * blocks();
 
 use_source_ditto;
 
@@ -27,6 +27,7 @@ baz:;@:
 foo foo baz
 
 --- stderr
+--- error_code:  0
 
 
 
@@ -50,6 +51,7 @@ $| = baz
 touch foo
 
 --- stderr
+--- error_code:  0
 
 
 
@@ -59,6 +61,7 @@ touch foo
 touch baz
 
 --- stderr
+--- error_code:  0
 
 
 
@@ -84,6 +87,7 @@ $| =
 touch foo
 
 --- stderr
+--- error_code:  0
 
 
 
@@ -96,6 +100,7 @@ $| =
 touch foo
 
 --- stderr
+--- error_code:  0
 
 
 
@@ -120,6 +125,7 @@ $| = baz
 touch foo
 
 --- stderr
+--- error_code:  0
 
 
 
@@ -129,6 +135,7 @@ touch foo
 touch baz
 
 --- stderr
+--- error_code:  0
 
 
 
@@ -155,6 +162,7 @@ $| = baz
 touch foo.w
 
 --- stderr
+--- error_code:  0
 
 
 
@@ -164,10 +172,11 @@ touch foo.w
 touch baz
 
 --- stderr
+--- error_code:  0
 
 
 
-=== TEST #9 -- make sure that 1000 is set correctly in the face of order-only
+=== TEST #9 -- make sure that $< is set correctly in the face of order-only
 prerequisites in pattern rules.
 
 --- source
@@ -180,4 +189,5 @@ baz:;@:
 foo foo baz
 
 --- stderr
+--- error_code:  0
 

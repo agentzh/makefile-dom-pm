@@ -10,7 +10,7 @@
 
 use t::Gmake;
 
-plan tests => 3 * blocks() - 6;
+plan tests => 3 * blocks() - 2;
 
 use_source_ditto;
 
@@ -78,6 +78,7 @@ hello: ; @echo hello
 hello
 
 --- stderr
+--- error_code:  0
 
 
 
@@ -96,6 +97,7 @@ foo: bar; @:
 --- stdout
 
 --- stderr
+--- error_code:  0
 
 
 
@@ -117,6 +119,7 @@ bar:; @exit 1
 --- stdout
 
 --- stderr
+--- error_code:  0
 
 
 
@@ -134,4 +137,5 @@ sinclude
 --- stdout
 
 --- stderr
+--- error_code:  0
 

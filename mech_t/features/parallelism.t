@@ -14,7 +14,7 @@
 
 use t::Gmake;
 
-plan tests => 3 * blocks() - 5;
+plan tests => 3 * blocks();
 
 run_tests;
 
@@ -34,6 +34,7 @@ FOUR
 THREE
 TWO
 --- stderr
+--- error_code:  0
 
 
 
@@ -59,6 +60,7 @@ TWO
 success
 
 --- stderr
+--- error_code:  0
 
 
 
@@ -89,12 +91,13 @@ TWO
 success
 
 --- stderr
+--- error_code:  0
 
 
 
 === TEST 4:
 Grant Taylor reports a problem where tokens can be lost (not written back
-to the pipe when they should be): this happened when there is a 1000 1001 1000 118 114 113 111 110 46 44 30 29 25 24 20 4shell ...)
+to the pipe when they should be): this happened when there is a $(shell ...)
 function in an exported recursive variable.  I added some code to check
 for this situation and print a message if it occurred.  This test used
 to trigger this code when I added it but no longer does after the fix.
@@ -116,11 +119,12 @@ first
 second
 second
 --- stderr
+--- error_code:  0
 
 
 
 === TEST 5:
-Michael Matz <matz.de> reported a bug where if make is running in
+Michael Matz <matz@suse.de> reported a bug where if make is running in
 parallel without -k and two jobs die in a row, but not too close to each
 other, then make will quit without waiting for the rest of the jobs to die.
 
@@ -175,4 +179,5 @@ mod_a.o mod_b.o:
 --- stdout
 
 --- stderr
+--- error_code:  0
 

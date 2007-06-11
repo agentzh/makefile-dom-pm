@@ -6,7 +6,7 @@
 
 use t::Gmake;
 
-plan tests => 3 * blocks() - 9;
+plan tests => 3 * blocks() - 3;
 
 use_source_ditto;
 
@@ -107,12 +107,12 @@ prefix character for a define.  Even though something like this:
 define foo
 echo bar
 endef
-all: ; 1000 1001 1000 118 114 113 111 110 46 44 30 29 25 24 20 4V)1000 1001 1000 118 114 113 111 110 46 44 30 29 25 24 20 4foo)
+all: ; $(V)$(foo)
 (where V=@) can be seen by the user to be obviously different than this:
 define foo
-1000 1001 1000 118 114 113 111 110 46 44 30 29 25 24 20 4V)echo bar
+$(V)echo bar
 endef
-all: ; 1000 1001 1000 118 114 113 111 110 46 44 30 29 25 24 20 4foo)
+all: ; $(foo)
 and the user thinks it should behave the same as when the "@" is literal
 instead of in a variable, that can't happen because by the time make
 expands the variables for the command line and sees it begins with a "@" it
@@ -131,6 +131,7 @@ all: ; @$(FOO)
 hello
 world
 --- stderr
+--- error_code:  0
 
 
 
@@ -141,6 +142,7 @@ world
 hello
 world
 --- stderr
+--- error_code:  0
 
 
 
@@ -159,6 +161,7 @@ hello
 echo world
 world
 --- stderr
+--- error_code:  0
 
 
 
@@ -170,6 +173,7 @@ echo hello
 hello
 world
 --- stderr
+--- error_code:  0
 
 
 
@@ -180,6 +184,7 @@ world
 hello
 world
 --- stderr
+--- error_code:  0
 
 
 
@@ -210,4 +215,5 @@ hello
 world
 
 --- stderr
+--- error_code:  0
 

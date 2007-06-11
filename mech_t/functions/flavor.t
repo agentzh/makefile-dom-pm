@@ -6,7 +6,7 @@
 
 use t::Gmake;
 
-plan tests => 3 * blocks() - 1;
+plan tests => 3 * blocks();
 
 run_tests;
 
@@ -47,4 +47,5 @@ rc recursive
 s simple
 r recursive
 --- stderr
+--- error_code:  0
 
