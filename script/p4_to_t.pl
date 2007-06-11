@@ -89,8 +89,9 @@ sub process_comments {
     my $matched = shift;
     for my $match (@$matched) {
         (my $value = $match) =~ s/^#\s+//g;
-        (my $quoted = $value) =~ s/"/\\"/g;
-        if ($p4 =~ s/\G(.*?)\Q$match\E/${1}\&X::comment("$quoted");/ms) {
+        (my $quoted = $value) =~ s/\\/\\\\/g;
+        $quoted =~ s/'/\\'/g;
+        if ($p4 =~ s/\G(.*?)\Q$match\E/${1}\&X::comment('$quoted');/ms) {
         } else {
             die "Can't find matched comment '$match' in the source";
         }
@@ -235,7 +236,9 @@ sub run_make_test ($$$@) {
     $X::block->{source} = $source;
     $X::block->{options} = shift;
     $X::block->{stdout} = shift;
-    $X::block->{error_code} = shift;
+    my $error_code = shift;
+    $error_code = 0 if !defined $error_code;
+    $X::block->{error_code} = $error_code;
     $X::block->{utouch} = {%X::utouch};
     $X::block->{env} = {%extraENV};
     push @X::blocks, $X::block;
@@ -285,9 +288,11 @@ END {
         if (%env) {
             my @ln;
             while (my ($k, $v) = each %env) {
-                $k =~ s/"/\\"/g;
-                $v =~ s/"/\\"/g;
-                push @ln, qq[\$::ExtraENV{"$k"} = "$v"];
+                $k =~ s/\\/\\\\/g;
+                $k =~ s/'/\\'/g;
+                $v =~ s/\\/\\\\/g;
+                $v =~ s/'/\\'/g;
+                push @ln, qq[\$::ExtraENV{'$k'} = '$v'];
             }
             if (@ln > 1) {
                 $str .= "\n--- pre\n" . join(";\n", @ln) . ";\n";

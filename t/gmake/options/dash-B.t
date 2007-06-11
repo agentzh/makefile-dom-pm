@@ -11,8 +11,8 @@
 
 use t::Gmake;
 
-#plan tests => 3 * blocks() - 7;
-plan tests => 3 * blocks() - 5;
+#plan tests => 3 * blocks() - 2;
+plan tests => 3 * blocks();
 
 use_source_ditto;
 
@@ -36,6 +36,7 @@ foo: bar.x
 --- stdout
 cp bar.x foo
 --- stderr
+--- error_code:  0
 
 
 
@@ -45,6 +46,7 @@ cp bar.x foo
 --- stdout preprocess
 #MAKE#: Nothing to be done for `all'.
 --- stderr
+--- error_code:  0
 
 
 
@@ -55,6 +57,7 @@ cp bar.x foo
 --- stdout
 cp bar.x foo
 --- stderr
+--- error_code:  0
 
 
 
@@ -67,6 +70,7 @@ Put the timestamp for foo into the future; it should still be remade.
 --- stdout preprocess
 #MAKE#: Nothing to be done for `all'.
 --- stderr
+--- error_code:  0
 
 
 
@@ -78,6 +82,7 @@ Put the timestamp for foo into the future; it should still be remade.
 --- stdout
 cp bar.x foo
 --- stderr
+--- error_code:  0
 
 
 
@@ -99,6 +104,7 @@ MAKE_RESTARTS=
 MAKE_RESTARTS=1
 --- stderr preprocess
 #MAKEFILE#:3: foo.x: No such file or directory
+--- error_code:  0
 --- SKIP
 
 
@@ -124,5 +130,6 @@ blah.x
 all
 --- stderr preprocess
 #MAKEFILE#:3: foo.x: No such file or directory
+--- error_code:  0
 --- SKIP
 
