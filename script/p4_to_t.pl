@@ -62,7 +62,11 @@ if \(\(-f (\S+)\)\|\|\(-f (\S+)\)\|\|\(-f (\S+)\)\|\|\(-f (\S+)\)\) \{
 \s+\$test_passed = 0;
 \}
 _EOC_
-    $count += 4 * ($body =~ s/$pattern/\&X::file_test('-f', $1, 0);\n\&X::file_test('-f', $2, 0);\n&X::file_test('-f', $3, 0);\n&X::file_test('-f', $4, 0);\n/g);
+    $count += 4 * ($body =~ s/$pattern/
+        \&X::file_test('-f', $1, 0);
+        \&X::file_test('-f', $2, 0);
+        \&X::file_test('-f', $3, 0);
+        \&X::file_test('-f', $4, 0);/g);
     if ($body =~ /\$test_passed\b/) {
         warn "WARNING: \$test_passed involved...\n";
     }
@@ -85,7 +89,7 @@ sub process_comments {
     my $matched = shift;
     for my $match (@$matched) {
         (my $value = $match) =~ s/^#\s+//g;
-        my $quoted = quotemeta($value);
+        (my $quoted = $value) =~ s/"/\\"/g;
         if ($p4 =~ s/\G(.*?)\Q$match\E/${1}\&X::comment("$quoted");/ms) {
         } else {
             die "Can't find matched comment '$match' in the source";

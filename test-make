@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
 
-GNU_MAKE_PATH='make' prove t/gmake/$1
+ulimit -v 500000
+files=`perl -e 'print join " ", map { "t/gmake/$_" } @ARGV' $@`
+GNU_MAKE_PATH=make prove -r $files
 
