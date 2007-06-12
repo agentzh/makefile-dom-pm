@@ -33,6 +33,7 @@ set_filters(
 );
 
 # to ease debugging (the output is normally small)
-no_diff();
+#no_diff();
 
 1;
+

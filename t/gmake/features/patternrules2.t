@@ -101,3 +101,27 @@ bar.hpp
 --- stderr
 --- error_code:  0
 
+
+
+=== TEST 5: chained implicit rules
+--- source
+
+all: foo.a bar.a baz.a
+
+%.a: %.b ; touch $@
+%.b: %.d ; touch $@
+
+--- touch: foo.d bar.d baz.d
+--- stdout
+touch foo.b
+touch foo.a
+touch bar.b
+touch bar.a
+touch baz.b
+touch baz.a
+rm foo.b bar.b baz.b
+
+--- stderr
+--- error_code:  0
+--- SKIP
+
