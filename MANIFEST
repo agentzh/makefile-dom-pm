@@ -40,7 +40,6 @@ README
 script/checkenv
 script/mdom-dump
 script/p4_to_t.pl
-script/pgmake
 script/plmake
 script/sh
 t/00-pod-coverage.t
