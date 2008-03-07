@@ -28,7 +28,7 @@ use Params::Util '_INSTANCE';
 
 use vars qw{$VERSION};
 BEGIN {
-	$VERSION = '1.118';
+	$VERSION = '0.001';
 }
 
 # We don't load the abstracts, they are loaded

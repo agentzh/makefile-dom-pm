@@ -58,7 +58,7 @@ use Params::Util    '_INSTANCE',
 
 use vars qw{$VERSION *_PARENT};
 BEGIN {
-	$VERSION = '1.118';
+	$VERSION = '0.001';
 	*_PARENT = *MDOM::Element::_PARENT;
 }
 

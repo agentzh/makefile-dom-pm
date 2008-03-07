@@ -46,7 +46,7 @@ use base 'MDOM::Token';
 
 use vars qw{$VERSION};
 BEGIN {
-	$VERSION = '1.118';
+	$VERSION = '0.001';
 }
 
 =pod

@@ -15,7 +15,7 @@ MDOM::Token::Comment - A comment in Makefile source code
 =head1 SYNOPSIS
 
   # This is a MDOM::Token::Comment
-  
+
   foo: bar # So is this one
   	echo 'hello'
 
@@ -60,7 +60,7 @@ use base 'MDOM::Token';
 
 use vars qw{$VERSION};
 BEGIN {
-	$VERSION = '0.0.1';
+	$VERSION = '0.001';
 }
 
 ### XS -> MDOM/XS.xs:_MDOM_Token_Comment__significant 0.900+

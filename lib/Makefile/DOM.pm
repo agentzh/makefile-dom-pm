@@ -3,7 +3,7 @@ package Makefile::DOM;
 use strict;
 use warnings;
 
-our $VERSION = '0.0.1';
+our $VERSION = '0.001';
 
 use MDOM::Document;
 use MDOM::Element;
@@ -32,7 +32,7 @@ Agent Zhang E<lt>agentzh@gmail.comE<gt>
 
 =head1 COPYRIGHT
 
-Copyright 2006, 2007 by Agent Zhang. All rights reserved.
+Copyright 2006, 2007, 2008 by Agent Zhang.
 
 This library is free software; you can redistribute it and/or
 modify it under the same terms as Perl itself.
