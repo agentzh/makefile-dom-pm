@@ -4,7 +4,7 @@ package MDOM::Dumper;
 
 =head1 NAME
 
-MDOM::Dumper - Dumping of PDOM trees
+MDOM::Dumper - Dumping of MDOM trees
 
 =head1 SYNOPSIS
 
@@ -19,7 +19,7 @@ MDOM::Dumper - Dumping of PDOM trees
 
 =head1 DESCRIPTION
 
-The PDOM trees in MDOM are quite complex, and getting a dump of their
+The MDOM trees in MDOM are quite complex, and getting a dump of their
 structure for development and debugging purposes is important.
 
 This module provides that functionality.
@@ -37,7 +37,7 @@ use Params::Util '_INSTANCE';
 
 use vars qw{$VERSION};
 BEGIN {
-	$VERSION = '0.001';
+	$VERSION = '0.002';
 }
 
 
@@ -63,7 +63,7 @@ is not passed a correct L<MDOM::Element> root object.
 
 =item memaddr
 
-Should the dumper print the memory addresses of each PDOM element.
+Should the dumper print the memory addresses of each MDOM element.
 True/false value, off by default.
 
 =item indent
@@ -307,6 +307,8 @@ See the L<support section|MDOM/SUPPORT> in the main module.
 =head1 AUTHOR
 
 Adam Kennedy E<lt>adamk@cpan.orgE<gt>
+
+Agent Zhang C<< <agentzh@yahoo.cn> >>
 
 =head1 COPYRIGHT
 
