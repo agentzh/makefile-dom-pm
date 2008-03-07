@@ -1,5 +1,6 @@
 0.003  XXX
 * Removed script/pgmake from MANIFEST.
+* Tweaked the POD a bit.
 
 0.002  2008-03-07
 * Added comprehensive POD to Makefile::DOM.
