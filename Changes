@@ -1,6 +1,7 @@
 0.002  2008-03-07
 * Added comprehensive POD to Makefile::DOM.
 * Fixed the POD in MDOM::Dumper.
+* Removed script/pgmake from MANIFEST.
 
 0.001  2008-03-07
 * inital CPAN release
