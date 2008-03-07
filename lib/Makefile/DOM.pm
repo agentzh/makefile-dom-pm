@@ -122,14 +122,40 @@ On the second line, the rule command indented by a tab character is still repres
 
 =item Case 3
 
-下面考虑一个有多种全局结构的 makefile 的例子：
+Now let's study a sample makefile with various global structures:
 
-这里在顶层上，有三个语言结构：一条规则 a: b，一条变量赋值语句 foo = bar，和一条注释 # hello!. 
-其对应的 MDOM 树如下所示： 
+  a: b
+  foo = bar
+      # hello!
 
-我们看到，根节点 MDOM::Document::Gmake 对象之下有 MDOM::Rule::Simple, MDOM::Assignment, 和 MDOM::Comment 这三个元素，以及两个 MDOM::Token::Whitespace 对象。 
-由此可见，MDOM 对 makefile 词法元素的表示是非常松弛的。它仅提供非常有限的结构化表示。 
-1.1.3. 文档对象模型树的操作 
+Here on the top level, there are three language structures: one rule "C<a: b>", one assignment statement "foo = bar", and one comment C<# hello!>.
+
+Its MDOM tree is shown below:
+
+  MDOM::Document::Gmake
+    MDOM::Rule::Simple
+      MDOM::Token::Bare                  'a'
+      MDOM::Token::Separator            ':'
+      MDOM::Token::Whitespace           ' '
+      MDOM::Token::Bare                   'b'
+      MDOM::Token::Whitespace           '\n'
+    MDOM::Assignment
+      MDOM::Token::Bare                  'foo'
+      MDOM::Token::Whitespace           ' '
+      MDOM::Token::Separator            '='
+      MDOM::Token::Whitespace           ' '
+      MDOM::Token::Bare                  'bar'
+      MDOM::Token::Whitespace           '\n'
+    MDOM::Token::Whitespace            '\t'
+    MDOM::Token::Comment               '# hello!'
+    MDOM::Token::Whitespace            '\n'
+
+We can see that below the root node L<MDOM::Document::Gmake>, there are L<MDOM::Rule::Simple>, L<MDOM::Assignment>, and L<MDOM::Comment> three elements, as well as two L<MDOM::Token::Whitespace> objects.
+
+It can be observed that the MDOM representation for the makefile's lexical elements is rather loose. It only provides very limited structural representation instead of making a bad guess.
+
+=head1 OPERATIONS FOR MDOM TREES
+
 从一个 GNU makefile 文件生成一棵 MDOM 树，只需要两行 Perl 代码：
  
 如果需要解析的 makefile 的源代码已存储在一个 Perl 变量 $var 中， 则可以通过下面这个代码来构建 MDOM：
