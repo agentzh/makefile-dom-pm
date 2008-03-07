@@ -4,7 +4,7 @@ package MDOM::Token::Separator;
 
 =head1 NAME
 
-MDOM::Token::Separator - The __DATA__ and __END__ tags
+MDOM::Token::Separator - Makefile separators like colons and leading tabs
 
 =head1 INHERITANCE
 
@@ -14,15 +14,6 @@ MDOM::Token::Separator - The __DATA__ and __END__ tags
           isa MDOM::Element
 
 =head1 DESCRIPTION
-
-Although superficially looking like a normal L<MDOM::Token::Word> object,
-when the C<__DATA__> and C<__END__> compiler tags appear at the beginning of
-a line (on supposedly) their own line, these tags become file section
-separators.
-
-The indicate that the time for Perl code is over, and the rest of the
-file is dedicated to something else (data in the case of C<__DATA__>) or
-to nothing at all (in the case of C<__END__>).
 
 =head1 METHODS
 
