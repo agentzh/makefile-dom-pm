@@ -116,9 +116,9 @@ It's corresponding DOM structure is
 
 Compared to the previous example, here appears several new node types.
 
+The variable interpolation C<$(baz)> on the first line of the original makefile corresponds to a L<MDOM::Token::Interpolation> node in its MDOM tree. Similarly, the comment C<# hello> corresponds to a L<MDOM::Token::Comment> node.
 
-原 makefile 文件第一行中的变量引用 $(baz)，在其 MDOM 树中对应于一个 MDOM::Token::Interpolation 节点。 类似地，注释 # hello 对应于一个 MDOM::Token::Comment 节点。 
-第二行中，以制表符起始的规则命令依旧由一个 MDOM::Command 对象表示，它的第一个子节点 （或它的第一个元素）也正是该制表符所对应的 MDOM::Token::Seperator 实例。 而命令修饰符 @ 亦紧随其后，对应于 MDOM::Token::Modifier 类。 
+On the second line, the rule command indented by a tab character is still represented by a L<MDOM::Command> object. Its first child node (or its first element) is also an L<MDOM::Token::Seperator> instance corresponding to that tab. The command modifier C<@> follows the C<Separator> immediately, which is of type L<MDOM::Token::Modifier>.
 
 =item Case 3
 
@@ -140,7 +140,9 @@ Compared to the previous example, here appears several new node types.
 亦可通过 elements 方法取得所有节点的值：
 
 对于任何一个 MDOM 节点而言，都可以调用其 content 方法反生成其对应的 makefile 源码。 
-1.1.4. 局限与改进计划 
+
+=head1 BUGS AND TODO
+
 目前的 MDOM::Document::Gmake 解析器的实现采用的是手工编码的状态机方式。虽然引擎的效率较高， 但代码非常复杂和凌乱，给扩展和维护带来了困难。因此，需要在未来的某个时候，采用 Perl 6 正则引擎 Pugs::Compiler::Rule 以语法定义方式对解析器进行彻底改写。 
 
 =back
