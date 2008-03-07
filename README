@@ -1,0 +1,18 @@
+NAME
+    Makefile::DOM - Simple DOM parser for Makefiles
+
+DESCRIPTION
+    XXX
+
+AUTHOR
+    Agent Zhang <agentzh@gmail.com>
+
+COPYRIGHT
+    Copyright 2006, 2007, 2008 by Agent Zhang.
+
+    This library is free software; you can redistribute it and/or modify it
+    under the same terms as Perl itself.
+
+SEE ALSO
+    MDOM::Document, MDOM::Document::Gmake.
+
