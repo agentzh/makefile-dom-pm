@@ -1,3 +1,4 @@
+use lib 'inc';
 use Test::Base;
 use MDOM::Document::Gmake;
 #use Smart::Comments;

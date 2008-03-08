@@ -1,5 +1,6 @@
 package t::GmakeDOM;
 
+use lib 'inc';
 use Test::Base -Base;
 
 use MDOM::Document::Gmake;

@@ -6,6 +6,7 @@
 package t::Shell;
 
 use lib 't/lib';
+use lib 'inc';
 use Test::Base -Base;
 use Test::Util;
 use FindBin;

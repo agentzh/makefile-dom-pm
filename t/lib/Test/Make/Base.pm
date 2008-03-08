@@ -3,6 +3,7 @@
 package Test::Make::Base;
 
 #use Smart::Comments;
+use lib 'inc';
 use Test::Base -Base;
 use Test::Make::Util;
 use File::Temp qw( tempdir tempfile );
