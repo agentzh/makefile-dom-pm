@@ -19,4 +19,4 @@ requires:
   Params::Util: 0.22
   perl: 5.6.1
 tests: t/mdom/*.t t/mdom/*/*.t
-version: 0.002
+version: 0.003
