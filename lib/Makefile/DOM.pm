@@ -30,6 +30,8 @@ This document describes Makefile::DOM 0.003 released on March 10, 2008.
 
 This libary can serve as an advanced lexer for (GNU) makefiles. It parses makefiles as "documents" and the parsing is lossless. The results are data structures similar to DOM trees. The DOM trees hold every single bit of the information in the original input files, including white spaces, blank lines and makefile comments. That means it's possible to reproduce the original makefiles from the DOM trees. In addition, each node of the DOM trees is modifiable and so is the whole tree, just like the L<PPI> module used for Perl source parsing and the L<HTML::TreeBuilder> module used for parsing HTML source.
 
+If you're looking for a true GNU make parser that generates an AST, please see L<Makefile::Parser::GmakeDB> instead.
+
 The interface of C<Makefile::DOM> mimics the API design of L<PPI>. In fact, I've directly stolen the source code and POD documentation of L<PPI::Node>, L<PPI::Element>, and L<PPI::Dumper>, with the full permission from the author of L<PPI>, Adam Kennedy.
 
 C<Makefile::DOM> tries to be independent of specific makefile's syntax. The same set of DOM node types is supposed to get shared by different makefile DOM generators. For example, L<MDOM::Document::Gmake> parses GNU makefiles and returns an instance of L<MDOM::Document>, i.e., the root of the DOM tree while the NMAKE makefile lexer in the future, C<MDOM::Document::Nmake>, also returns instances of the L<MDOM::Document> class. Later, I'll also consider adding support for dmake and bsdmake.

@@ -1,3 +1,6 @@
+0.004  2008-03-10
+* Added pointer for Makefile::Parser::GmakeDB to Makefile::DOM's POD.
+
 0.003  2008-03-10
 * Removed script/pgmake and script/plmake from MANIFEST.
 * Tweaked the POD a bit.
