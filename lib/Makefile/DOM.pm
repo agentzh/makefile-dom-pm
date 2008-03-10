@@ -201,5 +201,5 @@ modify it under the same terms as Perl itself.
 
 =head1 SEE ALSO
 
-L<MDOM::Document>, L<MDOM::Document::Gmake>, L<PPI>.
+L<MDOM::Document>, L<MDOM::Document::Gmake>, L<PPI>, L<Makefile::Parser::GmakeDB>, L<makesimple>.
 
