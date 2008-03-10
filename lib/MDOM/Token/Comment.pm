@@ -60,7 +60,7 @@ use base 'MDOM::Token';
 
 use vars qw{$VERSION};
 BEGIN {
-	$VERSION = '0.002';
+	$VERSION = '0.003';
 }
 
 ### XS -> MDOM/XS.xs:_MDOM_Token_Comment__significant 0.900+

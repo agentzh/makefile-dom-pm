@@ -5,6 +5,7 @@
 ^Makefile.old$
 ^blib/
 ^make-simple\.mk$
+script/plmake$
 \.db$
 \.patched$
 \.bak$

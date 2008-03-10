@@ -1,8 +1,9 @@
 use strict;
+use lib '.';
 use inc::Module::Install;
 
 name            ('Makefile-DOM');
-requires        (perl => '5.6.1');
+requires        (perl => '5.006001');
 all_from        ('lib/Makefile/DOM.pm');
 
 #install_script  ('script/pgmake');
