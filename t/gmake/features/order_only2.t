@@ -1,6 +1,6 @@
 #: order_only2.t
 #: Extension to order_only.t
-#: Copyright (c) 2006 Agent Zhang
+#: Copyright (c) 2006 Zhang "agentzh" Yichun
 #: 2006-02-11 2006-02-11
 
 use t::Gmake;

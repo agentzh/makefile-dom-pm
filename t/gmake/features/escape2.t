@@ -1,6 +1,6 @@
 #: escape2.t
 #: extention of escape.t
-#: Copyright (c) 2006 Agent Zhang
+#: Copyright (c) 2006 Zhang "agentzh" Yichun
 #: 2006-02-10 2006-02-14
 
 use t::Gmake;

@@ -2,7 +2,7 @@ README
 ======
 
 This is a port of GNU make 3.81 beta4's test suit with
-some additions of Agent Zhang.
+some additions of Zhang "agentzh" Yichun.
 
 To run this test suit, the following steps should be 
 followed:

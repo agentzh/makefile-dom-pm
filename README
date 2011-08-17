@@ -231,10 +231,10 @@ BUGS AND TODO
         Parse::Yapp.
 
 AUTHOR
-    Agent Zhang <agentzh@gmail.com>
+    Zhang "agentzh" Yichun <agentzh@gmail.com>
 
 COPYRIGHT
-    Copyright 2006-2008 by Agent Zhang.
+    Copyright 2006-2008 by Zhang "agentzh" Yichun.
 
     This library is free software; you can redistribute it and/or modify it
     under the same terms as Perl itself.

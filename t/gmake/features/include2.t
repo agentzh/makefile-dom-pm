@@ -1,6 +1,6 @@
 #: include2.t
 #: Extension to include.t
-#: Copyright (c) 2006 Agent Zhang
+#: Copyright (c) 2006 Zhang "agentzh" Yichun
 #: 2006-02-11 2006-02-14
 
 use t::Gmake;

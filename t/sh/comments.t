@@ -1,6 +1,6 @@
 #: comments.t
 #: Test comments in shell
-#: Copyright (c) 2006 Agent Zhang
+#: Copyright (c) 2006 Zhang "agentzh" Yichun
 #: 2006-02-03 2006-02-10
 
 use t::Shell;

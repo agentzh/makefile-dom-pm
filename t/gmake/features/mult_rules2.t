@@ -1,6 +1,6 @@
 #: mult_rules2.t
 #: Extension to mult_rules.t
-#: Copyright (c) 2006 Agent Zhang
+#: Copyright (c) 2006 Zhang "agentzh" Yichun
 
 use t::Gmake;
 

@@ -1,6 +1,6 @@
 #: touch.t
 #: Test the `touch' command support in script/sh
-#: Copyright (c) 2006 Agent Zhang
+#: Copyright (c) 2006 Zhang "agentzh" Yichun
 #: 2006-02-11 2006-02-11
 
 use t::Shell;

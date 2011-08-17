@@ -1,7 +1,7 @@
 --- 
 abstract: Simple DOM parser for Makefiles
 author: 
-  - Agent Zhang <agentzh@gmail.com>
+  - Zhang "agentzh" Yichun <agentzh@gmail.com>
 distribution_type: module
 generated_by: Module::Install version 0.68
 license: perl

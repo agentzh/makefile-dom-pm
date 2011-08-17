@@ -192,11 +192,11 @@ The current implemenation of the L<MDOM::Document::Gmake> lexer is based on a ha
 
 =head1 AUTHOR
 
-Agent Zhang E<lt>agentzh@gmail.comE<gt>
+Zhang "agentzh" Yichun E<lt>agentzh@gmail.comE<gt>
 
 =head1 COPYRIGHT
 
-Copyright 2006-2008 by Agent Zhang.
+Copyright 2006-2008 by Zhang "agentzh" Yichun.
 
 This library is free software; you can redistribute it and/or
 modify it under the same terms as Perl itself.

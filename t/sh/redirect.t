@@ -1,6 +1,6 @@
 #: redirect.t
 #: test the redirection operator support of script/sh
-#: Copyright (c) 2006 Agent Zhang
+#: Copyright (c) 2006 Zhang "agentzh" Yichun
 #: 2006-02-10 2006-02-12
 
 use t::Shell;

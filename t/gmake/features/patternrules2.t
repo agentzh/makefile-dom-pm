@@ -1,6 +1,6 @@
 #: patternrules2.t
 #: Extension to patternrules.t
-#: Copyright (c) 2006 Agent Zhang
+#: Copyright (c) 2006 Zhang "agentzh" Yichun
 #: 2006-02-13 2006-02-14
 
 use t::Gmake;

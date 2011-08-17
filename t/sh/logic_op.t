@@ -1,6 +1,6 @@
 #: logic_op.t
 #: Test the logical AND (&&) and OR (||) operators in script/sh
-#: Copyright (c) 2006 Agent Zhang
+#: Copyright (c) 2006 Zhang "agentzh" Yichun
 #: 2006-02-13 2006-02-13
 
 use t::Shell;
