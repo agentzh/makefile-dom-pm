@@ -2,7 +2,7 @@ NAME
     Makefile::DOM - Simple DOM parser for Makefiles
 
 VERSION
-    This document describes Makefile::DOM 0.004 released on March 10, 2008.
+    This document describes Makefile::DOM 0.005 released on 10 August 2011.
 
 DESCRIPTION
     This libary can serve as an advanced lexer for (GNU) makefiles. It
