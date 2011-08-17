@@ -65,7 +65,6 @@ t/mdom/gmake/directive-export.t
 t/mdom/gmake/directive-include.t
 t/mdom/gmake/directive-vpath.t
 t/mdom/gmake/interpolation.t
-t/mdom/gmake/mdom-tests.txt
 t/mdom/gmake/misc.t
 t/mdom/gmake/order_only.t
 t/mdom/gmake/rule-simple.t
