@@ -3,8 +3,10 @@ use lib '.';
 use inc::Module::Install;
 
 name            ('Makefile-DOM');
-requires        (perl => '5.006001');
+#requires        (perl => '5.006001');
 all_from        ('lib/Makefile/DOM.pm');
+
+repository 'http://github.com/agentzh/makefile-dom-pm';
 
 #install_script  ('script/pgmake');
 
