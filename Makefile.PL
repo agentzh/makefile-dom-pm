@@ -4,6 +4,7 @@ use inc::Module::Install;
 
 name            ('Makefile-DOM');
 #requires        (perl => '5.006001');
+perl_version    ('5.006001');
 all_from        ('lib/Makefile/DOM.pm');
 
 repository 'http://github.com/agentzh/makefile-dom-pm';
