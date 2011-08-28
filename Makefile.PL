@@ -26,7 +26,7 @@ requires        ('Clone'           => '0.18');
 
 use_test_base;
 
-tests('t/mdom/*.t t/mdom/*/*.t'); # t/*/*.t t/*/*/*t t/*/*/*/*.t');
+tests('t/*.t t/mdom/*.t t/mdom/*/*.t'); # t/*/*.t t/*/*/*t t/*/*/*/*.t');
 
 auto_install;
 WriteAll;
