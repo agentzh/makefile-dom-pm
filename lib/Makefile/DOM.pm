@@ -3,7 +3,7 @@ package Makefile::DOM;
 use strict;
 use warnings;
 
-our $VERSION = '0.005';
+our $VERSION = '0.006';
 
 use MDOM::Document;
 use MDOM::Element;
@@ -26,7 +26,7 @@ Makefile::DOM - Simple DOM parser for Makefiles
 
 =head1 VERSION
 
-This document describes Makefile::DOM 0.005 released on 10 August 2011.
+This document describes Makefile::DOM 0.006 released on 28 August 2011.
 
 =head1 DESCRIPTION
 

@@ -28,7 +28,7 @@ use base 'MDOM::Token';
 
 use vars qw{$VERSION};
 BEGIN {
-	$VERSION = '0.005';
+	$VERSION = '0.006';
 }
 
 1;

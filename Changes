@@ -1,3 +1,6 @@
+0.006  2011-08-28
+* Fixed a syntax error in the POD documentation. thanks Mikhail Gusarov.
+
 0.005  2011-08-10
 * Updated the author name, author email address, and code repository in the documentation.
 * Updated the bundled Module::Install to the latest version, 1.01.
