@@ -160,9 +160,9 @@ Its MDOM tree is shown below:
 
 We can see that below the root node L<MDOM::Document::Gmake>, there are L<MDOM::Rule::Simple>, L<MDOM::Assignment>, and L<MDOM::Comment> three elements, as well as two L<MDOM::Token::Whitespace> objects.
 
-It can be observed that the MDOM representation for the makefile's lexical elements is rather loose. It only provides very limited structural representation instead of making a bad guess.
-
 =back
+
+It can be observed from the examples above that the MDOM representation for the makefile's lexical elements is rather loose. It only provides very limited structural representation instead of making a bad guess.
 
 =head1 OPERATIONS FOR MDOM TREES
 
