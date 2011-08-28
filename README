@@ -185,9 +185,9 @@ Structure of the DOM
         MDOM::Rule::Simple, MDOM::Assignment, and MDOM::Comment three
         elements, as well as two MDOM::Token::Whitespace objects.
 
-        It can be observed that the MDOM representation for the makefile's
-        lexical elements is rather loose. It only provides very limited
-        structural representation instead of making a bad guess.
+    It can be observed from the examples above that the MDOM representation
+    for the makefile's lexical elements is rather loose. It only provides
+    very limited structural representation instead of making a bad guess.
 
 OPERATIONS FOR MDOM TREES
     Generating an MDOM tree from a GNU makefile only requires two lines of
@@ -249,14 +249,4 @@ COPYRIGHT
 SEE ALSO
     MDOM::Document, MDOM::Document::Gmake, PPI, Makefile::Parser::GmakeDB,
     makesimple.
-
-POD ERRORS
-    Hey! The above document had some coding errors, which are explained
-    below:
-
-    Around line 165:
-        You forgot a '=back' before '=head1'
-
-    Around line 193:
-        =back without =over
 

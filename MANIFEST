@@ -48,8 +48,8 @@ script/checkenv
 script/mdom-dump
 script/p4_to_t.pl
 script/sh
-t/00-pod-coverage.t
-t/00-pod.t
+t/pod-coverage.t
+t/pod.t
 t/Gmake.pm
 t/GmakeDOM.pm
 t/lib/Test/Make/Base.pm
