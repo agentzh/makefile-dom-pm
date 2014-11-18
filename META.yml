@@ -1,13 +1,14 @@
 ---
 abstract: 'Simple DOM parser for Makefiles'
 author:
-  - "Zhang \"agentzh\" Yichun (章亦春) <agentzh@gmail.com>"
+  - "Yichun \"agentzh\" Zhang (章亦春) <agentzh@gmail.com>"
 build_requires:
-  ExtUtils::MakeMaker: 6.42
+  ExtUtils::MakeMaker: 6.59
 configure_requires:
-  ExtUtils::MakeMaker: 6.42
+  ExtUtils::MakeMaker: 6.59
 distribution_type: module
-generated_by: 'Module::Install version 1.01'
+dynamic_config: 1
+generated_by: 'Module::Install version 1.06'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
