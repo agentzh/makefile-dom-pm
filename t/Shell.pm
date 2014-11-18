@@ -1,7 +1,6 @@
 #: t/Shell.pm
 #: Testing framework for t/sh/*.t
-#: Copyright (c) 2006 Zhang "agentzh" Yichun
-#: 2006-02-02 2006-02-10
+#: Copyright (C) Yichun "agentzh" Zhang
 
 package t::Shell;
 
