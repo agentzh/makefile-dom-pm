@@ -75,3 +75,5 @@ t/mdom/rule-simple.t
 t/mdom/token.t
 t/Shell.pm
 TODO
+MYMETA.json
+MYMETA.yml
