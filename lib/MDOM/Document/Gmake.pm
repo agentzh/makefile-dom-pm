@@ -37,7 +37,7 @@ my @keywords = qw(
 my $extract_interp_1 = gen_extract_tagged('\$[(]', '[)]', '');
 my $extract_interp_2 = gen_extract_tagged('\$[{]', '[}]', '');
 
-sub extract_interp {
+sub _extract_interp {
     my ($res) = $extract_interp_1->($_[0]);
     if (!$res) {
         ($res) = $extract_interp_2->($_[0]);
@@ -222,7 +222,7 @@ sub _tokenize_normal {
             # XXX This should be a separator...
             $next_token = MDOM::Token::Bare->new($&);
         }
-        elsif (my $res = extract_interp($_)) {
+        elsif (my $res = _extract_interp($_)) {
             $next_token = MDOM::Token::Interpolation->new($res);
         }
         elsif (/(?x) \G \$. /gc) {
@@ -284,7 +284,7 @@ sub _tokenize_command {
             $next_token = MDOM::Token::Whitespace->new("\n");
             #push @tokens, $next_token;
         }
-        elsif (my $res = extract_interp($s)) {
+        elsif (my $res = _extract_interp($s)) {
             $next_token = MDOM::Token::Interpolation->new($res);
         }
         elsif ($s =~ /(?x) \G \$. /gc) {
@@ -475,4 +475,33 @@ sub _is_keyword {
 }
 
 1;
+
+
+
+__END__
+
+=encoding utf-8
+
+=head1 NAME
+
+MDOM::Gmake - Represents a GNU makefile for Makefile::DOM
+
+=head1 DESCRIPTION
+
+Represents a GNU Makefile.
+
+=head1 AUTHOR
+
+Zhang "agentzh" Yichun (章亦春) E<lt>agentzh@gmail.comE<gt>
+
+=head1 COPYRIGHT
+
+Copyright 2006-2011 by Zhang "agentzh" Yichun (章亦春).
+
+This library is free software; you can redistribute it and/or
+modify it under the same terms as Perl itself.
+
+=head1 SEE ALSO
+
+L<MDOM::Document>, L<MDOM::Document::Gmake>, L<PPI>, L<Makefile::Parser::GmakeDB>, L<makesimple>.
 

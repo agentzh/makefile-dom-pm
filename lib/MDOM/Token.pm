@@ -73,6 +73,12 @@ sub new {
 	undef;
 }
 
+=head2  set_class
+
+Set a specific class for a token.
+
+=cut
+
 sub set_class {
 	my $self  = shift; @_ or return undef;
 	my $class = substr( $_[0], 0, 12 ) eq 'MDOM::Token::' ? shift : 'MDOM::Token::' . shift;
