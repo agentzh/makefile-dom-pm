@@ -2,7 +2,7 @@ NAME
     Makefile::DOM - Simple DOM parser for Makefiles
 
 VERSION
-    This document describes Makefile::DOM 0.007 released on 18 November
+    This document describes Makefile::DOM 0.008 released on 18 November
     2014.
 
 DESCRIPTION
