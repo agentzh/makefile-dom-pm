@@ -22,7 +22,7 @@ This document describes Makefile::DOM 0.008 released on 18 November 2014.
 
 # DESCRIPTION
 
-This libary can serve as an advanced lexer for (GNU) makefiles. It parses makefiles as "documents" and the parsing is lossless. The results are data structures similar to DOM trees. The DOM trees hold every single bit of the information in the original input files, including white spaces, blank lines and makefile comments. That means it's possible to reproduce the original makefiles from the DOM trees. In addition, each node of the DOM trees is modifiable and so is the whole tree, just like the [PPI](https://metacpan.org/pod/PPI) module used for Perl source parsing and the [HTML::TreeBuilder](https://metacpan.org/pod/HTML::TreeBuilder) module used for parsing HTML source.
+This library can serve as an advanced lexer for (GNU) makefiles. It parses makefiles as "documents" and the parsing is lossless. The results are data structures similar to DOM trees. The DOM trees hold every single bit of the information in the original input files, including white spaces, blank lines and makefile comments. That means it's possible to reproduce the original makefiles from the DOM trees. In addition, each node of the DOM trees is modifiable and so is the whole tree, just like the [PPI](https://metacpan.org/pod/PPI) module used for Perl source parsing and the [HTML::TreeBuilder](https://metacpan.org/pod/HTML::TreeBuilder) module used for parsing HTML source.
 
 If you're looking for a true GNU make parser that generates an AST, please see [Makefile::Parser::GmakeDB](https://metacpan.org/pod/Makefile::Parser::GmakeDB) instead.
 
@@ -82,7 +82,7 @@ Next we'll show a few examples to demonstrate how to map DOM trees to particular
 
     It's worth mentioning that, the space characters in the rule command `echo "hello, world"` were not represented as [MDOM::Token::Whitespace](https://metacpan.org/pod/MDOM::Token::Whitespace). That's because in makefiles, the spaces in commands do not make any sense to `make` in syntax; those spaces are usually sent to shell programs verbatim. Therefore, the DOM parser does not try to recognize those spaces specifially so as to reduce memory use and the number of nodes. However, leading spaces and trailing new lines will still be recognized as [MDOM::Token::Whitespace](https://metacpan.org/pod/MDOM::Token::Whitespace).
 
-    On a higher level, it's a [MDOM::Rule::Simple](https://metacpan.org/pod/MDOM::Rule::Simple) instance holding several `Token` and one [MDOM::Command](https://metacpan.org/pod/MDOM::Command). On the highest level, it's the root node of the whole DOM tree, i.e., an instance of [MDOM::Document::Gmake](https://metacpan.org/pod/MDOM::Document::Gmake).
+    At a higher level there is a [MDOM::Rule::Simple](https://metacpan.org/pod/MDOM::Rule::Simple) instance holding several `Token` and one [MDOM::Command](https://metacpan.org/pod/MDOM::Command). On the highest level there is the root node of the whole DOM tree, i.e., an instance of [MDOM::Document::Gmake](https://metacpan.org/pod/MDOM::Document::Gmake).
 
 - Case 2
 
@@ -91,7 +91,7 @@ Next we'll show a few examples to demonstrate how to map DOM trees to particular
         a: foo.c  bar.h $(baz) # hello!
             @echo ...
 
-    It's corresponding DOM structure is
+Its corresponding DOM structure is
 
         MDOM::Document::Gmake
           MDOM::Rule::Simple
@@ -112,11 +112,11 @@ Next we'll show a few examples to demonstrate how to map DOM trees to particular
             MDOM::Token::Bare         'echo ...'
             MDOM::Token::Whitespace   '\n'
 
-    Compared to the previous example, here appears several new node types.
+Compared to the previous example there are several new node types.
 
-    The variable interpolation `$(baz)` on the first line of the original makefile corresponds to a [MDOM::Token::Interpolation](https://metacpan.org/pod/MDOM::Token::Interpolation) node in its MDOM tree. Similarly, the comment `# hello` corresponds to a [MDOM::Token::Comment](https://metacpan.org/pod/MDOM::Token::Comment) node.
+    The variable interpolation `$(baz)` on the first line of the makefile corresponds to a [MDOM::Token::Interpolation](https://metacpan.org/pod/MDOM::Token::Interpolation) node in its MDOM tree. Similarly, the comment `# hello` corresponds to a [MDOM::Token::Comment](https://metacpan.org/pod/MDOM::Token::Comment) node.
 
-    On the second line, the rule command indented by a tab character is still represented by a [MDOM::Command](https://metacpan.org/pod/MDOM::Command) object. Its first child node (or its first element) is also an [MDOM::Token::Seperator](https://metacpan.org/pod/MDOM::Token::Seperator) instance corresponding to that tab. The command modifier `@` follows the `Separator` immediately, which is of type [MDOM::Token::Modifier](https://metacpan.org/pod/MDOM::Token::Modifier).
+    On the second line the rule command indented by a tab character is represented by a [MDOM::Command](https://metacpan.org/pod/MDOM::Command) object. Its first child node (or its first element) is also an [MDOM::Token::Seperator](https://metacpan.org/pod/MDOM::Token::Seperator) instance corresponding to that tab. The command modifier `@` follows the `Separator` immediately, which is of type [MDOM::Token::Modifier](https://metacpan.org/pod/MDOM::Token::Modifier).
 
 - Case 3
 
@@ -165,14 +165,14 @@ If the makefile source code being parsed is already stored in a Perl variable, s
 
     my $dom = MDOM::Document::Gmake->new(\$var);
 
-Now `$dom` becomes the reference to the root of the MDOM tree and its type is now [MDOM::Document::Gmake](https://metacpan.org/pod/MDOM::Document::Gmake), which is also an instance of the [MDOM::Node](https://metacpan.org/pod/MDOM::Node) class.
+Here `$dom` is a reference to the root of the MDOM tree and its type is [MDOM::Document::Gmake](https://metacpan.org/pod/MDOM::Document::Gmake), which is also an instance of the [MDOM::Node](https://metacpan.org/pod/MDOM::Node) class.
 
-Just as mentioned above, `MDOM::Node` is the container for other [MDOM::Element](https://metacpan.org/pod/MDOM::Element) instances. So we can retrieve some element node's value via its `child` method:
+As mentioned above, `MDOM::Node` is the container for other [MDOM::Element](https://metacpan.org/pod/MDOM::Element) instances. So we can retrieve an element node's value via its `child` method:
 
     $node = $dom->child(3);
     # or $node = $dom->elements(0);
 
-And we may also use the `elements` method to obtain the values of all the nodes:
+We may also use the C<elements> method to obtain the values of each of the nodes:
 
     @elems = $dom->elements;
 

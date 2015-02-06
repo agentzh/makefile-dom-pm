@@ -113,7 +113,7 @@ sub set_class {
 
 =head2 set_content $string
 
-The C<set_content> method allows to set/change the string that the
+The C<set_content> method allows one to set/change the string that the
 C<MDOM::Token> object represents.
 
 Returns the string you set the Token to
