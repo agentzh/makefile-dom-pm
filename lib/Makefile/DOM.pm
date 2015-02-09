@@ -30,7 +30,7 @@ This document describes Makefile::DOM 0.008 released on 18 November 2014.
 
 =head1 DESCRIPTION
 
-This libary can serve as an advanced lexer for (GNU) makefiles. It parses makefiles as "documents" and the parsing is lossless. The results are data structures similar to DOM trees. The DOM trees hold every single bit of the information in the original input files, including white spaces, blank lines and makefile comments. That means it's possible to reproduce the original makefiles from the DOM trees. In addition, each node of the DOM trees is modifiable and so is the whole tree, just like the L<PPI> module used for Perl source parsing and the L<HTML::TreeBuilder> module used for parsing HTML source.
+This library can serve as an advanced lexer for (GNU) makefiles. It parses makefiles as "documents" and the parsing is lossless. The results are data structures similar to DOM trees. The DOM trees hold every single bit of the information in the original input files, including white spaces, blank lines and makefile comments. That means it's possible to reproduce the original makefiles from the DOM trees. In addition, each node of the DOM trees is modifiable and so is the whole tree, just like the L<PPI> module used for Perl source parsing and the L<HTML::TreeBuilder> module used for parsing HTML source.
 
 If you're looking for a true GNU make parser that generates an AST, please see L<Makefile::Parser::GmakeDB> instead.
 
@@ -40,7 +40,7 @@ C<Makefile::DOM> tries to be independent of specific makefile's syntax. The same
 
 =head1 Structure of the DOM
 
-Makefile DOM (MDOM) is a structured set of a series of data types. They provide a flexible document model conformed to the makefile syntax. Below is a complete list of the 19 MDOM classes in the current implementation where the indentation indicates the class inheritance relationships.
+Makefile DOM (MDOM) is a structured set of a series of data types. They provide a flexible document model conforming to the makefile syntax. Below is a complete list of the 19 MDOM classes in the current implementation where the indentation indicates the class inheritance relationships.
 
     MDOM::Element
         MDOM::Node
@@ -88,11 +88,11 @@ We can use the L<MDOM::Dumper> class provided by L<Makefile::DOM> to dump out th
           MDOM::Token::Bare         'echo "hello, world"'
           MDOM::Token::Whitespace   '\n'
 
-In this example, speparators C<:> and C<;> are all instances of the L<MDOM::Token::Separator> class while spaces and new line characters are all represented as L<MDOM::Token::Whitespace>. The other two leaf nodes, C<all> and C<echo "hello, world"> both belong to L<MDOM::Token::Bare>.
+In this example, separators C<:> and C<;> are all instances of the L<MDOM::Token::Separator> class while spaces and new line characters are all represented as L<MDOM::Token::Whitespace>. The other two leaf nodes, C<all> and C<echo "hello, world">, both belong to L<MDOM::Token::Bare>.
 
-It's worth mentioning that, the space characters in the rule command C<echo "hello, world"> were not represented as L<MDOM::Token::Whitespace>. That's because in makefiles, the spaces in commands do not make any sense to C<make> in syntax; those spaces are usually sent to shell programs verbatim. Therefore, the DOM parser does not try to recognize those spaces specifially so as to reduce memory use and the number of nodes. However, leading spaces and trailing new lines will still be recognized as L<MDOM::Token::Whitespace>.
+It's worth mentioning that the space characters in the rule command C<echo "hello, world"> were not represented as L<MDOM::Token::Whitespace>. That's because in makefiles the spaces in commands do not make any sense to C<make> in syntax; those spaces are usually sent to shell programs verbatim. Therefore, the DOM parser does not try to recognize those spaces specifially so as to reduce memory use and the number of nodes. However, leading spaces and trailing new lines will still be recognized as L<MDOM::Token::Whitespace>.
 
-On a higher level, it's a L<MDOM::Rule::Simple> instance holding several C<Token> and one L<MDOM::Command>. On the highest level, it's the root node of the whole DOM tree, i.e., an instance of L<MDOM::Document::Gmake>.
+At a higher level there is a L<MDOM::Rule::Simple> instance holding several C<Token> and one L<MDOM::Command>. At the highest level there is the root node of the whole DOM tree, i.e., an instance of L<MDOM::Document::Gmake>.
 
 =item Case 2
 
@@ -101,7 +101,7 @@ Below is a relatively complex example:
     a: foo.c  bar.h $(baz) # hello!
         @echo ...
 
-It's corresponding DOM structure is
+Its corresponding DOM structure is
 
   MDOM::Document::Gmake
     MDOM::Rule::Simple
@@ -122,11 +122,11 @@ It's corresponding DOM structure is
       MDOM::Token::Bare         'echo ...'
       MDOM::Token::Whitespace   '\n'
 
-Compared to the previous example, here appears several new node types.
+Compared to the previous example there are several new node types.
 
-The variable interpolation C<$(baz)> on the first line of the original makefile corresponds to a L<MDOM::Token::Interpolation> node in its MDOM tree. Similarly, the comment C<# hello> corresponds to a L<MDOM::Token::Comment> node.
+The variable interpolation C<$(baz)> on the first line of the makefile corresponds to a L<MDOM::Token::Interpolation> node in its MDOM tree. Similarly, the comment C<# hello> corresponds to a L<MDOM::Token::Comment> node.
 
-On the second line, the rule command indented by a tab character is still represented by a L<MDOM::Command> object. Its first child node (or its first element) is also an L<MDOM::Token::Seperator> instance corresponding to that tab. The command modifier C<@> follows the C<Separator> immediately, which is of type L<MDOM::Token::Modifier>.
+On the second line of the make file the rule command indented by a tab character is represented by a L<MDOM::Command> object. Its first child node (or its first element) is also an L<MDOM::Token::Seperator> instance corresponding to that tab. The command modifier C<@> follows the C<Separator> immediately, which is of type L<MDOM::Token::Modifier>.
 
 =item Case 3
 
@@ -136,7 +136,7 @@ Now let's study a sample makefile with various global structures:
   foo = bar
       # hello!
 
-Here on the top level, there are three language structures: one rule "C<a: b>", one assignment statement "foo = bar", and one comment C<# hello!>.
+Here on the top level there are three language structures: one rule "C<a: b>", one assignment statement "foo = bar", and one comment C<# hello!>.
 
 Its MDOM tree is shown below:
 
@@ -175,23 +175,23 @@ If the makefile source code being parsed is already stored in a Perl variable, s
 
     my $dom = MDOM::Document::Gmake->new(\$var);
 
-Now C<$dom> becomes the reference to the root of the MDOM tree and its type is now L<MDOM::Document::Gmake>, which is also an instance of the L<MDOM::Node> class.
+Here C<$dom> is a reference to the root of the MDOM tree and its type is L<MDOM::Document::Gmake>, which is also an instance of the L<MDOM::Node> class.
 
-Just as mentioned above, C<MDOM::Node> is the container for other L<MDOM::Element> instances. So we can retrieve some element node's value via its C<child> method:
+As mentioned above, C<MDOM::Node> is the container for other L<MDOM::Element> instances. So we can retrieve an element node's value via its C<child> method:
 
     $node = $dom->child(3);
     # or $node = $dom->elements(0);
 
-And we may also use the C<elements> method to obtain the values of all the nodes:
+We may also use the C<elements> method to obtain the values of each of the nodes:
 
     @elems = $dom->elements;
 
-For every MDOM node, its corresponding makefile source can be generated by invoking its C<content> method.
+For every MDOM node its corresponding makefile source can be generated by invoking its C<content> method.
 
 =head1 BUGS AND TODO
 
 The current implementation of the L<MDOM::Document::Gmake> lexer is
-based on a hand-written state machie. Although the efficiency of the
+based on a hand-written state machine. Although the efficiency of the
 engine is not bad, the code is rather complicated and messy, which
 hurts both extensibility and maintanabilty. So it's expected to
 rewrite the parser using some grammatical tools like the Perl 6 regex
