@@ -32,7 +32,7 @@ The interface of `Makefile::DOM` mimics the API design of [PPI](https://metacpan
 
 # Structure of the DOM
 
-Makefile DOM (MDOM) is a structured set of a series of data types. They provide a flexible document model conformed to the makefile syntax. Below is a complete list of the 19 MDOM classes in the current implementation where the indentation indicates the class inheritance relationships.
+Makefile DOM (MDOM) is a structured set of a series of data types. They provide a flexible document model conforming to the makefile syntax. Below is a complete list of the 19 MDOM classes in the current implementation where the indentation indicates the class inheritance relationships.
 
     MDOM::Element
         MDOM::Node
@@ -78,11 +78,11 @@ Next we'll show a few examples to demonstrate how to map DOM trees to particular
               MDOM::Token::Bare         'echo "hello, world"'
               MDOM::Token::Whitespace   '\n'
 
-    In this example, speparators `:` and `;` are all instances of the [MDOM::Token::Separator](https://metacpan.org/pod/MDOM::Token::Separator) class while spaces and new line characters are all represented as [MDOM::Token::Whitespace](https://metacpan.org/pod/MDOM::Token::Whitespace). The other two leaf nodes, `all` and `echo "hello, world"` both belong to [MDOM::Token::Bare](https://metacpan.org/pod/MDOM::Token::Bare).
+    In this example, separators `:` and `;` are all instances of the [MDOM::Token::Separator](https://metacpan.org/pod/MDOM::Token::Separator) class while spaces and new line characters are all represented as [MDOM::Token::Whitespace](https://metacpan.org/pod/MDOM::Token::Whitespace). The other two leaf nodes, `all` and `echo "hello, world"`, both belong to [MDOM::Token::Bare](https://metacpan.org/pod/MDOM::Token::Bare).
 
-    It's worth mentioning that, the space characters in the rule command `echo "hello, world"` were not represented as [MDOM::Token::Whitespace](https://metacpan.org/pod/MDOM::Token::Whitespace). That's because in makefiles, the spaces in commands do not make any sense to `make` in syntax; those spaces are usually sent to shell programs verbatim. Therefore, the DOM parser does not try to recognize those spaces specifially so as to reduce memory use and the number of nodes. However, leading spaces and trailing new lines will still be recognized as [MDOM::Token::Whitespace](https://metacpan.org/pod/MDOM::Token::Whitespace).
+    It's worth mentioning that the space characters in the rule command `echo "hello, world"` were not represented as [MDOM::Token::Whitespace](https://metacpan.org/pod/MDOM::Token::Whitespace). That's because in makefiles the spaces in commands do not make any sense to `make` in syntax; those spaces are usually sent to shell programs verbatim. Therefore, the DOM parser does not try to recognize those spaces specifially so as to reduce memory use and the number of nodes. However, leading spaces and trailing new lines will still be recognized as [MDOM::Token::Whitespace](https://metacpan.org/pod/MDOM::Token::Whitespace).
 
-    At a higher level there is a [MDOM::Rule::Simple](https://metacpan.org/pod/MDOM::Rule::Simple) instance holding several `Token` and one [MDOM::Command](https://metacpan.org/pod/MDOM::Command). On the highest level there is the root node of the whole DOM tree, i.e., an instance of [MDOM::Document::Gmake](https://metacpan.org/pod/MDOM::Document::Gmake).
+    At a higher level there is a [MDOM::Rule::Simple](https://metacpan.org/pod/MDOM::Rule::Simple) instance holding several `Token` and one [MDOM::Command](https://metacpan.org/pod/MDOM::Command). At the highest level there is the root node of the whole DOM tree, i.e., an instance of [MDOM::Document::Gmake](https://metacpan.org/pod/MDOM::Document::Gmake).
 
 - Case 2
 
@@ -91,7 +91,7 @@ Next we'll show a few examples to demonstrate how to map DOM trees to particular
         a: foo.c  bar.h $(baz) # hello!
             @echo ...
 
-Its corresponding DOM structure is
+    Its corresponding DOM structure is
 
         MDOM::Document::Gmake
           MDOM::Rule::Simple
@@ -112,11 +112,11 @@ Its corresponding DOM structure is
             MDOM::Token::Bare         'echo ...'
             MDOM::Token::Whitespace   '\n'
 
-Compared to the previous example there are several new node types.
+    Compared to the previous example there are several new node types.
 
     The variable interpolation `$(baz)` on the first line of the makefile corresponds to a [MDOM::Token::Interpolation](https://metacpan.org/pod/MDOM::Token::Interpolation) node in its MDOM tree. Similarly, the comment `# hello` corresponds to a [MDOM::Token::Comment](https://metacpan.org/pod/MDOM::Token::Comment) node.
 
-    On the second line the rule command indented by a tab character is represented by a [MDOM::Command](https://metacpan.org/pod/MDOM::Command) object. Its first child node (or its first element) is also an [MDOM::Token::Seperator](https://metacpan.org/pod/MDOM::Token::Seperator) instance corresponding to that tab. The command modifier `@` follows the `Separator` immediately, which is of type [MDOM::Token::Modifier](https://metacpan.org/pod/MDOM::Token::Modifier).
+    On the second line of the make file the rule command indented by a tab character is represented by a [MDOM::Command](https://metacpan.org/pod/MDOM::Command) object. Its first child node (or its first element) is also an [MDOM::Token::Seperator](https://metacpan.org/pod/MDOM::Token::Seperator) instance corresponding to that tab. The command modifier `@` follows the `Separator` immediately, which is of type [MDOM::Token::Modifier](https://metacpan.org/pod/MDOM::Token::Modifier).
 
 - Case 3
 
@@ -126,7 +126,7 @@ Compared to the previous example there are several new node types.
         foo = bar
             # hello!
 
-    Here on the top level, there are three language structures: one rule "`a: b`", one assignment statement "foo = bar", and one comment `# hello!`.
+    Here on the top level there are three language structures: one rule "`a: b`", one assignment statement "foo = bar", and one comment `# hello!`.
 
     Its MDOM tree is shown below:
 
@@ -172,18 +172,18 @@ As mentioned above, `MDOM::Node` is the container for other [MDOM::Element](http
     $node = $dom->child(3);
     # or $node = $dom->elements(0);
 
-We may also use the C<elements> method to obtain the values of each of the nodes:
+We may also use the `elements` method to obtain the values of each of the nodes:
 
     @elems = $dom->elements;
 
-For every MDOM node, its corresponding makefile source can be generated by invoking its `content` method.
+For every MDOM node its corresponding makefile source can be generated by invoking its `content` method.
 
 [Back to TOC](#table-of-contents)
 
 # BUGS AND TODO
 
 The current implementation of the [MDOM::Document::Gmake](https://metacpan.org/pod/MDOM::Document::Gmake) lexer is
-based on a hand-written state machie. Although the efficiency of the
+based on a hand-written state machine. Although the efficiency of the
 engine is not bad, the code is rather complicated and messy, which
 hurts both extensibility and maintanabilty. So it's expected to
 rewrite the parser using some grammatical tools like the Perl 6 regex
