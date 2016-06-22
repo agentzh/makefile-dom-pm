@@ -25,3 +25,4 @@ update-mech-t
 pgmake-db\.sh
 ^regression$
 t/mdom/gmake/mdom-tests\.txt$
+^MYMETA\.
